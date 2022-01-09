@@ -3,7 +3,7 @@ layout: post
 title: 일급객체(First-class citizen)와 고차함수(Higher order function)
 subtitle: JavaScript Reference
 categories: JavaScript
-tags: [JavaScript, HoF, First-classCitizen, mapReduceModel, Closure, CurringFunction]
+tags: [JavaScript, HoF, First-classCitizen, mapReduceModel, Closure, CurringFunction, FunctionComposition]
 ---
 
 JavaScript의 일급객체와 고차함수
@@ -143,6 +143,89 @@ Closure와 Currying을 사용하는 이유는 더 손쉬운 관리와 더불어 
 Reference: 
 [Wiki](https://en.wikipedia.org/wiki/Currying), 
 [Ref](https://www.digitalocean.com/community/tutorials/an-introduction-to-closures-and-currying-in-javascript).
+
+### Function Composition ###
+
+위의 내용과 다 관련이 있는 함수의 조합에 대한 내용도 한번 정리를 해본다.
+
+함수 합성(Function Composition) 이란 **함수들을 조합하여 새로운 함수를 만드는 것**이다.
+
+예를 들어 어떤 수를 받아 5를 곱하고 10을 빼는 함수를 만든다고 가정하면
+
+```javascript
+const multiplyFiveMinusTen = num => (num * 5) - 10;
+
+const reulst = multiplyFiveMinusTen(10);
+
+console.log(result); // 40
+```
+
+보통 이렇게 쓸 것이다.
+
+이렇게 한번에 쓰게되면 **유지 보수가 힘들다**라는 단점이 생겨버린다.
+
+예를 들어 위의 코드도 필요하고 또 다른 기능이 필요한데 이번에는 어떤 수를 받아 5를 곱하고 10을 나눈후에 10을 빼주는 기능의 함수가 필요하다고 가정하자!
+
+그러면 
+
+```javascript
+const multiplyFiveMinusTen = num => (num * 5) - 10;
+
+const result = multiplyFiveMinusTen(10);
+
+console.log(result); // 40
+
+const multiplyFiveDivideByTenMinusTen = num => ((num * 5) / 10) - 10;
+
+const result2 = multiplyFiveDivideByTenMinusTen(10);
+
+console.log(result); // -5
+```
+
+이렇게 함수를 또 만들어야한다. 함수의 리턴 부분만 봐도 많은 것들이 중복하고 있음을 알 수 있다.
+
+그렇기 때문에 유지보수 측면에서도 그렇고 각각의 부분을 작은 함수로 나누어 그 함수들을 조합하는 편이
+
+훨씬 간결하고 확장성도 뛰어나다. (마치 레고처럼 계속 붙일 수 있다.)
+
+### compose와 pipe ###
+
+함수의 조합 혹은 함성을 할때 가독성을 더 높여주기 위해 사용하는 함수를 만들어 줄 필요가 있다.
+
+그것이 바로 compose()와 pipe()이다. 이 둘은 JS의 built-in function이 아니라 프로그래머가 함수를 조합할때 사용하는
+
+직접 만드는 함수이다. 두 함수의 네이밍에 집중 할 필요가 있는데 compose는 여러 함수를 인자로 받았을때
+
+맨 마지막 인자부터 첫인자까지 차례대로 적용을 시켜주는 것이고
+
+pipe는 첫인자부터 차례대로 마지막인자까지 적용을 시켜주는 것이다.
+
+코드와 함께 보면 이해가 더 편할 것이다.
+
+```javascript
+const compose = ...funcArgs => initialVal => ...funcArgs.reduceRight((val, func) => func(val), initialVal);
+
+const result = compose(add2, multiply5, minus10)(5);
+const result2 = add2(multiply5(minus10(5)));
+
+console.log(result); // -23
+console.log(result2); // -23
+```
+
+위의 코드에서 함수조합을 사용하는 compose 함수를 사용한 예와 함수를 각각 사용한 예를 다뤄봤다.
+
+pipe 함수도 compose 함수와 같지만 적용을 첫번째 인자의 함수부터 마지막까지 차례대로 시켜준다.
+
+```javascript
+const pipe = ...funcArgs => initialVal => ...funcArgs.reduce((val, func) => func(val), initialVal);
+
+const result = pipe(add2, multiply5, minus10)(5);
+
+console.log(result); // 25
+```
+
+Reference: 
+[Blog](https://velog.io/@nittre/JavaScript-%ED%95%A8%EC%88%98-%ED%95%A9%EC%84%B1Function-Composition).
 
 ### 마치며 ###
 
