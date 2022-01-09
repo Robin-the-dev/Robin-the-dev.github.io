@@ -42,7 +42,7 @@ const func = (arg) => console.log(arg);
 
 const newFunc = (funcArg) => funcArg;
 
-newFunc(func)('Hello World!');
+newFunc(func)('Hello World!'); // 'Hello World!'
 ```
 
 코드에서 보다시피 함수를 변수에 할당 했고 함수를 다른 함수의 인자로 주었으며 그 함수는 함수를 리턴한다.
