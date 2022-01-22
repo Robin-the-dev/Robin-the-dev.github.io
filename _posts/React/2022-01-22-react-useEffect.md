@@ -158,6 +158,47 @@ User 컴포넌트의 Toggle Active 버튼을 눌러서 state에 변화를 주면
 
 deps 배열안에 값을 넣어줬을때 어떠한 순서로 무엇이 작동되는지를 아는 것이 중요하다!
 
+#### deps가 없을 때 ####
+
+위쪽에서 deps 즉 두번째 인자를 주는 경우만 이야기해서 무조건 넣어줘야한다고 생각할수도있는데 사실 두번째 인자인 deps는 optional 이다.
+
+위에서 deps를 빈배열로 뒀을때 배열안에 state나 props 같이 변화하는 값을 줬을때에 대한 내용은 이미 적어두었고
+
+두번째 인자로 배열 조차 주지않았을때에 대해서 얘기해보겠다.
+
+deps를 주지 않으면 그냥 단순히 컴포넌트가 리렌더링 될때마다 Callback function의 내용이 계속해서 실행된다.
+
+그래서 정리를 해보면
+
+```jsx
+// deps가 빈 배열인 경우
+useEffect(() => {
+  console.log('컴포넌트가 Mount 될 때 실행');
+  
+  return () => {
+	console.log('컴포넌트가 Unmount 될 때 실행');
+  }
+}, []);
+
+// deps의 요소로 변화하는 값이 있는 경우
+useEffect(() => {
+  console.log('컴포넌트가 Mount 될 때와 state가 Update 되면 실행');
+
+  return () => {
+	console.log('컴포넌트가 Unmount 될 때와 state가 Update 되기 직전에 실행');
+  }
+}, [state]);
+
+// deps가 없는 경우
+useEffect(() => {
+  console.log('컴포넌트가 Mount 될 때와 컴포넌트가 Re-rendering 될 때 실행');
+
+  return () => {
+	console.log('컴포넌트가 Unmount 될 때 실행');
+  }
+});
+```
+
 ### 마치며 ###
 
 이번에는 미리 useEffect Hook에 대해 정리를 해봤다.
