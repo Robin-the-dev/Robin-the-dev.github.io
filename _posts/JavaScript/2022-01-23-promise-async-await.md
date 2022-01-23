@@ -3,7 +3,7 @@ layout: post
 title: Javascript의 비동기
 subtitle: Javascript Reference
 categories: JavaScript
-tags: [JavascriptRecursion, Javascript]
+tags: [JavascriptAsync, Javascript]
 ---
 
 비동기
