@@ -105,9 +105,9 @@ const User = ({user, onRemove, onToggle}) => {
 
   return (
 	<div>
-	  <span style={{
-		color: user.isActive ? 'green' : 'red'
-	  }}>{user.name}</span>
+	  <span style={
+		{color: user.isActive ? 'green' : 'red'}
+	  }>{user.name}</span>
 	  <span>{user.age}</span>
 	  <button onClick={() => onRemove(user.id)}>Delete</button>
 	  <button onClick={() => onToggle(user.id)}>Toggle Active</button>
