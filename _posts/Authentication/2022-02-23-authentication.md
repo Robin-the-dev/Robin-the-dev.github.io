@@ -212,3 +212,5 @@ app.use(cors({origin: 'http://localhost:3000', credentials: true}));
 [블로그](https://kosaf04pyh.tistory.com/152), [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials)
 
 P.S: 아 그리고 쿠키를 주고 받기 위해서 withCredentials 옵션을 열어놨을때는 cors의 Access-Control-Allow-Origin헤더에게 와일드 카드(\*)를 줄 수 없다!!! 위의 블로그의 하단에 관련 설명이 나와있으니 참고하자!!!
+
+P.S: 아 또 OAuth 부분을 깜빡했는데 이 부분은 실제로 깃허브 OAuth 이용하는 것도 포스팅 해보려고 하니까 길어질것 같아서 그냥 다른 포스트에 적어보겠다!
