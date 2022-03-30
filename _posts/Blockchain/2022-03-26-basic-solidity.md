@@ -479,6 +479,8 @@ contract foo {
 
 저렇게 실행된 event는 클라이언트에서 로그를 받아 볼 수 있다.
 
+이 [링크](https://betterprogramming.pub/what-is-an-event-in-solidity-420caeb38859)에서 event에 대해 좀 더 확인해보자!
+
 ### 마치며 ###
 
 Solidity의 기본 문법을 배우면서 이렇게 한번 정리를 해보았는데 다양한 언어를 접해봤고 툴들을 사용해본 경험이 있어서 그런지
