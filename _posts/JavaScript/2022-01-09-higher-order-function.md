@@ -217,7 +217,7 @@ console.log(result2); // -23
 pipe 함수도 compose 함수와 같지만 적용을 첫번째 인자의 함수부터 마지막까지 차례대로 시켜준다.
 
 ```javascript
-const pipe = ...funcArgs => initialVal => ...funcArgs.reduce((val, func) => func(val), initialVal);
+const pipe = (...funcArgs) => initialVal => funcArgs.reduce((val, func) => func(val), initialVal);
 
 const result = pipe(add2, multiply5, minus10)(5);
 
