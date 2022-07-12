@@ -203,7 +203,7 @@ pipe는 첫인자부터 차례대로 마지막인자까지 적용을 시켜주�
 코드와 함께 보면 이해가 더 편할 것이다.
 
 ```javascript
-const compose = ...funcArgs => initialVal => ...funcArgs.reduceRight((val, func) => func(val), initialVal);
+const compose = (...funcArgs) => initialVal => funcArgs.reduceRight((val, func) => func(val), initialVal);
 
 const result = compose(add2, multiply5, minus10)(5);
 const result2 = add2(multiply5(minus10(5)));
