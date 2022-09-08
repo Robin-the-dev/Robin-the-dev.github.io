@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>KIP-7 and KIP-17 | Robin’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="KIP-7 and KIP-17">
+<meta name="author" content="Robin H.J. Kwon">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="What is KIP-7 and KIP-17?">
+<meta property="og:description" content="What is KIP-7 and KIP-17?">
+<link rel="canonical" href="/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html">
+<meta property="og:url" content="/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html">
+<meta property="og:site_name" content="Robin’s Blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-04-06T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="KIP-7 and KIP-17">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Robin H.J. Kwon"},"dateModified":"2022-04-06T00:00:00+00:00","datePublished":"2022-04-06T00:00:00+00:00","description":"What is KIP-7 and KIP-17?","headline":"KIP-7 and KIP-17","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html"},"url":"/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="Robin's Blog">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  Robin's Blog
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/archives.html">ARCHIVES</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/">HOME</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">KIP-7 and KIP-17</h1>
+  <h2 class="post-subtitle">FT and NFT Development with KIP-7 and KIP-17</h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2022-04-06T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 06, 2022
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 10 mins</span>
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#FT">#FT</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#KIP-7">#KIP-7</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#NFT">#NFT</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#KIP-17">#KIP-17</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="what-is-kip-7-and-kip-17">What is KIP-7 and KIP-17?</h2>
+
+<p>저번 시간에 ERC-20을 활용한 FT 개발에 대해 포스팅을 해보았다. 이번에는 저번과 비슷하게 FT와 NFT를 Klaytn위에서 개발하는것을 해볼것이다.</p>
+
+<p>KIP란 Klaytn Improvement Propsal의 약자로 EIP의 Klaytn 버전이라고 생각하면 된다.</p>
+
+<p>그래서 KIP-7과 KIP-17은 각각 Klaytn위에서 FT와 NFT를 개발할 수 있는 Standard 이다.</p>
+
+<p>KIP-7은 ERC-20을 기반으로 약간의 변화만 주면서 개발되어 ERC-20과 거의 동일하다. (추가적인 함수가 있다.)</p>
+
+<p>KIP-17도 동일하게 ERC-721을 기반으로 개발되었기 때문에 특별하게 다른점은 없다.</p>
+
+<p>저번 포스팅에서 ERC-20을 얘기하면서 FT 얘기는 해보았기 때문에 이 포스팅에서 NFT 얘기를 간단하게 해보고 바로</p>
+
+<p>코드를 살펴보겠다.</p>
+
+<h3 id="what-is-nft">What is NFT?</h3>
+
+<p>NFT는 Non-Fungible Token의 약자로 <strong>대체 불가능한 토큰</strong>을 뜻한다. 너무 어렵게 생각하지말고 FT의 반대라고 생각하면 편할 듯하다.</p>
+
+<p>FT는 말그대로 대체가 가능하기 때문에 a라는 사람이 가지고 있는 1토큰과 b라는 사람이 가지고 있는 1토큰을 서로 교환해도</p>
+
+<p>아무런 문제가 없다. FT는 화폐같이 가치가 동일하기 때문이다.</p>
+
+<p>하지만 NFT는 대체가 불가능하기 때문에 서로 다른 토큰의 가치가 동일하지 않다. 이러한 대체 불가성 때문에 NFT를 활용해서</p>
+
+<p>디지털 세상의 특정 파일에 대한 소유권을 증명할 수 있다.</p>
+
+<p>그래서 Smart contract 상에서 각각의 토큰이 다르게 해주기 위해 각 토큰들은 겹치지 않는 unique 한 토큰 id를 갖게 된다.</p>
+
+<p>자세한 부분은 코드에서 살펴보자!</p>
+
+<h3 id="entire-code">Entire Code</h3>
+
+<p><a href="https://github.com/Robin-the-dev/Practice-Klaytn">전체코드</a>는 해당 링크의 contracts 폴더에서 볼 수 있다.</p>
+
+<p>ERC-20의 포스팅과 다르게 라이브러리를 통해 구현했기 때문에 contract의 코드가 굉장히 짧다.</p>
+
+<p><a href="https://github.com/klaytn/klaytn-contracts/tree/master/contracts">Klaytn contract library</a>는 여기서 확인 할 수 있다.</p>
+
+<p>Klaytn contract library는 이더리움의 OpenZeppelin이랑 동일하게 개발자가 편하게 contract를 구현할 수 있게 해주는 라이브러리이다.</p>
+
+<p>해당 라이브러리를 사용하려면 <code class="language-plaintext highlighter-rouge">npm install @klaytn/contracts</code> 해주면 손쉽게 사용할 수 있다.</p>
+
+<h4 id="kip-7">KIP-7</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.5</span><span class="p">.</span><span class="mi">6</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@klaytn/contracts/token/KIP7/KIP7Token.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">MyKIP7TokenV2</span> <span class="k">is</span> <span class="n">KIP7Token</span> <span class="p">{</span>
+  <span class="k">constructor</span><span class="p">()</span> <span class="k">public</span> <span class="n">KIP7Token</span><span class="p">(</span><span class="s">"My KIP7 Token V2"</span><span class="p">,</span> <span class="s">"MK7TV2"</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">100000000e18</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>보다시피 라이브러리를 활용했기 때문에 코드가 굉장히 짧다. 저번에 봤던 ERC-20과 동일하기 때문에 내가 직접 배포까지 해보면서 한 실수나</p>
+
+<p>ERC-20과 비교해서 다른점만 빠르게 짚고 넘어가겠다.</p>
+
+<p>먼저 위의 코드 constructor 부분에서 <code class="language-plaintext highlighter-rouge">KIP7Token</code>을 import 해왔기때문에 해당 constructor의 호출을</p>
+
+<p><code class="language-plaintext highlighter-rouge">KIP7Token("My KIP7 Token V2", "MK7TV2", 18, 1000000000e18)</code> 와 같이 해주고 있는데</p>
+
+<p>실수 했던 부분이 4번째 매개변수인 totalSupply를 뒤의 e18을 빼먹고 해버렸더니 작은 소수점으로만 표현이 되버려서</p>
+
+<p>kaikas 지갑에서 보유하고 있는 토큰이 정확하게 보이지가 않았다.</p>
+
+<p>ERC-20이나 KIP-7이나 3번째 매개변수인 decimals, 즉 소수점 자리가 18이기 때문에 totalSupply 부분에 항상 e18을 까먹지 말자!!!</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+* @dev  Moves `amount` tokens from the caller's account to `recipient`.
+*/</span>
+<span class="k">function</span> <span class="n">safeTransfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+    <span class="n">safeTransfer</span><span class="p">(</span><span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="s">""</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+* @dev Moves `amount` tokens from the caller's account to `recipient`.
+*/</span>
+<span class="k">function</span> <span class="n">safeTransfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+    <span class="nb">transfer</span><span class="p">(</span><span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">_checkOnKIP7Received</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">data</span><span class="p">),</span> <span class="s">"KIP7: transfer to non KIP7Receiver implementer"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+* @dev Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism.
+* `amount` is then deducted from the caller's allowance.
+*/</span>
+<span class="k">function</span> <span class="n">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+    <span class="n">safeTransferFrom</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="s">""</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+* @dev Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism.
+* `amount` is then deducted from the caller's allowance.
+*/</span>
+<span class="k">function</span> <span class="n">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+    <span class="n">transferFrom</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">_checkOnKIP7Received</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">data</span><span class="p">),</span> <span class="s">"KIP7: transfer to non KIP7Receiver implementer"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드는 MyKIP7TokenV2 contract에서 import 한 KIP7Token의 부모 contract 중 하나인 KIP7 contract의 부분이다.</p>
+
+<p>(<a href="https://github.com/klaytn/klaytn-contracts/blob/master/contracts/token/KIP7/KIP7.sol">전체코드</a>는 여기서 확인가능 하다.)</p>
+
+<p>KIP7 contract의 저 부분만 가져온 이유는 ERC-20과 비교해서 다른 부분이 저 부분이기 때문이다.</p>
+
+<p>코드를 보면 알겠지만 ERC-20에는 없는 <code class="language-plaintext highlighter-rouge">safeTransfer()</code> 그리고 <code class="language-plaintext highlighter-rouge">safeTransferFrom()</code> 함수가 존재한다.</p>
+
+<p>어려운 함수는 아니고 <code class="language-plaintext highlighter-rouge">_checkOnKIP7Recived()</code> 함수를 이용해서 recipient의 주소가 해당 토큰을 받을 수 있는지를 확인하고 일반적인 <code class="language-plaintext highlighter-rouge">transfer()</code> 함수같이 transfer를 해주는 것이다.</p>
+
+<p>ERC-20에는 없지만 ERC-721에는 KIP-7과 같이 <code class="language-plaintext highlighter-rouge">safeTransfer()</code> 함수가 존재한다.</p>
+
+<p>그래서 내 생각으로는 KIP-7과 KIP-17은 ERC-20과 ERC-721을 기반으로 만들었기 때문에 ERC-721에만 있는 기능이지만</p>
+
+<p>해당 함수를 KIP-7과 KIP-17에 넣지 않았나 싶다.</p>
+
+<h4 id="kip-17">KIP-17</h4>
+
+<p>이제 Klaytn의 NFT 표준인 KIP-17을 살펴보자!!</p>
+
+<p>먼저 코드부터!</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.5</span><span class="p">.</span><span class="mi">6</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@klaytn/contracts/token/KIP17/KIP17Token.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@klaytn/contracts/drafts/Counters.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">MyKIP17TokenV2</span> <span class="k">is</span> <span class="n">KIP17Token</span> <span class="p">{</span>
+  <span class="k">using</span> <span class="n">Counters</span> <span class="k">for</span> <span class="n">Counters</span><span class="p">.</span><span class="n">Counter</span><span class="p">;</span>
+  <span class="n">Counters</span><span class="p">.</span><span class="n">Counter</span> <span class="k">private</span> <span class="n">_tokenIds</span><span class="p">;</span>
+
+  <span class="k">constructor</span><span class="p">()</span> <span class="k">public</span> <span class="n">KIP17Token</span><span class="p">(</span><span class="s">"My KIP17 Token V2"</span><span class="p">,</span> <span class="s">"MK17TV2"</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">mintNFT</span><span class="p">(</span><span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">tokenURI</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyMinter</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">_tokenIds</span><span class="p">.</span><span class="n">increment</span><span class="p">();</span>
+
+	<span class="kt">uint256</span> <span class="n">newItemId</span> <span class="o">=</span> <span class="n">_tokenIds</span><span class="p">.</span><span class="n">current</span><span class="p">();</span>
+	<span class="n">_mint</span><span class="p">(</span><span class="n">recipient</span><span class="p">,</span> <span class="n">newItemId</span><span class="p">);</span>
+	<span class="n">_setTokenURI</span><span class="p">(</span><span class="n">newItemId</span><span class="p">,</span> <span class="n">tokenURI</span><span class="p">);</span>
+
+	<span class="k">return</span> <span class="n">newItemId</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>아까의 KIP-7의 코드와 비슷하게 라이브러리를 사용해서 짧지만 Counters 라이브러리를 import 해준것이 다르고</p>
+
+<p>Counters를 활용해 <code class="language-plaintext highlighter-rouge">_tokenIds</code>를 관리 해주면서 minting을 할 수 있는 <code class="language-plaintext highlighter-rouge">mintNFT()</code> 함수를 따로 만들어 주었다.</p>
+
+<p>먼저 KIP-7과 동일하게 KIP-17의 라이브러리를 코드와 같이 import 해오면 간편하게 NFT contract를 만들 수 있다.</p>
+
+<p>KIP17Token 라이브러리는 KIP17Mintable, KIP17Burnable 등 등을 상속받고 있기 때문에 <code class="language-plaintext highlighter-rouge">mint()</code> 함수가 있어서</p>
+
+<p>별다른 custom function이 불필요하게 보일 수 있지만 제공되는 <code class="language-plaintext highlighter-rouge">mint()</code> 함수는 tokenId를 관리하기 쉽지 않기 때문에</p>
+
+<p>해당 함수를 사용하지 않고 내가 직접 만든 custom function을 사용할 수 있게끔 해주었다.</p>
+
+<p>코드를 한줄씩 살펴보면 <code class="language-plaintext highlighter-rouge">using Counters for Counters.Counter;</code>라고 명시 해줘서 자료형이 Counters.Counter인 변수에 대해</p>
+
+<p>Counters 라이브러리에 존재하는 함수들을 다이렉트로 사용할 수 있게 해준다.</p>
+
+<p>그 다음줄에 <code class="language-plaintext highlighter-rouge">_tokenIds</code> 라는 변수를 Counters.Counter 형으로 선언 해주었는데 참고로 Counters.Counter는 Counters 라이브러리에 정의된 구조체이다.</p>
+
+<p>그 다음에 볼곳은 <code class="language-plaintext highlighter-rouge">mintNFT()</code> 함수 쪽인데 위에서 using을 해주었기 때문에 <code class="language-plaintext highlighter-rouge">_tokenIds.increment();</code>로 토큰 id를 1 씩 증가시켜준다.</p>
+
+<p>그 아래에 있는 <code class="language-plaintext highlighter-rouge">_tokenIds.current();</code>도 굉장히 직관적으로 현재 id를 손쉽게 알려줄 수 있다.</p>
+
+<p>그리고 <code class="language-plaintext highlighter-rouge">_mint()</code> 함수와 <code class="language-plaintext highlighter-rouge">_setTokenURI()</code> 함수를 이용해서 minting을 해준다.</p>
+
+<p>이렇게 하면 토큰 id가 겹칠일 없이 unique하게 관리 할 수 있게 된다.</p>
+
+<p>물론 해당 함수가 존재하지 않아도 <code class="language-plaintext highlighter-rouge">mint()</code> 함수가 있기때문에 어떻게든 minting은 할 수 있겠지만 토큰 id 추적이 쉽지 않기때문에</p>
+
+<p>이렇게 개발자의 기호에 맞춰 state variable 혹은 custom function을 작성해주면 된다.</p>
+
+<h3 id="truffle을-이용한-kip-7-및-kip-7-배포">Truffle을 이용한 KIP-7 및 KIP-7 배포</h3>
+
+<p>위에서 제공한 git repository를 보면 알겠지만 이 contract 들은 truffle로 배포 되었다.</p>
+
+<p>그래서 잊지 않도록 truffle을 활용한 baobab testnet으로의 배포 과정을 여기에 간단하게 적어보겠다.</p>
+
+<p>크게 어려운 부분은 없고 해당 git repository의 <a href="https://github.com/Robin-the-dev/Practice-Klaytn/blob/main/truffle-config.js">truffle-config.js 파일</a>을 보면 쉽게 이해 할 수 있다.</p>
+
+<p>일단 필요한 패키지가 두개 정도 있어서 <code class="language-plaintext highlighter-rouge">npm install dotenv truffle-hdwallet-provider-klaytn</code>을 인스톨 해주자!</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// truffle-config.js</span>
+<span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">dotenv</span><span class="dl">'</span><span class="p">).</span><span class="nx">config</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">HDWalletProvider</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">truffle-hdwallet-provider-klaytn</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>truffle-config.js 파일의 맨위에 이렇게 패키지를 불러와준다.</p>
+
+<p>(보통 dotenv말고 내장된 fs 패키지를 이용해서 숨긴 파일안에 private key를 적어두고 불러와서 사용하던데 dotenv를 사용해도 동일하게 작동할것같아 여기서는 dotenv를 사용했다.)</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// truffle-config.js</span>
+<span class="c1">// 생략</span>
+<span class="nx">networks</span><span class="p">:</span> <span class="p">{</span>
+    <span class="c1">// Useful for testing. The `development` name is special - truffle uses it by default</span>
+    <span class="c1">// if it's defined here and no other network is specified at the command line.</span>
+    <span class="c1">// You should run a client (like ganache-cli, geth or parity) in a separate terminal</span>
+    <span class="c1">// tab if you use this network and you must also set the `host`, `port` and `network_id`</span>
+    <span class="c1">// options below to some value.</span>
+    <span class="c1">//</span>
+    <span class="nl">baobab</span><span class="p">:</span> <span class="p">{</span>
+	  <span class="na">provider</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="k">new</span> <span class="nx">HDWalletProvider</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PRIVATE_KEY</span><span class="p">,</span> <span class="dl">'</span><span class="s1">https://api.baobab.klaytn.net:8651</span><span class="dl">'</span><span class="p">);</span>
+	  <span class="p">},</span>
+	  <span class="na">network_id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">1001</span><span class="dl">'</span><span class="p">,</span>       <span class="c1">// Any network (default: none)</span>
+	  <span class="na">gas</span><span class="p">:</span> <span class="dl">'</span><span class="s1">8500000</span><span class="dl">'</span><span class="p">,</span>
+	  <span class="na">gasPrice</span><span class="p">:</span> <span class="kc">null</span>
+    <span class="p">},</span>
+<span class="c1">// 생략</span>
+</code></pre></div></div>
+
+<p>그리고 networks 부분에 baobab testnet을 위의 코드와 같이 추가해준다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// truffle-config.js</span>
+<span class="c1">// 생략</span>
+<span class="nx">compilers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">solc</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">version</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0.5.6</span><span class="dl">"</span><span class="p">,</span>    <span class="c1">// Fetch exact version from solc-bin (default: truffle's version)</span>
+      <span class="c1">// docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)</span>
+      <span class="na">settings</span><span class="p">:</span> <span class="p">{</span>          <span class="c1">// See the solidity docs for advice about optimization and evmVersion</span>
+       <span class="na">optimizer</span><span class="p">:</span> <span class="p">{</span>
+         <span class="na">enabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+         <span class="na">runs</span><span class="p">:</span> <span class="mi">200</span>
+       <span class="p">},</span>
+       <span class="na">evmVersion</span><span class="p">:</span> <span class="dl">"</span><span class="s2">constantinople</span><span class="dl">"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+<span class="c1">// 생략</span>
+</code></pre></div></div>
+
+<p>마지막으로 깜빡하지말고 compilers 부분도 위와 같이 수정해주자! 왜냐하면 Klaytn에서는 solidity 0.5.6 버전을 사용하기 때문이다.</p>
+
+<p>위와 같이 truffle-config.js 파일을 수정해주고 <code class="language-plaintext highlighter-rouge">truffle deploy --network baobab</code> 명령으로 배포를 할 수 있다.</p>
+
+<p>(migration 폴더안의 migration 파일을 추가하거나 수정해주어야 하는데 어려운 부분이 없어 해당 repository의 migration 폴더를 확인하자!)</p>
+
+<p><code class="language-plaintext highlighter-rouge">truffle networks</code>로 배포된 contract를 확인할 수 있다.</p>
+
+<p>그리고 <code class="language-plaintext highlighter-rouge">truffle console --network baobab</code>으로 배포한 contract를 instance로 불러와 contract에 포함된 함수들이 잘작동하는지 확인 할 수 있다!</p>
+
+<p>마지막으로 만약에 contract 파일 (sol 파일)을 수정하고 재배포 하고 싶을때는 <code class="language-plaintext highlighter-rouge">truffle deploy --network baobab --reset</code> 처럼 reset 옵션을 추가해서 배포하면 된다.</p>
+
+<p>당연히 알고있겠지만 위와같이 baobab 테스트넷에서의 배포는 해당 테스트넷의 klay를 사용하기 때문에 먼저 local RPC에서 (ganache와 같은) 테스트를 하고 배포하는것이 올바르다!</p>
+
+<h3 id="마치며">마치며</h3>
+
+<p>이번에 이렇게 직접 KIP-7과 KIP-17을 개발 및 배포를 해보았는데 이더리움의 OpenZeppelin같이 Klaytn에도 제공해주는 라이브러리가 있어서</p>
+
+<p>정말 간단하게 토큰 개발을 할 수 있었다. 또한 ERC-20과 내용적으로 크게 다르지 않았기 때문에 위에서 언급한 몇몇 실수를 제외하고는</p>
+
+<p>무난하게 학습을 완료했다.</p>
+
+<p>빨리 직접 토큰을 개발해서 내가 원하는 서비스와 결합시켜 DeFi 프로젝트도 한번 시도해보고 싶고 아무튼 하고싶은게 정말 많다!</p>
+
+<p>빨리 프로젝트에 들어가서 팀원들을 만나 재밌게 개발해보고 싶다!</p>
+
+<h3 id="ps">P.S</h3>
+
+<p>KIP-7 Contract address: 0x0435B4960803136C2d97D2b4591F8898791AD950 <a href="https://baobab.scope.klaytn.com/account/0x0435B4960803136C2d97D2b4591F8898791AD950?tabId=internalTx">Klaytn scope</a></p>
+
+<p>KIP-17 Contract address: 0x5a86D396F5166103e5F69Ce74885E364c704dFA1 <a href="https://baobab.scope.klaytn.com/account/0x5a86D396F5166103e5F69Ce74885E364c704dFA1?tabId=txList">Klaytn scope</a></p>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/beb/2022/04/04/fifteenth-bootcamp-retrospective.html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 15주차 회고">코드스테이츠 블록체인 엔지니어링 부트캠프 15주차 회고...</a><a class="next" href="/jekyll-theme-yat/blockchain/2022/04/07/KAS.html" title="Klaytn API Service">Klaytn API Service</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/markdown/2015/02/28/test-markdown.html" title="Klaytn API Service">Test markdown</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react/2022/02/13/redux-middleware.html" title="Klaytn API Service">Redux Middleware</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/authentication/2022/02/24/oauth.html" title="Klaytn API Service">OAuth</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html" title="Klaytn API Service">KIP-7 and KIP-17</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>
+<span class="copyleft">©</span> 2017-2022 Robin H.J. Kwon</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="http://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

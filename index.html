@@ -1,0 +1,5046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Home | Robin’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Home">
+<meta name="author" content="Robin H.J. Kwon">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+<link rel="canonical" href="/jekyll-theme-yat/">
+<meta property="og:url" content="/jekyll-theme-yat/">
+<meta property="og:site_name" content="Robin’s Blog">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Home">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Robin H.J. Kwon"},"description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"Home","name":"Robin’s Blog","url":"/jekyll-theme-yat/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="Robin's Blog">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header site-header-transparent" role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  Robin's Blog
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/archives.html">ARCHIVES</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/">HOME</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(https://c.pxhere.com/photos/c5/d0/code_html_digital_coding_web_programming_computer_technology-670370.jpg!d)"></div>
+        <img class="img-placeholder" src="https://c.pxhere.com/photos/c5/d0/code_html_digital_coding_web_programming_computer_technology-670370.jpg!d">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner"><div class="page-banner-default">
+            <h1 class="page-banner-heading">
+              Welcome to my blog!
+            </h1>
+            <h2 class="page-banner-subheading">
+              It is all about IT and Development
+            </h2>
+          </div></div>
+    </div>
+  </section><script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="articles">
+  
+
+  
+
+
+  <div class="pagination">
+  <!-- Post list links -->
+  <ul class="post-list">
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/typescript/2022/09/06/decorator.html">
+          Typescript Decorator
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Sep 06, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 5 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/typescript/2022/09/06/decorator.html">
+        <p>
+        Typescript Decorator 정리
+
+Nest.js를 사용하면서 Decorator를 정리할 필요가 있어 정리해본다.
+
+Class Decorator
+
+Class decorator applies to class constructor to read or modify class definition.
+
+Below example is to show adding new property to class.
+
+function reportableClassDecorator&lt;T extends { new (...args: any[]): {} }&gt;(constructor: T) {
+  return class extends c... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Typescript">#Typescript</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Decorator">#Decorator</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/05/02/Project2.html">
+          Web 2.0 기반 블록체인 커뮤니티 프로젝트
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> May 02, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 12 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/blockchain/2022/05/02/Project2.html">
+        <p>
+        Second project - Web 2.0 기반 블록체인 인센티브 커뮤니티
+
+프로젝트 1이 끝이나고 드디어 두번째 프로젝트가 시작되었다. 기간은 대략 2주정도 주어졌고 나를 포함한 네명의 팀으로 프로젝트를 진행하게 되었다.
+
+프로젝트 1과 다르게 이번에는 백엔드 서버의 개발도 필요하게 되었는데 개발 해야하는것이 하나만 늘어난 것인데 개인적으로 프로젝트의 난이도가 많이 올랐다고 느꼈다.
+
+이번에도 내가 팀장을 맡아 프로젝트를 매니징 하였으며 프로젝트를 시작하면서 역할 분담과 함께 Agile하게 프로젝트를 진행하기 위해
+
+Agile 방법론을 팀원들에게 설명하고 최대한 그에 맞춰서 진행하였다.
+
+이번에는 기간이 늘기는... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Project">#Project</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Web3.0">#Web3.0</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/18/Project1.html">
+          OpenSea Clone coding
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Apr 18, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 11 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/blockchain/2022/04/18/Project1.html">
+        <p>
+        First project - OpenSea Clone coding
+
+드디어 프로젝트가 시작되었다. 각 주차회고를 쓰려고했으나 프로젝트가 시작되면서 프로젝트와 관련된 포스팅을 할 필요가 있어서 굳이 따로 회고 포스팅으로 나누지 않고
+
+느꼈던점을 한번에 프로젝트 포스팅에 적으려고 한다.
+
+일단 간단하게 어떤 프로젝트였는지 얘기를 하면 토픽은 OpenSea 클론 코딩이였다. 프로젝트에 들어가기 앞서서 OpenSea가 어떻게 동작하는지 알기위해 ERC-721이나 KIP-17을 기반으로 한
+
+NFT 스마트 컨트랙트를 배포해가면서 동작방식을 익혔다. 일단 이렇게 확인을 해보면서 OpenSea의 모든 부분을 그대로 따라하기에는... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Project">#Project</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Web3.0">#Web3.0</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/07/KAS.html">
+          Klaytn API Service
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Apr 07, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/blockchain/2022/04/07/KAS.html">
+        <p>
+        What is KAS?
+
+KAS는 무엇일까? KAS는 Klaytn API Service의 약자로 개발자가 bApp을 개발할때 조금 더 쉽게 개발을 도와주는 API 이다. (생산성을 높혀주는!)
+
+Klaytn은 Ethereum을 포크해와 만든 블록체인 플랫폼이라서 많은 부분이 이더리움과 닮아 있지만 운용측면에서 조금 다르다.
+
+Ethereum은 알다시피 public blockchain 으로 누구나 Node 가 될 수 있다. 그래서 아직 포스팅을 쓰지는 않았지만 web3.js를 이용할때 infura 같이 RPC_URL을 제공해주는 서비스를 이용해서
+
+노드와 연결해 Ethereum blockchain 과 통신한다.
+
+하... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#KAS">#KAS</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Caver">#Caver</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html">
+          KIP-7 and KIP-17
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Apr 06, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 10 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html">
+        <p>
+        What is KIP-7 and KIP-17?
+
+저번 시간에 ERC-20을 활용한 FT 개발에 대해 포스팅을 해보았다. 이번에는 저번과 비슷하게 FT와 NFT를 Klaytn위에서 개발하는것을 해볼것이다.
+
+KIP란 Klaytn Improvement Propsal의 약자로 EIP의 Klaytn 버전이라고 생각하면 된다.
+
+그래서 KIP-7과 KIP-17은 각각 Klaytn위에서 FT와 NFT를 개발할 수 있는 Standard 이다.
+
+KIP-7은 ERC-20을 기반으로 약간의 변화만 주면서 개발되어 ERC-20과 거의 동일하다. (추가적인 함수가 있다.)
+
+KIP-17도 동일하게 ERC-721을 기반으로 개발되었기 ... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#FT">#FT</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#KIP-7">#KIP-7</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#NFT">#NFT</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#KIP-17">#KIP-17</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/beb/2022/04/04/fifteenth-bootcamp-retrospective.html">
+          코드스테이츠 블록체인 엔지니어링 부트캠프 15주차 회고
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Apr 04, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/beb/2022/04/04/fifteenth-bootcamp-retrospective.html">
+        <p>
+        Section 4의 끝이 보인다!
+
+제목대로 이제 다음주에 web3.js를 활용한 개발 부분을 학습하고 나면 Section 4도 끝이 난다! 어떻게 보면 기초 부분이였던
+
+Section 1과 2의 Web development 보다 더 빨리 끝난 느낌이 든다. 어찌되었든 Section 4가 끝난다는 말은 이제 Section 5가
+
+시작된다는 것이고 Section 5에서는 대망의 프로젝트가 시작된다.
+
+부트캠프를 처음 시작할때는 Section 5의 시간표가 그냥 대충 프로젝트라고만 나와있었는데 이제 Section 5가 다가오니 변화가 생겼다.
+
+프로젝트는 총 세가지를 하게 되는데 첫번째와 두번째 프로젝트는 클론코딩을 ... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#BEB">#BEB</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Bootcamp">#Bootcamp</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/beb/2022/03/28/fourteenth-bootcamp-retrospective.html">
+          코드스테이츠 블록체인 엔지니어링 부트캠프 14주차 회고
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Mar 28, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/beb/2022/03/28/fourteenth-bootcamp-retrospective.html">
+        <p>
+        드디어 토큰을 직접 개발해보았다!!!
+
+저번 회고에 말했다시피 지금 본격적으로 블록체인을 활용해 개발을 배우고 있다.
+
+저번주에 지갑 개발, Solidity 기본 문법과 간단한 Smart contract에 대해 배웠다면 14주차에는 본격적으로
+
+Fungible Token (FT)와 Non-Fungible Token (NFT)에 대한 개념을 배우고 직접 개발을 해서 local environment와
+
+testnet에 배포를 하는 것을 배웠다.
+
+이더리움 토큰을 만들때는 ERC-20이라는 표준을 이용해서 만들기에 코드를 From the scratch에서 짜지는 않았지만
+
+해당 standard에 포함되어 있는 함수들을 ... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#BEB">#BEB</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Bootcamp">#Bootcamp</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/28/fungible-token.html">
+          Fungible Token (ERC-20)
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Mar 28, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 11 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/blockchain/2022/03/28/fungible-token.html">
+        <p>
+        What is Fungible Token(FT)?
+
+Fungible Token이란 무엇일까? NFT라는 것은 일반적으로 많이 들어봤을테니 이것의 반대되는 개념이라고는 유추할 수 있을것이다.
+
+일단 Fungible의 사전적인 의미부터 먼저 보자면 대체 가능한이라는 뜻을 가지고 있다.
+
+그래서 FT는 대체 가능한 토큰일 것이고 NFT는 대체 불가능한 토큰일 것이다.
+
+NFT는 다음 포스트에서 얘기를 해보고 일단 FT 얘기부터 하자면
+
+대체 가능하다라는 것은 무엇을 의미 하는 걸까?
+
+일반적인 화폐라고 생각하면 편하겠다. 예를 들어서 원화 1만원은 내가 가지고 있는 1만원이나 A라는 사람이 가지고 있는 1만원이나
+
+가치... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#FT">#FT</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#ERC-20">#ERC-20</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/beb/2022/03/26/thirteenth-bootcamp-retrospective.html">
+          코드스테이츠 블록체인 엔지니어링 부트캠프 13주차 회고
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Mar 26, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/beb/2022/03/26/thirteenth-bootcamp-retrospective.html">
+        <p>
+        너무 오래 쉬어버렸다…
+
+직전에 쓴 회고가 9주차였는데 벌써 블록체인 이론을 넘어 실제로 코딩을 하고 있는 13주차이다.
+
+꾸준함을 지키는것이 가장 중요하다는 것은 알고 있지만 블록체인 이론을 배우는 Section 3에서 일주일간
+
+심한 몸살을 겪고 나니 변명이지만 원래 컨디션으로 돌아오는게 정말 쉽지 않았다.
+
+솔직히 부트캠프를 시작하면서 스스로도 재밌어서 그랬는지 너무 오버페이스로 달려온 느낌도 없잖아있다고 생각한다.
+
+이론이 중요하지 않다는것은 절대 아니지만 지금 직접적으로 블록체인을 활용해 코딩을 하는 Section 4로 넘어와서라도
+
+정상적으로 컨디션을 회복한거 같아 다시 꾸준히 한번 달려볼 생각이다. 물... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#BEB">#BEB</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Bootcamp">#Bootcamp</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/26/mnemonic-wallet-development.html">
+          Mnemonic wallet development
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Mar 26, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/blockchain/2022/03/26/mnemonic-wallet-development.html">
+        <p>
+        How to develop a wallet?
+
+13주차 부트캠프 회고에 말했다시피 드디어 Section 4를 들어와서 블록체인 이론이 아닌 직접적인 개발을 해보고 있다.
+
+그 첫번째 프로젝트로 Mnemonic wallet 개발을 해보았다. 정확하게는 Mnemonic phrase를 사용하는 HD wallet 개발이 되겠다.
+
+사용한 package는 eth-lightwallet이고 공식문서는 이곳을 참조하자!
+
+공식문서에는 A minimal ethereum javascript wallet이라고 되어있으며 보안에 대해서도 언급했는데
+
+In official document, it said it has not been go... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Wallet">#Wallet</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Mnemonic">#Mnemonic</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#HD%20Wallet">#HD Wallet</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/26/basic-solidity.html">
+          Solidity fundamentals
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Mar 26, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 15 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/blockchain/2022/03/26/basic-solidity.html">
+        <p>
+        What is Solidity?
+
+Solidity는 프로그래밍 언어의 한 종류로 Ethereum Virtual Machine (EVM)에서 실행되는 smart contract 개발을 위해 설계된 정적 타입 (static-typed)의 중괄호 (curly-braces) 프로그래밍 언어이다.
+
+BitCoin의 OP code와 다르게 turing-complete한 언어 이다. 그래서 반복문 사용이 가능하다.
+
+(EVM이 Solidity 코드를 읽어들여 OP code로 변환을 해주기에 동일선상에서 비교를 해보았다.)
+
+반복문 사용이 가능하게 만들 수 있었던것은 Ethereum이 gas라는 개념의 수수료를 사용하기 있기 때... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Solidity">#Solidity</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/beb/2022/03/02/nineth-bootcamp-retrospective.html">
+          코드스테이츠 블록체인 엔지니어링 부트캠프 9주차 회고
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Mar 02, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/beb/2022/03/02/nineth-bootcamp-retrospective.html">
+        <p>
+        두번째 Hiring Assessment
+
+이번에도 삼일절 휴일이 껴있어서 휴일간에 푹 쉬다가 늦게 9주차 회고를 이렇게 남겨본다.
+
+제목 그대로 9주차 금요일 그리고 그 다음주 월요일까지 Hiring Assessment가 있었다.
+
+시험 전에는 페어로 진행하는 것이 아닌 개인적으로 진행하게 되었는데 전반적인 Computer Science에 대한 학습을 진행하였다.
+
+Computer Science에 대해 배운것은 시간이 남는다면 간단하게 Reference식으로 블로깅을 해보려고 한다.
+
+그리고 시험에 대해서 얘기하자면 Section 1과 굉장히 비슷했고 크게 어렵지않게 끝낼 수 있었다.
+
+운좋게 일찍 끝낼 수 있어서... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#BEB">#BEB</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Bootcamp">#Bootcamp</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/database/2022/02/24/database.html">
+          Database
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Feb 24, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 3 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/database/2022/02/24/database.html">
+        <p>
+        데이터베이스!!
+
+항상 포스팅 하면서 처음에는 이 얘기를 하는거 같은데 정말 이 데이터베이스 부분 만큼은 포스팅을 할까 말까 정말 고민했다.
+
+물론 DB Engineer가 되지 않더라도 기본적인 부분은 알고 가는게 맞긴한데 굳이 정리를 해야하나 싶었다.
+
+결국 이번 포스팅은 기존에 하던 포스팅과 다르게 정말로 Reference용으로 작성하려고 한다.
+
+관계형 데이터베이스 SQL
+
+Entity라고 부르는 테이블끼리 서로 관계를 이루고 있는것이 관계형 데이터베이스이다.
+
+관계형 데이터베이스에서 중요한 개념인 ACID가 있다.
+
+
+  Atomicity: 원자성이라고 부르고 하나의 트랜잭션에 속해있는 모든 작업이 전부 성... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Database">#Database</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#SQL">#SQL</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#NoSQL">#NoSQL</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#MySQL">#MySQL</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#MongoDB">#MongoDB</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/authentication/2022/02/24/oauth.html">
+          OAuth
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Feb 24, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 4 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/authentication/2022/02/24/oauth.html">
+        <p>
+        OAuth
+
+어제의 Authentication 포스팅에 이어서 여기에 OAuth에 대해서 정리를 해보려고 한다.
+
+이번 포스팅에서 실제로 Git Hub OAuth를 구현하는 방법도 정리를 하려고 하는데 그것에 앞서 OAuth가 무엇이고 관련해서
+
+알아야하는 용어를 정리해보겠다.
+
+OAuth란?
+
+OAuth라는 것은 우리가 이미 많이 접해본 기술이다. 예를 하나 들어보자면 우리가 특정 웹사이트에 접근을 해서 로그인이 필요한
+
+서비스를 이용하려고 할때 아이디가 없다면 당연히 회원가입을 해야할 것 이다. 이러한 과정은 유저에게 있어 꽤나 번거롭게 다가온다.
+
+보통의 유저들은 어떤 사이트를 이용하건 외우기 쉽게 아이디와 ... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#OAuth">#OAuth</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Authentication">#Authentication</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/authentication/2022/02/23/authentication.html">
+          웹 개발에서의 인증
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Feb 23, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 8 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/authentication/2022/02/23/authentication.html">
+        <p>
+        Authentication (인증)
+
+회고에서도 적었다시피 이번 8주차에서 몸관리에 실패를 해서 이제서야 8주차에서 배운 것들에 대해 포스팅을 해본다.
+
+8주차에서는 3일정도 인증에 대해서 학습을 하였는데 어디서 한번쯤 들어보기만 했지 처음으로 새로운 것에 대해서 배우게 되었다.
+
+그만큼 시행착오도 크고 막히는 부분이 있었지만 결국 잘 해결해나가서 나의 것으로 만들었다는 그 쾌감이 나를 더 뿌듯하게 했다.
+
+아무튼 그러면 사족은 집어 치우고 바로 본론에 대해서 얘기를 해보겠다.
+
+일단 3일동안의 인증 학습에서 기술적으로는 CooKie, Session, Token, JWT, OAuth에 대해서 배웠다.
+
+그전에 이론... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Authentication">#Authentication</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Authorisation">#Authorisation</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Cookie">#Cookie</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Session">#Session</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Token">#Token</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#JWT">#JWT</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#OAuth">#OAuth</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/beb/2022/02/21/eighth-bootcamp-retrospective.html">
+          코드스테이츠 블록체인 엔지니어링 부트캠프 8주차 회고
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Feb 21, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/beb/2022/02/21/eighth-bootcamp-retrospective.html">
+        <p>
+        몸관리가 절실한 8주차…
+
+원래 어제 블로깅을 다 했어야됐는데 저번주에 볼일도 많았고 볼일을 보면서 부트캠프를 진행했더니
+
+몸을 제대로 관리하지 못하면서 피로가 많이 쌓였다. 사실 부트캠프 시작하고 한달정도 지나니
+
+익숙해져서 그런지 몸 상태가 굉장히 좋았는데 이번에는 무리를 좀 했나보다… 다행인것은 이번주는
+
+페어프로그래밍이 없고 HA 전까지 계속해서 혼자 공부하는 시간을 가지기 때문에 미리 읽어야할 챕터를 읽어놓고
+
+Catch-up을 한 다음에 HA 준비를 위해 복습도 계속 해볼 생각이다. 정말 운이 좋았다라는 생각밖에 들지않는다. ㅋㅋㅋ
+
+일단 8주차에서는 전 주에 이어 SQL을 배웠고 그 이후로 No SQL... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#BEB">#BEB</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Bootcamp">#Bootcamp</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/react/2022/02/13/redux-middleware.html">
+          Redux Middleware
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Feb 13, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/react/2022/02/13/redux-middleware.html">
+        <p>
+        Redux!!!
+
+드디어 React의 상태관리 패키지 중 하나인 Redux를 배웠다. 예전에 포트폴리오를 만들면서 접해봤을때 정말 직관적이지가 않아서
+
+이해하는데 굉장히 힘이 들었던 기억이 있다. 하지만 계속해서 사용해보니 Flux 패턴도 이해하고 하니 정확한 동작방식을 이해 할 수가 있었다.
+
+그래서 사실 Redux에 관련된 포스팅을 하지 않으려고 했으나 redux-thunk 라는 리덕스의 미들웨어를 사용해봄으로서 리덕스의 미들웨어에 대해서 포스티을 하면 좋겠다는 생각이 들었다.
+
+그래서 이렇게 한번 리덕스 미들웨어에 대해 얘기 해보려고한다.
+
+(Redux라는 이름 때문에 React에서만 사용가능한가 라고 생각할... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#React">#React</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Redux">#Redux</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#middleware">#middleware</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#redux-thunk">#redux-thunk</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/pattern/2022/02/13/MVC-and-flux-pattern.html">
+          MVC 패턴과 Flux 패턴
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Feb 13, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 3 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/pattern/2022/02/13/MVC-and-flux-pattern.html">
+        <p>
+        패턴에 대하여
+
+이번 포스트에서는 패턴에 대해서 얘기해보려고 한다. 사실 이번주에 Redux를 학습하였기 때문에 관련이있지만 패턴이라는 것에 대해서
+
+학습을 진행한것은 아니여서 관련된 내용을 포스팅 해볼까 말까 고민했지만 관련 내용을 검색해보니 웹 개발을 한다면 꼭 알아야하는
+
+내용이라고 판단이되어 이렇게 정리를 해본다.
+
+그리고 패턴이라는 내용에 대해 React 카테고리에 넣을까 고민 했지만 사실 프로그래밍이 있어 여기서 언급할 패턴 말고도 다양한 패턴이 있다는 것을 알고 있기에
+
+카테고리를 따로 만들어보았다.
+
+그러면 밑에서 MVC와 Flux에 대해서 알아보겠다.
+
+MVC
+
+먼저 MVC 패턴에 대해서 얘기 해보... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Pattern">#Pattern</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#MVC">#MVC</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Flux">#Flux</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/beb/2022/02/13/seventh-bootcamp-retrospective.html">
+          코드스테이츠 블록체인 엔지니어링 부트캠프 7주차 회고
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Feb 13, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/beb/2022/02/13/seventh-bootcamp-retrospective.html">
+        <p>
+        다시 시작!!!
+
+저번주에 설 연휴가 껴있었기 때문에 6주차에서 진행한 정규 학습은 이틀 밖에 되지않았다.
+
+그 연휴가 끝나고 7주차에 들어가면서 다시 5일간의 정규 학습이 다시 진행되었다.
+
+저번 회고록에서 언급한대로 연휴동안 개인 포트폴리오도 완성 할 수 있었고 스터디원들과 함께 풀스택 웹어플리케이션 프로젝트를 진행하기위해 백엔드 쪽을 구현해놨다.
+
+이렇게 개인적으로 코딩해본것이 충분히 도움 되었고 이번 7주차를 진행하는데에 있어서도 전혀 무리가 없었다.
+
+특히 이번주에 React의 상태관리를 도와주는 패키지인 Redux에 대해서 배웠는데 연휴동안의 코딩으로 인해 더 기초를 쌓을 수 있는 기회가 되었다.
+
+아래... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#BEB">#BEB</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Bootcamp">#Bootcamp</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/server/2022/02/07/web-server-and-WAS.html">
+          Web Server와 Web Application Server
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Feb 07, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 3 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/server/2022/02/07/web-server-and-WAS.html">
+        <p>
+        WAS가 뭐야?!
+
+이번 주 차에 Node.js를 배우면서 당연하게 웹 서버에 대한 개념도 요구 되었다.
+
+문제는 웹 서버는 무엇인지 알겠는데 관련된 자료를 찾다보니 웹 어플리케이션 서버 (이하 WAS)라는 개념이 튀어나왔다.
+
+이번 포스트는 웹 서버와 WAS가 무엇을 하는지 그리고 어떤 차이가 있는지에 대해서 적어보려 한다.
+
+Static Pages와 Dynamic Pages
+
+웹 서버와 WAS가 무엇인지 알아보기 전에 먼저 알아야하는 개념이 있다.
+
+그것은 바로 Static Pages와 Dynamic Pages이다.
+
+아래에서 두가지의 개념에 대해 알아보자!
+
+Static Pages (정적 페이지)
+
+Stati... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#WebServer">#WebServer</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#WAS">#WAS</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/beb/2022/02/07/sixth-bootcamp-retrospective.html">
+          코드스테이츠 블록체인 엔지니어링 부트캠프 6주차 회고
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Feb 07, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/beb/2022/02/07/sixth-bootcamp-retrospective.html">
+        <p>
+        설 연휴와 함께한 6주차
+
+제목에 적혀있는대로 이번에 설연휴가 있는 바람에 6주차는 목요일 금요일 이틀만 정규학습을 진행하였다.
+
+5일이라는 긴 연휴를 가지면서 복습을 철저히 해놓고 남는 시간에 블록체인 코어 공부를 잠깐했고 미리 몇몇 알고리즘 문제를 풀어보았다.
+
+그리고 부트캠프 시작하기전에 진행하던 MERN 풀스택 클론코딩 프로젝트를 이번 연휴에 끝낼 수 있게 되었다.
+
+직접 프론트엔드와 백엔드를 구현하고 부트캠프를 진행하면서 쌓아온 기초 지식들이 합쳐지면서 웹 어플리케이션이 정확히 어떻게 구성되고
+
+실질적으로 돌아가는지 알게되었다.
+
+이 경험을 바탕으로 스터디원들과 함께 스터디 회고록 사이트를 풀스택으로 구현... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#BEB">#BEB</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Bootcamp">#Bootcamp</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/nodejs/2022/01/30/basic-nodejs-feat-cors.html">
+          Node.js with Express 기초 (feat. CORS)
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 30, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/nodejs/2022/01/30/basic-nodejs-feat-cors.html">
+        <p>
+        Node.js with Express
+
+드디어 Backend를 시작했다! 다행히 Node.js를 이용해 Backend server를 구현하기 때문에 수월하게 진행 할 수 있었다.
+
+이번 학습을 통해 새롭게 알게된 Node.js관련 정보를 지금 포스트에 한번 적어보려고 한다.
+
+참고: Express를 이용해 서버를 구현하기 때문에 정확히 Vanilla Node.js에 관한 내용이 아니라 Express에 관한 내용이 되겠다.
+
+Middleware
+
+알고 있다시피 Vanilla Node.js에서는 미들웨어 추가가 어렵기 때문에 현재 보는 내용은 Express에 관한 내용이다.
+
+Express의 장점이라고 한다면 자체 라... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#NodeJS">#NodeJS</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#CORS">#CORS</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Express">#Express</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/30/fifth-bootcamp-retrospective.html">
+          코드스테이츠 블록체인 엔지니어링 부트캠프 5주차 회고
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 30, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/beb/2022/01/30/fifth-bootcamp-retrospective.html">
+        <p>
+        함께하면 더 즐거운 코딩~
+
+5주차가 시작되면서 Section 2에 돌입했다. Section 2라고 크게 달라진건 없고 그냥 하던대로 계속 학습을 진행하고 있다.
+
+다른점이 한가지 있다면 5주차가 시작되면서 제대로된 스터디를 하기 시작했는데 같이 의견을 나누고 서로에게
+
+알려주고 하니 복습과 예습도 정말 잘되고 다른것 보다 같이 공부 할 사람이 있으니까 공부라는 생각이 안들정도로
+
+너무 너무 재밌었다!!! 이때 까지는 항상 혼자만 공부해오고 혼자 코딩하고 했는데 내 코드를 읽어주는 사람이 생겼고
+
+나도 같은 내용에대해썼지만 스타일이 다른 코드를 읽어보며 서로 피드백을 주고 공부하니 뭘 해도 빨리 느는 느낌이었다.
+... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#BEB">#BEB</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Bootcamp">#Bootcamp</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/23/promise-async-await.html">
+          Javascript의 비동기
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 23, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 8 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/javascript/2022/01/23/promise-async-await.html">
+        <p>
+        비동기
+
+회고 부분에도 언급했지만 이번 4주차에서 배운 이 비동기라는 부분이 개인적으로 한달간 부트캠프를 진행하면서 제일 빡셌던 부분이었던것 같다.
+
+취업 준비를 하면서 React로 포트폴리오를 만들고 했기 때문에 비동기라는 부분에 있어 간략한 개념과 사용적인 부분에 있어서는 이미 숙지가
+
+되어있었다. 하지만 이번 부트캠프에서 정확히 Promise와 Async/Await이 어떻게 동작하는지 세세한 부분과 개념에 대해 학습을 진행하였다.
+
+그렇게 공부를 해보니 나는 이미 다 알고 쓰고 있다고 생각을 했는데 위의 기술들에 대해 1/4도 모르고 그냥 남들이 만들어 놓은 packages를 이용해서
+
+사용만 하고 있었다.
+... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#JavascriptAsync">#JavascriptAsync</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Javascript">#Javascript</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/23/fourth-bootcamp-retrospective.html">
+          코드스테이츠 블록체인 엔지니어링 부트캠프 4주차 회고
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 23, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/beb/2022/01/23/fourth-bootcamp-retrospective.html">
+        <p>
+        느낀점이 많았던 4주차…
+
+제목에 써놓은대로 배운것이 많았던 한 주 였다. 이번주에는 저번주에 이어 재귀, 비동기 그리고 Hiring Asessement (이하 HA)를 진행했다.
+
+재귀 쪽은 코딩 테스트를 준비하며 많이 접해본 개념이라 전혀 무리가 없었는데 비동기가 의외로 복병이었다.
+
+물론 비동기의 개념은 충분히 알고 있었다. 포트폴리오를 React로 만들어보면서 AJAX로 서버에서 데이터를 받아와야할때
+
+비동기적으로 작동을 하기 때문에 Promise나 Async/Await을 사용해봤기 때문에 사용방법 측면에서는 이미 문제가 없었다. 하지만 이번 부트캠프에서
+
+그 Promise나 Async/Await이 정확히 ... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#BEB">#BEB</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Bootcamp">#Bootcamp</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/react/2022/01/22/react-useEffect.html">
+          React useEffect
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 22, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/react/2022/01/22/react-useEffect.html">
+        <p>
+        React useEffect Hook
+
+아직 React useEffect Hook에 대해서는 부트캠프에서 배우지 않았지만 스스로 포트폴리오를 React로 만들고 했을 때
+
+useState와 함께 많이 쓰이는 Hooks 중 하나이고 부트캠프 동기분과 함께 블로깅을 해나가기로 해서 약속 한대로 이렇게 미리
+
+useEffect에 관해 정리를 해보려고 한다.
+
+useEffect란?
+
+useEffect Hook은 컴포넌트가 mount, unmount, 그리고 update 될때 특정 작업을 할 수 있게끔 해주는 Hook이다.
+
+가장 제일 많이 쓰이는 예를 들자면 React로 블로그 웹 어플리케이션을 만들었다고 가정하고 Pos... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#React">#React</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#hooks">#hooks</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#useEffect">#useEffect</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/react/2022/01/16/react-fundamentals.html">
+          React 기초
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 16, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 5 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/react/2022/01/16/react-fundamentals.html">
+        <p>
+        React 기초
+
+3주체 회고에서도 언급했다시피 3주차에는 React와 재귀에 대해서 배웠다.
+
+이번 포스트는 React 기초에 대한 Reference를 작성해보려고 한다.
+
+아직까지 크게 어려운 부분은 없기에 바로 본문에서 정리를 해보겠다.
+
+React의 기본
+
+Single Page Application
+
+여기에서는 React의 기본적인 부분에 대해 정리를 해보겠다.
+
+일단 React로 흔히들 말하는 Single Page Application (이하 SPA)을 만들 수 있다.
+
+SPA는 기존의 HTML을 이용해서 만드는 웹페이지와는 다르게 해당 웹의 필요한 부분만 렌더링을 해주면서 보다 효율적으로 웹페이지를 구성... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#React">#React</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#state">#state</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#hooks">#hooks</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#props">#props</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#useState">#useState</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/react/2022/01/16/react-click-to-edit-ui.html">
+          React Click-to-Edit UI
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 16, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/react/2022/01/16/react-click-to-edit-ui.html">
+        <p>
+        Click-to-Edit UI
+
+Click-to-Edit UI란 해당 페이지에서 수정하고 싶은 컨텐츠를 클릭 혹은 더블클릭을 해서 손쉽게 수정 할 수 있는 User Interface를 말한다.
+
+본론으로 바로 넘어가서 코드를 확인해보자!
+
+React에서 Click-to-Edit UI 구현하기
+
+import React, {useState} from 'react';
+
+const [isEditable, setIsEditable] = useState(false);
+const [content, setContent] = useState('default content');
+
+const Content = () =&gt; {
+  ... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#React">#React</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Click-to-Edit-UI">#Click-to-Edit-UI</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/16/recursion.html">
+          Recursion (재귀)
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 16, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/javascript/2022/01/16/recursion.html">
+        <p>
+        재귀
+
+사실 재귀에 대해서 포스팅을 할까말까 굉장히 고민했다.
+
+왜냐하면 내가 생각하는 재귀는 물론 개념적인 부분을 아는 것도 중요하지만 코드 레벨에서 재귀를 이용하는 것은
+
+그냥 단순히 재귀로 코드를 짜보는 것 만큼 더 빨리 늘수는 없다고 생각했기 때문이다.
+
+그래도 재귀에 대해 Reference 식으로 개념에 대해 포스팅을 해보려고 한다.
+
+Recursion
+
+Recursion, 재귀는 함수 내에서 자기자신을 또 부르는 것을 말한다.
+
+const foo = () =&gt; {
+  foo();
+}
+
+foo();
+
+
+위의 코드의 함수를 재귀 함수라고 부를 수 있다.
+
+하지만 코드를 보면 알다시피 foo라는 함수를 ... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#JavascriptRecursion">#JavascriptRecursion</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Javascript">#Javascript</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/16/third-bootcamp-retrospective.html">
+          코드스테이츠 블록체인 엔지니어링 부트캠프 3주차 회고
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 16, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/beb/2022/01/16/third-bootcamp-retrospective.html">
+        <p>
+        체력관리가 필요하다고 느낀 3주차…
+
+3주차에대한 회고록이다.
+
+헤드라인에도 적었다시피 그 무엇보다 체력관리가 절실하게 필요하다고 느낀 한주였다.
+
+처음에 시작할때만 해도 앉아서 공부만 하는게 뭐가 힘드냐 했는데 나도 모르는 사이 엄청나게 많은 에너지가 빠져나가는것 같다.
+
+3주차에서 배운것은 React 기초, 재귀에 대해서 배웠는데 물론 이미 알고 있는 것들이지만 과제나 페어 프로그래밍이 전 주에 비해 많아져 아무래도 더 많은 에너지가 소비되지 않았나 싶다.
+
+하지만 피곤한 것은 둘째치고 React와 재귀에 대해 더 탄탄하게 기초를 쌓을 수 있는 기회가 되어 그 부분에 있어서는 즐겁고 재밌었다.
+
+물론 페어 프로... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#BEB">#BEB</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Bootcamp">#Bootcamp</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/09/higher-order-function.html">
+          일급객체(First-class citizen)와 고차함수(Higher order function)
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 09, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 8 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/javascript/2022/01/09/higher-order-function.html">
+        <p>
+        JavaScript의 일급객체와 고차함수
+
+2주차 회고에서도 말했다시피 2주차 마지막에 JavaScript의 일급객체와 고차함수라는 것에 대해 배웠다.
+
+본론에 들어가기 앞서 간단히 일급객체와 고차함수에 대해 설명을 하자면
+
+일급객체란 다른 객체들에 일반적으로 적용 가능한 연산을 모두 지원하는 객체를 가르킨다. [위키백과]
+
+고차함수란 함수를 인자로 받거나(Callback function) 함수를 출력으로 반환하는 함수를 가르킨다.
+
+이렇다.
+
+더 자세한 내용은 본문에서 정리 해보겠다.
+
+First-class citizen
+
+First-class citizen 흔히들 일급객체라고 부른다.
+
+위의 서론에 언급한것 처... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#JavaScript">#JavaScript</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#HoF">#HoF</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#First-classCitizen">#First-classCitizen</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#mapReduceModel">#mapReduceModel</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Closure">#Closure</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#CurringFunction">#CurringFunction</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#FunctionComposition">#FunctionComposition</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/09/declarative-and-imperative-programming.html">
+          선언형(Declarative) 프로그래밍과 절차형(Imperative) 프로그래밍
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 09, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/javascript/2022/01/09/declarative-and-imperative-programming.html">
+        <p>
+        JavaScript의 선언형과 절차형 프로그래밍
+
+JavaScript에 선언형과 절차형 프로그래밍이 있다는 것을 알았다.
+
+찾아보니 특별한 것은 아니고 그냥 프로그래밍 기법 중 하나라는 것을 알았다.
+
+자세한 내용을 본문에서 정리해보겠다.
+
+절차형 프로그래밍
+
+서론에서 언급한 것처럼 뭔가 특별한 기술이 아니라 프로그래밍 기법 중 하나이다.
+
+절차형 프로그래밍이란 무엇을 어떻게 할것인가에 대해서 고민하고 코드를 짜는 방식이다.
+
+예를 들어 숫자를 요소로 하는 배열 arr이 있고 arr 요소 하나 하나에 2를 곱해준다고 하면
+
+절차형 프로그래밍은
+
+const arr = [1, 2, 3, 4, 5];
+
+for(let i... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#JavaScript">#JavaScript</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Declarative">#Declarative</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Imperative">#Imperative</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/09/second-bootcamp-retrospective.html">
+          코드스테이츠 블록체인 엔지니어링 부트캠프 2주차 회고
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 09, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 3 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/beb/2022/01/09/second-bootcamp-retrospective.html">
+        <p>
+        드디어 2주차 시작!
+
+헤드라인을 2주차 시작이라고 적어서 지금 시작하는지 착각 할 수 도 있을 것 같은데 이번주가 2주차 였고 지금 적고 있는 것은 2주차에 대한 회고이다.
+
+저번주에 이어 이번주에도 계속 해서 학습의 연속 이었다. 저번주와의 다른점은 확실히 더 빡세졌다는 것이다.
+
+첫주차가 워밍업이었다면 이번주 부터 본격적으로 제대로 된 학습을 시작한다는 느낌이었다.
+
+그래도 다행히 아직까지는 전체적으로 아는 부분이라 기초를 확실히 다진다는 느낌으로 더 자세하게 파고 들며
+
+학습을 진행하였다. (배운 것에 대한 정리는 따로 포스트를 남길것이다.)
+
+그리고 블록체인 부트캠프라 다른 부트캠프에 비해 전공자가 더 많... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#BEB">#BEB</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Bootcamp">#Bootcamp</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/02/first-bootcamp-retrospective.html">
+          코드스테이츠 블록체인 엔지니어링 부트캠프 1주차 회고
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 02, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 3 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/beb/2022/01/02/first-bootcamp-retrospective.html">
+        <p>
+        부트캠프 시작!
+
+작년 12월 초쯤에 우연히 국비지원을 받아 참가 할 수 있는 블록체인 부트캠프를 발견했고
+
+항상 배우고 싶었던 기술이라 취업을 준비하고 있는 지금이 아니면 언제 이렇게 시간내서 공부할 수 있겠나 싶어
+
+바로 지원하게 되었다.
+
+1기와 2기 때와는 다르게 3기에서 생각 보다 높은 경쟁률을 보였고 혹시나 떨어질까봐 조마조마 하고 있던차
+
+부트캠프에 합격했다는 소식을 들을 수 있었다.
+
+막상 붙기는 했지만 매일 9시부터 18시까지 22주동안의 강행군이었기에 걱정도 되었다.
+
+나름 이것저것 준비해가며 시간을 보냈더니 어느새 부트캠프가 시작하는 날이 되었다.
+
+첫 날에는 오리엔테이션이 진행되었고 이튿날부터... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#BEB">#BEB</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Bootcamp">#Bootcamp</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/irl/2021/12/27/first-post.html">
+          첫 포스트
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Dec 27, 2021</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/irl/2021/12/27/first-post.html">
+        <p>
+        깃허브 블로그
+
+이번에 블록체인 부트캠프에 참가하게 되어서 블로그를 만들게 되었다.
+
+한글 테스트도 해볼겸 이렇게 첫 포스트를 써본다.
+
+마크다운을 이용해서 게시글을 쓰는 거라 템플릿같은 것을 미리 만들어두는 것도 좋을 것 같다.
+
+몇 가지 실험을 해보아야 하니까 Code Snippet을 한번 첨부해본다.
+
+Python code snippet
+
+import sys
+input = sys.stdin.readline
+
+def solve():
+	n = int(input().rstrip())
+
+	for i in range(n):
+		print(i)
+
+if __name__ == '__main__':
+	solve()
+
+
+Rep... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags"><a class="post-tag" href="/jekyll-theme-yat/tags.html#IRL">#IRL</a></div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/markdown/2018/12/05/an-exhibit-of-markdown.html">
+          An exhibit of Markdown
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Dec 05, 2018</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/markdown/2018/12/05/an-exhibit-of-markdown.html">
+        <p>
+        This note demonstrates some of what Markdown is capable of doing.
+
+An exhibit of Markdown
+
+Note: Feel free to play with this page. Unlike regular notes, this doesn’t automatically save itself.
+
+Basic formatting
+
+Paragraphs can be written like so. A paragraph is the basic block of Markdown. A paragraph is what text will turn into when there is no... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#example">#example</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#markdown">#markdown</a>
+</div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/markdown/2018/05/26/mathjax-test.html">
+          Mathjax Test
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> May 26, 2018</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/markdown/2018/05/26/mathjax-test.html">
+        <p>
+        
+  A safe integer is an integer that
+    
+      can be exactly represented as an IEEE-754 double precision number, and
+      whose IEEE-75 representation cannot be the result of rounding any other integer to fit the IEEE-754 representation
+    
+  
+  For example, $ 2 ^ {53} - 1 $ is a safe integer,
+    
+      it can be exactly represented
+    
+  
+
+ <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags"><a class="post-tag" href="/jekyll-theme-yat/tags.html#test">#test</a></div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/example/2017/12/18/video-example.html">
+          Video example
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Dec 18, 2017</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 3 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/example/2017/12/18/video-example.html">
+        <p>
+        Canon in D (Pachelbel’s Canon) - Cello &amp; Piano [BEST WEDDING VERSION]
+Some of you know that we occasionally play for weddings. As you can imagine, we get a LOT of requests for Canon in D, and we discovered that there were no good arrangements available anywhere for piano and cello! Hard to believe given its popularity. So we decided to make ... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags"><a class="post-tag" href="/jekyll-theme-yat/tags.html#video">#video</a></div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/example/2017/12/15/table-example.html">
+          Table example
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Dec 15, 2017</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 4 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/example/2017/12/15/table-example.html">
+        <p>
+        Table example as below
+
+For now, these extended features are provided:
+
+
+  Cells spanning multiple columns
+  Cells spanning multiple rows
+  Cells text align separately
+  Table header not required
+  Grouped table header rows or data rows
+
+
+Rowspan and Colspan
+^^ in a cell indicates it should be merged with the cell above.
+This feature is contribu... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags"><a class="post-tag" href="/jekyll-theme-yat/tags.html#table">#table</a></div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/example/2017/12/08/mermaid-example.html">
+          Mermaid example
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Dec 08, 2017</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/example/2017/12/08/mermaid-example.html">
+        <p>
+        1. Pie chart
+
+
+
+2. sequence diagram
+
+
+
+
+
+3. Class diagram
+
+
+4. State diagram
+
+ <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags"><a class="post-tag" href="/jekyll-theme-yat/tags.html#mermaid">#mermaid</a></div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/example/2017/12/04/plantuml-example.html">
+          Plantuml example
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Dec 04, 2017</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/example/2017/12/04/plantuml-example.html">
+        <p>
+        My First PlantUML
+
+PlantUML Block-1
+
+
+PlantUML Block-2
+
+
+PlantUML Block-3
+
+
+PlantUML Block-4
+
+
+ <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags"><a class="post-tag" href="/jekyll-theme-yat/tags.html#plantuml">#plantuml</a></div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/markdown/2017/06/10/quick-mardown-example.html">
+          Quick markdown example
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jun 10, 2017</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 3 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/markdown/2017/06/10/quick-mardown-example.html">
+        <p>
+        Paragraphs are separated by a blank line.
+
+2nd paragraph. Italic, bold, and monospace. Itemized lists
+look like:
+
+
+  this one
+  that one
+  the other one
+
+
+Note that — not considering the asterisk — the actual text
+content starts at 4-columns in.
+
+
+  Block quotes are
+written like so.
+
+  They can span multiple paragraphs,
+if you like.
+
+
+Use 3 dash... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags"><a class="post-tag" href="/jekyll-theme-yat/tags.html#example">#example</a></div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/markdown/2016/01/01/another-test-markdown.html">
+          Another test markdown
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jan 01, 2016</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 9 mins</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/markdown/2016/01/01/another-test-markdown.html">
+        <p>
+        Put the math expression within $…$:
+
+\(\LaTeX{}\)
+
+$\Pi$
+
+$ a * b = c ^ b $
+
+$ 2^{\frac{n-1}{3}} $
+
+$ \int_a^b f(x)\,dx. $
+
+\( \int_a^b f(x)\,dx. \)
+
+$$
+\begin{cases}
+\text{if true}\ foo 
+\text{if false}\ bar
+\end{cases}
+$$
+
+
+  
+    
+      $ \rho {\rm{FOD}} = \sum\limits{\sigma ,i} {(\delta _1 - \delta _2 n_i^\sigma )
+      \phi _i^\sigma ({\bf{... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags"><a class="post-tag" href="/jekyll-theme-yat/tags.html#test">#test</a></div>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/jekyll-theme-yat/markdown/2015/02/28/test-markdown.html">
+          Test markdown
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Feb 28, 2015</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+      </div>
+      <a class="post-excerpt" href="/jekyll-theme-yat/markdown/2015/02/28/test-markdown.html">
+        <p>
+        You can write regular markdown here and Jekyll will automatically convert it to a nice webpage.  I strongly encourage you to take 5 minutes to learn how to write in markdown - it’ll teach you how to transform regular text into bold/italics/headings/tables/etc.
+
+Here is some bold text
+
+Here is a secondary heading
+
+Here’s a useless table:
+
+
+  
+   ... <span class="read_more">Read More</span>
+        </p>
+      </a>
+      <div class="post-tags"><a class="post-tag" href="/jekyll-theme-yat/tags.html#test">#test</a></div>
+    </li>
+</ul>
+
+  <!-- Pagination links -->
+</div>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="common-list">
+  <ul>
+    <li>
+      <a href="/jekyll-theme-yat/index.html">
+        All<span>44</span>
+      </a>
+    </li>
+
+    
+      <li>
+        <a href="/jekyll-theme-yat/categories.html#h-Authentication">
+          Authentication <span>2</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/categories.html#h-BEB">
+          BEB <span>12</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/categories.html#h-Blockchain">
+          Blockchain <span>7</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/categories.html#h-Database">
+          Database <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/categories.html#h-IRL">
+          IRL <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/categories.html#h-JavaScript">
+          JavaScript <span>4</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/categories.html#h-NodeJS">
+          NodeJS <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/categories.html#h-Pattern">
+          Pattern <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/categories.html#h-React">
+          React <span>4</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/categories.html#h-Server">
+          Server <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/categories.html#h-TypeScript">
+          TypeScript <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/categories.html#h-example">
+          example <span>4</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/categories.html#h-markdown">
+          markdown <span>5</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>
+<span class="copyleft">©</span> 2017-2022 Robin H.J. Kwon</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="http://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

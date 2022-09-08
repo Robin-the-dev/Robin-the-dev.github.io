@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>OpenSea Clone coding | Robin’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="OpenSea Clone coding">
+<meta name="author" content="Robin H.J. Kwon">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="First project - OpenSea Clone coding">
+<meta property="og:description" content="First project - OpenSea Clone coding">
+<link rel="canonical" href="/jekyll-theme-yat/blockchain/2022/04/18/Project1.html">
+<meta property="og:url" content="/jekyll-theme-yat/blockchain/2022/04/18/Project1.html">
+<meta property="og:site_name" content="Robin’s Blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-04-18T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="OpenSea Clone coding">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Robin H.J. Kwon"},"dateModified":"2022-04-18T00:00:00+00:00","datePublished":"2022-04-18T00:00:00+00:00","description":"First project - OpenSea Clone coding","headline":"OpenSea Clone coding","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/blockchain/2022/04/18/Project1.html"},"url":"/jekyll-theme-yat/blockchain/2022/04/18/Project1.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="Robin's Blog">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  Robin's Blog
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/archives.html">ARCHIVES</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/">HOME</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">OpenSea Clone coding</h1>
+  <h2 class="post-subtitle">First project</h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2022-04-18T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 18, 2022
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 11 mins</span>
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Project">#Project</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Web3.0">#Web3.0</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="first-project---opensea-clone-coding">First project - OpenSea Clone coding</h2>
+
+<p>드디어 프로젝트가 시작되었다. 각 주차회고를 쓰려고했으나 프로젝트가 시작되면서 프로젝트와 관련된 포스팅을 할 필요가 있어서 굳이 따로 회고 포스팅으로 나누지 않고</p>
+
+<p>느꼈던점을 한번에 프로젝트 포스팅에 적으려고 한다.</p>
+
+<p>일단 간단하게 어떤 프로젝트였는지 얘기를 하면 토픽은 OpenSea 클론 코딩이였다. 프로젝트에 들어가기 앞서서 OpenSea가 어떻게 동작하는지 알기위해 ERC-721이나 KIP-17을 기반으로 한</p>
+
+<p>NFT 스마트 컨트랙트를 배포해가면서 동작방식을 익혔다. 일단 이렇게 확인을 해보면서 OpenSea의 모든 부분을 그대로 따라하기에는 한주짜리 프로젝트에서 구현하는 것은 조금 힘들다고 느꼈다.</p>
+
+<p>어떻게 동작하는지 정확히는 모르겠지만 일단 스마트 컨트랙트로 NFT를 발행해서 OpenSea에 가서 해당 계정으로 로그인을 하면 내가 발행한 NFT를 내 프로필 페이지에서 확인할 수 있었다.</p>
+
+<p>불특정 다수가 많은 스마트 컨트랙트를 배포하고 할텐데 어떻게 OpenSea가 특정 NFT가 특정 계정의 소유이고 그것을 바로 OpenSea내에서 확인할수있는지는 모르겠지만</p>
+
+<p>아마도 OpenSea가 자체적으로 노드를 운영하고 블록체인에 기록된 모든 transactions를 확인하면서 그것이 NFT 스마트 컨트랙트이면 소유주를 확인해서 아마도 OpenSea 자체의 off-chain 서버에 저장해놓는것이 아닐까싶다.</p>
+
+<p>왜냐하면 프로젝트를 설명하면서도 얘기하겠지만 내가 소유하고 있는 NFT를 확인하기 위해서 web3 모듈을 이용해 블록체인과 직접 통신을 하며 확인을 하는 경우</p>
+
+<p>블록체인 특성상 시간이 굉장히 오래걸린다. User Experience 측면에서도 굉장히 좋지 않다고 생각이 든다. 물론 블록체인상의 state variable을 수정하거나 하는 경우가 아니기 때문에 gas는 들지 않더라도 말이다.</p>
+
+<p>아무튼 프로젝트를 시작하기전에 나름대로 OpenSea의 mechanism을 이해하려고 해보았다.</p>
+
+<p>프로젝트 당일이 되어서 알게된것은 OpenSea 클론 코딩이라기 보다는 NFT 마켓플레이스를 흉내내보는정도의 프로젝트였다.</p>
+
+<p>프로젝트 기간이 한주이기도 하고 나 포함 팀원 세명이기에 이때까지 배웠던 기술 스택을 이용해 NFT 민팅 그리고 보유 토큰을 확인하는 기능을 담고 있는 웹사이트를 만들어보기로 했다.</p>
+
+<h3 id="team">Team</h3>
+
+<p>위에서 언급한대로 나 포함 총 세명의 팀원이 한 팀이 되었고 본인이 팀장을 맡으면서 프로젝트 매니징을 하면서 프로젝트를 시작해보기로 했다.</p>
+
+<ul>
+  <li>
+    <p>팀장: 팀장인 나는 프로젝트 매니지먼트를 하면서 프로젝트의 올바른 방향성을 제시하면서 시간내에 프로젝트를 완료할 수 있는것에 목표를 두었다. 그리고 개발적인 부분은 우리 프로젝트의 <code class="language-plaintext highlighter-rouge">Minting Page</code>를 개발하기로 했다.</p>
+  </li>
+  <li>
+    <p>팀원1: 팀원 한 분은 해당 계정이 보유하고 있는 NFT를 보여줄 수 있는 페이지의 개발을 담당하였다.</p>
+  </li>
+  <li>
+    <p>팀원2: 그리고 마지막 팀원 분은 ERC-721 기반 NFT 스마트 컨트랙트 배포를 담당했고 우리 웹페이지의 홈페이지를 담당하였다.</p>
+  </li>
+</ul>
+
+<h3 id="project-management">Project Management</h3>
+
+<p>팀장으로서 Project Management를 담당하였는데 작은 프로젝트라서 사실 크게 신경쓰지 않아도 됐지만 대학교에서 배웠던 Agile Methodology와 SCRUM framework를 사용해서</p>
+
+<p>본격적으로 팀으로서 프로젝트를 진행하는것이라고 마음을 잡고 매니징 해보았다.</p>
+
+<p>결과적으로 말하자면 Project management 뿐만아니라 Time management에도 큰 도움을 받았고 작은 프로젝트라고 무시하면서 대충 하면 안되겠다고 깨달았다.</p>
+
+<p>SCRUM을 이용해서 짧은 시간이지만 Sprint 1, 2 그리고 3으로 나누어서 진행을 해보았는데 첫번째 Sprint에서는 시간을 마지막 두 Sprint 보다 조금 짧게 잡으면서</p>
+
+<p>전체적인 Software Requirement Specifications를 구상하고 그것을 작은 Task 단위로 나누어 서로가 감당할 수 있는 양만큼의 Task를 각각의 Sprint에서 할당했다.</p>
+
+<p>정리를 하자면 Sprint 1에서는 <strong>우리가 어떤 부분의 개발이 필요한지 얘기를 나누고 정해진 Software Requirements를 토대로 Task를 작성하였다.</strong></p>
+
+<p>Sprint 1이 끝나고 Sprint 2에서는 본격적으로 각자에게 할당한 Task들을 해치워나가며 개발을 진행하였다. 다행히 기술적인 부분이 많이 요구되는 프로젝트는 아니였기에</p>
+
+<p>각자 별 무리 없이 진행할 수 있었다.</p>
+
+<p>그리고 마지막으로 Sprint 3에서는 코드 Refactoring과 CSS 부분 그리고 Debugging을 진행하였다. 전체적인 개발은 이미 Sprint 2에서 끝이나서 우리가 원하는 동작들은 이미 다 구현을 했고</p>
+
+<p>Sprint 3에서는 스타일링과 리팩토링에 집중 했다. 위에 디버깅을 했다고 적어놨는데 혹시나 발견하지 못한 예외처리 같은것을 얘기하는 것이고 Sprint 2에서 개발을 하면서</p>
+
+<p>Test Driven Development를 강조하며 개발을 진행하였기 때문에 심각한 버그같은 것들은 애초에 원천 차단하는 느낌으로 진행했다.</p>
+
+<p>물론 스타일링 하는것이 어설프고 계획단계에서 어떤 방식으로 스타일링 할 것인지에 대해서 까지는 얘기를 크게 나누지는 않았기에 통일되지 못한 스타일링이라고 볼 수 있겠지만 그래도 어느정도 완성된 프로덕트와 함께 프로젝트를 완료할 수 있었다는 것이 고무적이었다.</p>
+
+<p>여기서 프로젝트 매니지먼트에 대해 얘기하면서 Sprint에 대해서도 얘기 해봤지만 각 Sprint에서 있었던 자세한 사항은 아래에서 얘기를 해보겠다.</p>
+
+<h3 id="sprint-01">Sprint 01</h3>
+
+<p>말한대로 첫번째 Sprint에서는 전체적인 계획을 잡는 Sprint 였다. 팀원 두분 다 프로젝트 자체가 처음이였고 GitHub에서 제공해주는 협업툴을 사용 또한 처음이였기에</p>
+
+<p>우리팀이 어떤식으로 프로젝트를 진행할지 간략하게 설명해드렸다. 물론이 설명단계에서 Agile Methodology와 SCRUM framework에 대해서도 설명을 해드렸다.</p>
+
+<p>그렇게 두분이 전체적으로 프로젝트 진행방식에 감을 잡았을때 GitHub의 Projects 툴과 Issues 툴을 이용해서 Task들을 만들기 시작했다.</p>
+
+<p>진행한 방식을 확인해보려면 <a href="https://github.com/codestates/beb-03-GroundY">이 링크</a>에 들어가서 Issues 탭과 Projects 탭에 들어가보면 된다.</p>
+
+<p>성공적으로 끝마칠 수 있어서 할 수 있는 이야기이지만 처음에 프로젝트 매니지먼트를 잘해놔서 성공적으로 끝낼 수 있지 않았나 싶다.</p>
+
+<h3 id="sprint-02">Sprint 02</h3>
+
+<p>두번째 Sprint에서는 우리가 짜놓은 Task들을 각자가 맡은 부분에 맞게 할당한 후 본격적인 개발에 들어가게 되었다.</p>
+
+<p>Sprint 1에서 계획을 할 때도 팀원들이랑 같이 고민했던 부분이긴한데 몇몇 개발 프로세스에서 <strong>동기적으로</strong> 개발이 진행되어야 되는 경우가 있었다.</p>
+
+<p>예를 들어 나와 팀원 한분이 배포된 스마트 컨트랙트를 이용해서 민팅하거나 보유 토큰을 확인하는 기능의 개발을 맡았는데 이 개발의 전제 조건은</p>
+
+<p>나머지 팀원 한분이 미리 스마트 컨트랙트를 배포해야지 진행 할 수 있다는 점이였다. 물론 OpenZeppelin을 통한 단순한 NFT 스마트 컨트랙트 배포라서</p>
+
+<p>크게 어려운 부분이 있는것은 아니여서 금방 배포 할 수 있었지만 개발 하는데에 있어 누군가의 work가 다른 누군가의 work에 의존적인 상황은 결코 좋아보이지 않았다.</p>
+
+<p>이것 말고도 우리는 React를 활용한 웹개발을 진행하였기에 누군가 한명이 App.js의 기본적인 부분을 완성해놓아야 민팅페이지나 NFT 확인 페이지의 개발이 원활해지는 점도 있었다.</p>
+
+<p>서로 같이 고민해봤지만 일단 시간을 오래 잡아먹는 일은 아니였기에 나와 팀원 한분이 스마트 컨트랙트 배포와 App.js의 기본적인 부분을 완료하고 개발에 착수하는것으로 얘기가 되었다.</p>
+
+<p>나는 학교에서 몇몇 프로젝트를 해보면서 경험을 해보긴했지만 이런 웹개발 프로젝트는 처음이었기에 위에 언급한 동기적으로 진행되는 개발 부분을 실무에서 어떻게 해결하는지 궁금하게되었다.</p>
+
+<p>아직도 가려운 부분을 시원하게 긁어주는 해결책은 찾지 못했지만 앞으로 남은 프로젝트를 진행하면서 내 나름대로의 답을 찾을수 있지 않을까 싶다.</p>
+
+<p>아래에서는 Sprint 2에서 겪었던 기술적인 문제에 대해서 얘기 해보겠다.</p>
+
+<h4 id="error-01">Error 01</h4>
+
+<p>이번 프로젝트에서 우리가 배포한 스마트 컨트랙트를 활용하기위해 web3.js 모듈을 사용하기로 결정했다.</p>
+
+<p>문제는 create-react-app이 업데이트되면서 몇가지 바뀐 부분 (webpack)이 있어서 web3.js 모듈을 사용하면 에러가 나는 부분이였다.</p>
+
+<p>구글링을 통해 알아보니 꽤 오래전 부터 있었던 이슈인것 같은데 아직 고쳐지지 않은듯 하다.</p>
+
+<p>가장 간단한 해결방법은 <code class="language-plaintext highlighter-rouge">package.json</code>에서 <code class="language-plaintext highlighter-rouge">react-scripts</code> 모듈의 버전을 구버전으로 바꿔주고 다시 인스톨하는 것이다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// package.json</span>
+<span class="dl">"</span><span class="s2">dependencies</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">@testing-library/jest-dom</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^5.16.4</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">@testing-library/react</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^12.1.4</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">@testing-library/user-event</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^13.5.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^18.0.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">react-dom</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^18.0.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">react-router-dom</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^6.3.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">react-scripts</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">4.0.3</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">styled-components</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^5.3.5</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">web-vitals</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^2.1.4</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">web3</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^1.7.3</span><span class="dl">"</span>
+  <span class="p">},</span>
+</code></pre></div></div>
+
+<p>위의 코드와 같이 react-scripts의 버전을 4.0.3으로 바꿔주면 잘 작동한다.</p>
+
+<p>처음에 빠르게 프로젝트를 진행하기 위해 위의 방법을 썼던 것이고 web3.js의 <a href="https://github.com/ChainSafe/web3.js">공식문서</a>를 보면 또 다른 해결방법을 제시한다. (Troubleshooting and known issues 쪽 확인)</p>
+
+<p>아마도 공식문서에서 제공하는 방법이니 링크의 방법이 더 적절해보인다.</p>
+
+<p>간단하게 설명하자면 <code class="language-plaintext highlighter-rouge">react-app-rewired</code>라는 패키지를 인스톨하고 web3.js를 사용할때 발생하는 에러메세지에서 제공하는 missing modules도 인스톨 해주는 방법이다.</p>
+
+<p>그 이후 <code class="language-plaintext highlighter-rouge">config-overrides.js</code>라는 root 디렉토리에 만들어서</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">webpack</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">override</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">fallback</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">resolve</span><span class="p">.</span><span class="nx">fallback</span> <span class="o">||</span> <span class="p">{};</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="nx">fallback</span><span class="p">,</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">crypto</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">crypto-browserify</span><span class="dl">"</span><span class="p">),</span>
+        <span class="dl">"</span><span class="s2">stream</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">stream-browserify</span><span class="dl">"</span><span class="p">),</span>
+        <span class="dl">"</span><span class="s2">assert</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">assert</span><span class="dl">"</span><span class="p">),</span>
+        <span class="dl">"</span><span class="s2">http</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">stream-http</span><span class="dl">"</span><span class="p">),</span>
+        <span class="dl">"</span><span class="s2">https</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">https-browserify</span><span class="dl">"</span><span class="p">),</span>
+        <span class="dl">"</span><span class="s2">os</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">os-browserify</span><span class="dl">"</span><span class="p">),</span>
+        <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">resolve</span><span class="p">.</span><span class="nx">fallback</span> <span class="o">=</span> <span class="nx">fallback</span><span class="p">;</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">plugins</span> <span class="o">=</span> <span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">plugins</span> <span class="o">||</span> <span class="p">[]).</span><span class="nx">concat</span><span class="p">([</span>
+        <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">ProvidePlugin</span><span class="p">({</span>
+            <span class="na">process</span><span class="p">:</span> <span class="dl">'</span><span class="s1">process/browser</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">Buffer</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">buffer</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Buffer</span><span class="dl">'</span><span class="p">]</span>
+        <span class="p">})</span>
+    <span class="p">])</span>
+    <span class="k">return</span> <span class="nx">config</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드부분을 추가해준다.</p>
+
+<p>그리고 마지막으로 <code class="language-plaintext highlighter-rouge">package.json</code>에서 <code class="language-plaintext highlighter-rouge">scripts</code> 부분을 아래와 같이</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">scripts</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">start</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">react-app-rewired start</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">build</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">react-app-rewired build</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">test</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">react-app-rewired test</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">eject</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">react-scripts eject</span><span class="dl">"</span>
+<span class="p">},</span>
+</code></pre></div></div>
+
+<p>바꿔준다.</p>
+
+<h4 id="warning-01">Warning 01</h4>
+
+<p>개발하면서 본 두번째 에러는 정확하게 에러는 아니고 warning이다.</p>
+
+<p>React 18로 업데이트 되면서 발생한 Deprecation warning인데 에러메세지는 다음과 같다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17.</code></p>
+
+<p>쉽게 말해서 <code class="language-plaintext highlighter-rouge">ReactDOM.render</code>가 deprecated 됐다는 내용이다. 친절하게 <code class="language-plaintext highlighter-rouge">createRoot</code>를 사용하라고 하니까 사용해주면 되겠다.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// index.js</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-dom/client</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="dl">"</span><span class="s2">./index.css</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">./App</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BrowserRouter</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-router-dom</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">createRoot</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">root</span><span class="dl">"</span><span class="p">));</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">React</span><span class="p">.</span><span class="nc">StrictMode</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">BrowserRouter</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">App</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">BrowserRouter</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nc">React</span><span class="p">.</span><span class="nc">StrictMode</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>웹개발은 React를 사용하는 나로서 앞으로 <code class="language-plaintext highlighter-rouge">index.js</code>에서 이렇게 createRoot 함수를 사용하는 방법을 익혀놓으면 좋을것 같다.</p>
+
+<h3 id="sprint-03">Sprint 03</h3>
+
+<p>위에서도 언급한대로 세번째 Sprint에서는 Refactoring 및 CSS Styling 그리고 발견하지못한 bug 처리를 진행하였다.</p>
+
+<p>SCRUM framework를 기반으로한 Test Driven Development가 확실히 도움이 되었는지 몇몇 예외처리를 제외하고는 작동을 멈추게하는 심각한 버그는 발생하지 않았다.</p>
+
+<p>Refactoring 부분도 애초에 신경을 쓰면서 하다보니까 그때 그때 적절하게 코드를 깔끔하게 해주었다.</p>
+
+<p>CSS Styling 부분은 앞에서도 언급한것 처럼 스타일링에 대해서까지 의논을 나눌정도로 계획 파트(Sprint 01)에서 여유 있지는 않았기 때문에 우리 세명 모두가</p>
+
+<p>각각 하나의 페이지를 담당했으니 각 페이지가 우리의 포트폴리오인것처럼 생각을 하고 굳이 통일을 하지말고 단순히 CSS를 사용해서 꾸밀 수 있다는것을 보여주기만 하자라고 합의를 했다.</p>
+
+<p>그래서 각 페이지의 CSS가 통일되지 못한 느낌은 있지만 팀원 한 분께서 그래도 백그라운드 이미지와 다른 컴포넌트의 색깔이 어느정도는 통일이 되게 간단하게만 손봐주었다.</p>
+
+<h3 id="느낀점">느낀점</h3>
+
+<p>포스팅을 하면서 그때 그때 느낀점을 적어가며 얘기를 해서 이미 다 언급을 했지만 간단하게 정리를 해보자면</p>
+
+<p>나도 처음 경험해봤던 웹 어플리케이션 프로젝트여서 고민을 해봐야할 부분이 생겼다. (개발 프로세스가 동기적으로 진행되는 부분)</p>
+
+<p>그리고 내가 팀장을 맡아 개발 프로젝트가 처음인 두 팀원분과 함께 프로젝트를 진행하게 되었는데 대학교에서 배웠던 Agile 방법론과 SCRUM framework 덕을 많이 본것 같다.</p>
+
+<p>두 팀원분들도 잘 이해해주시고 해당 방법론에 맞춰 최대한 개발을 진행하려고 해주셔서 그런지 성공적으로 화기애애하게 프로젝트를 끝맞힐수있었다.</p>
+
+<p>첫 프로젝트라서 어려운 프로젝트는 아니였지만 두분께서 잘 따라와주셔서 나도 배운것이 많고 느낀점도 많은 프로젝트였다.</p>
+
+<p>앞으로의 프로젝트도 이번에 했던 그대로의 방법을 살리면서 겪었던 애로사항을 더 잘 다듬어 진행해보도록 해야겠다.</p>
+
+<p>정말 재밌는 프로젝트였다!!!</p>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/blockchain/2022/04/07/KAS.html" title="Klaytn API Service">Klaytn API Service</a><a class="next" href="/jekyll-theme-yat/blockchain/2022/05/02/Project2.html" title="Web 2.0 기반 블록체인 커뮤니티 프로젝트">Web 2.0 기반 블록체인 커뮤니티 프로젝트...</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/09/higher-order-function.html" title="Web 2.0 기반 블록체인 커뮤니티 프로젝트">일급객체(First-class citizen)와 고차함수(Higher order function)</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/markdown/2015/02/28/test-markdown.html" title="Web 2.0 기반 블록체인 커뮤니티 프로젝트">Test markdown</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/example/2017/12/08/mermaid-example.html" title="Web 2.0 기반 블록체인 커뮤니티 프로젝트">Mermaid example</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/example/2017/12/18/video-example.html" title="Web 2.0 기반 블록체인 커뮤니티 프로젝트">Video example</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>
+<span class="copyleft">©</span> 2017-2022 Robin H.J. Kwon</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="http://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

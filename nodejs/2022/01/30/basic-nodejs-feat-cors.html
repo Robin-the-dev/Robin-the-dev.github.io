@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Node.js with Express 기초 (feat. CORS) | Robin’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Node.js with Express 기초 (feat. CORS)">
+<meta name="author" content="Robin H.J. Kwon">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Node.js with Express">
+<meta property="og:description" content="Node.js with Express">
+<link rel="canonical" href="/jekyll-theme-yat/nodejs/2022/01/30/basic-nodejs-feat-cors.html">
+<meta property="og:url" content="/jekyll-theme-yat/nodejs/2022/01/30/basic-nodejs-feat-cors.html">
+<meta property="og:site_name" content="Robin’s Blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-01-30T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Node.js with Express 기초 (feat. CORS)">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Robin H.J. Kwon"},"dateModified":"2022-01-30T00:00:00+00:00","datePublished":"2022-01-30T00:00:00+00:00","description":"Node.js with Express","headline":"Node.js with Express 기초 (feat. CORS)","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/nodejs/2022/01/30/basic-nodejs-feat-cors.html"},"url":"/jekyll-theme-yat/nodejs/2022/01/30/basic-nodejs-feat-cors.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="Robin's Blog">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  Robin's Blog
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/archives.html">ARCHIVES</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/">HOME</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">Node.js with Express 기초 (feat. CORS)</h1>
+  <h2 class="post-subtitle">Node.js with Express Reference</h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2022-01-30T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jan 30, 2022
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#NodeJS">#NodeJS</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#CORS">#CORS</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Express">#Express</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="nodejs-with-express">Node.js with Express</h2>
+
+<p>드디어 Backend를 시작했다! 다행히 Node.js를 이용해 Backend server를 구현하기 때문에 수월하게 진행 할 수 있었다.</p>
+
+<p>이번 학습을 통해 새롭게 알게된 Node.js관련 정보를 지금 포스트에 한번 적어보려고 한다.</p>
+
+<p>참고: Express를 이용해 서버를 구현하기 때문에 정확히 Vanilla Node.js에 관한 내용이 아니라 Express에 관한 내용이 되겠다.</p>
+
+<h3 id="middleware">Middleware</h3>
+
+<p>알고 있다시피 Vanilla Node.js에서는 미들웨어 추가가 어렵기 때문에 현재 보는 내용은 Express에 관한 내용이다.</p>
+
+<p>Express의 장점이라고 한다면 <strong>자체 라우터를 지원</strong>하고 <strong>미들웨어 추가</strong>가 편리하다.</p>
+
+<p>그리고 일반적으로 Node.js의 http모듈을 이용해 서버를 구현하는 것보다 훨씬 간결하고 편하게 쓸 수 있다!</p>
+
+<p>다시 현재 챕터에서 얘기해보려는 Middleware로 돌아와서 Express에서 Middleware는 받은 요청에 대해서</p>
+
+<p>본인이 적용해놓은 Middleware를 차례대로 적용시켜 필요한 기능을 더하거나 요청이 온전치않을때 빼거나 하는 기능을</p>
+
+<p>중간에서 처리하는 것이다.</p>
+
+<p>중요한것은 차례대로 적용을 시킨다는 것이 중요한 포인트이다.</p>
+
+<p>일반적으로 모든 요청에 대해 Middleware를 적용시킬때 <code class="language-plaintext highlighter-rouge">app.use();</code>를 사용할 수 있는데 use함수의 인자로</p>
+
+<p>Middleware를 주면된다.</p>
+
+<pre><code class="language-nodejs">app.use((req, res, next) =&gt; {
+  console.log(`HTTP: url -&gt; ${req.url}, method -&gt; ${req.method}`);
+  next();
+});
+</code></pre>
+
+<p>위의 코드는 모든 요청에 대해 로그를 남겨주는 Middleware를 직접 만들어서 app.use()를 이용해서 적용해주었다.</p>
+
+<p>꼭 익명함수로 해줄 필요는 당연히 없다.</p>
+
+<pre><code class="language-nodejs">const logger = (req, res, next) =&gt; {
+  console.log(`HTTP: url -&gt; ${req.url}, method -&gt; ${req.method}`);
+  next();
+}
+
+app.use(logger);
+</code></pre>
+
+<p>이런식으로 해주어도 결과는 동일하다.</p>
+
+<p>app.use()를 이용하여 전체 요청에 대해 적용하는 방법 말고 각 요청에 대해 특정 Middleware를 적용 시키는 방법도 있다.</p>
+
+<pre><code class="language-nodejs">const logger = (req, res, next) =&gt; {
+  console.log(`HTTP: url -&gt; ${req.url}, method -&gt; ${req.method}`);
+  next();
+}
+
+app.get('/', logger, (req, res) =&gt; {
+  res.send('Hello World!');
+});
+</code></pre>
+
+<p>이런식으로 endpoint가 ‘/’일때 app.get()요청을 받는 경우에만 logger Middleware를 적용 해주었다.</p>
+
+<p>코드에서 보이는 것처럼 실직적으로 get요청을 처리해주는 Callback Function 앞에다가 추가해줄 Middleware를</p>
+
+<p>추가해주면 된다.  그러면 logger 함수안에 보이는 next()부분에 의해서 logger가 적용 된 후에 다음 Middleware를 불러주는데</p>
+
+<p>위의 코드에서 다음 Middleware는 실질적으로 get요청을 처리해주는 Callback Function이기 때문에 바로 콜백 함수가 실행된다.</p>
+
+<p>Middleware는 이런식으로 적용하면 된다.</p>
+
+<p>하지만 가끔씩 Middleware의 순서가 중요할때가 있다. 그 경우에 대해서는 다음 챕터에서 설명해보겠다!</p>
+
+<h3 id="middleware의-순서">Middleware의 순서</h3>
+
+<p>위에서 보았다시피 Middleware는 next라는 인자를 받으며 next라는 인자가 함수로써 Middleware의 안에서 실행이 되면</p>
+
+<p>다음 Middleware를 불러준다.</p>
+
+<p>이러한 특성때문에 Middleware의 적용순서가 중요한 경우가 있다.</p>
+
+<p>코드로 한번 살펴보자!</p>
+
+<pre><code class="language-nodejs">const express = require('express');
+const cors = require('cors');
+
+const app = express();
+
+const PORT = 4999;
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Accept'],
+  maxAge: 10
+}
+
+// express 자체 라우터
+const router = express.Router();
+
+// 미들웨어 순서를 항상 조심하자!!!
+app.use(cors(corsOptions)); // 이 경우에는 CORS 에러 없이 정상 작동됨!
+app.use(express.json({strict: false})); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(router); // express 자체 라우터 적용
+
+router.get('/', (req, res) =&gt; {
+  res.statusCode = 200;
+  res.send('OK');
+});
+
+router.post('/', (req, res) =&gt; {
+  res.statusCode = 201;
+  res.send('Created');
+});
+
+app.listen(PORT, () =&gt; {
+    console.log(`express server listen on ${PORT}`);
+});
+</code></pre>
+
+<p>위와 같이 cors() Middleware를 가장 먼저 적용해주면 CORS 에러 없이 정상 작동된다.</p>
+
+<p>하지만</p>
+
+<pre><code class="language-nodejs">const express = require('express');
+const cors = require('cors');
+
+const app = express();
+
+const PORT = 4999;
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Accept'],
+  maxAge: 10
+}
+
+// express 자체 라우터
+const router = express.Router();
+
+// 미들웨어 순서를 항상 조심하자!!!
+app.use(express.json({strict: false})); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(router); // express 자체 라우터 적용
+app.use(cors(corsOptions)); // express 자체 라우터를 먼저 적용하고 Cors() Middleware를 적용해주면 CORS 에러가 발생한다
+
+router.get('/', (req, res) =&gt; {
+  res.statusCode = 200;
+  res.send('OK');
+});
+
+router.post('/', (req, res) =&gt; {
+  res.statusCode = 201;
+  res.send('Created');
+});
+
+app.listen(PORT, () =&gt; {
+    console.log(`express server listen on ${PORT}`);
+});
+</code></pre>
+
+<p>위의 코드 처럼 express 자체 라우터를 app.use()로 먼저 적용해주고 그 후에 cors() Middleware를 적용해주면</p>
+
+<p>cors() Middleware가 제대로 적용되지 않아 CORS 에러가 발생한다.</p>
+
+<p>위의 코드를 보고 Middleware의 적용 순서가 중요하다고 깨달을 수 있다. router를 Middleware로 적용해주기전에</p>
+
+<p>cors() Middleware를 적용해주어야지 router가 CORS 헤더가 적용되고 제대로 요청과 응답을 보낼 수 있다.</p>
+
+<p>이렇게 Middleware의 적용 순서가 중요하다는 것을 알 수 있다.</p>
+
+<p>P.S: express 자체 router를 사용하지 않고 그냥 app.get()이나 app.post()를 사용하면 router를 애초에 Middleware로서</p>
+
+<p>적용하기 않기때문에 cors() Middleware를 언제 적용하던 상관없다. 하지만 조금만 프로그램이 커지고 받아야할 요청이 많아지면</p>
+
+<p>당연히 endpoint 또한 많아지기 때문에 보통 router를 사용하여 코드를 잘 정리해주는것이 보통이다.</p>
+
+<p>그렇기 때문에 항상 Middleware의 순서에 유의하며 쓸데없이 시간을 날리지 않도록 하자!</p>
+
+<h3 id="cors">CORS</h3>
+
+<p>CORS에 대해서 따로 포스팅을 써볼까 했지만 위에서 CORS Middleware에 대해 예를 들었기 때문에 쓴 김에 이 포스트에서</p>
+
+<p>CORS까지 정리를 해보려고 한다.</p>
+
+<p>CORS는 <code class="language-plaintext highlighter-rouge">Cross Origin Resource Sharing</code>의 준말으로 굳이 해석하면 <strong>다른 오리진에 대한 자원 공유</strong>정도로 말해 볼 수 있겠다.</p>
+
+<p>이런 CORS policy가 생긴 이유를 간략하게 설명해보면 예전에는 데이터를 받는 서버와 클라이언트 사이드의 도메인이 동일하여</p>
+
+<p>데이터에 대한 안정성과 신뢰성이 보장되어있었다. (즉, 같은 오리진에서 데이터를 주고 받는다는 얘기이다.)</p>
+
+<p>하지만 알다시피 현대 사회에서의 웹 어플리케이션은 살짝 복잡해졌다. 무슨말이냐하면은 내가 제공받을 데이터를</p>
+
+<p>나의 서버 뿐만 아니라 다른 서버에서도 받을 수 있다는 얘기이다.</p>
+
+<p>즉, 오리진이 다르다는 얘기가 되겠다.</p>
+
+<p>이때만해도 브라우저는 다른 오리진에 대해서 자원 공유를 금지하였다. 하지만 위의 얘기처럼 많은 웹 어플리케이션이</p>
+
+<p>데이터를 다른 서버에서 들고 오는 경우가 많아졌기에 회사들의 강한 요청으로 인해 브라우저도 CORS에 대해 몇가지 조건만 지키면 허용해주기 시작했다.</p>
+
+<p>그리고 그 조건은 데이터를 요청하는 측의 도메인이 서버의 white list에 등록되어 있냐는 것이다.</p>
+
+<p>CORS 검사는 브라우저단에서 일어나기 때문에 서버는 request가 들어왔을때 Access-Control-Allow-Origin의 값을 response의 헤더에 넣어서</p>
+
+<p>응답을 보내준다. 그러면 브라우저는 response의 헤더를 뜯어보며 Access-Control-Allow-Origin에 요청하는 측의 도메인 서버가 들어있는지를 확인한다.</p>
+
+<p>만약에 들어있으면 성공적으로 응답을 받아들일것이고 만약에 없다면 해당 응답을 버려버리고 CORS 에러를 내뿜는다.</p>
+
+<p>CORS가 동작하는 방법은 크게 세가지가 있다.</p>
+
+<p>Simple request, Preflight request, Credential request 이다.</p>
+
+<p>CORS가 동작하는 대표적인 시나리오는 Preflight request이므로 여기에서는 이것에 대해서만 얘기해보고</p>
+
+<p>나머지 두가지는 좋은 글이 있는 링크를 남겨 대체하겠다.</p>
+
+<h4 id="preflight-request">Preflight request</h4>
+
+<p>Preflight(예비 비행)이라는 말 그대로 본 요청을 서버에 보내기전에 OPTIONS 라는 method를 이용해서 예비 요청을 먼저 보내</p>
+
+<p>CORS 검사를 진행하는 것을 말한다.</p>
+
+<p>개념 자체는 어렵지 않기 때문에 개념적인 부분 보다는 실제 프로젝트에서 이러한 상황을 직면했을때</p>
+
+<p>OPTIONS method도 신경을 꼭 써서 CORS 에러가 발생하지않도록 잘 코드를 써주는 것이 중요하다고 말하고 싶다.</p>
+
+<p>그리고 또 중요한 것은 Access-Control-Allow-Origin 헤더를 OPTIONS method에만 적용해주면 안되고</p>
+
+<p>꼭 본 요청의 method에도 적용을 해주어야지 정상적으로 데이터를 받아볼수있다.</p>
+
+<p><a href="https://evan-moon.github.io/2020/05/21/about-cors/">CORS 잘 정리해놓은 블로그</a></p>
+
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">CORS MDN</a></p>
+
+<h3 id="마치며">마치며</h3>
+
+<p>부트캠프를 진행하면서 이제 백엔드에 접어들었다.</p>
+
+<p>Node.js의 express를 이용할때 Middleware가 어떻게 적용되는지 알수있는 기회를 얻게되어 정말 좋았다.</p>
+
+<p>그외에도 CORS에대해서 더 자세하게 알게되어 정말 웹에 대한 기초를 탄탄히 쌓을수있게되어 정말 즐겁고 재밌었다.</p>
+
+<p>계속 해서 이렇게 블로그를 정리해나가자!</p>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/beb/2022/01/30/fifth-bootcamp-retrospective.html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 5주차 회고">코드스테이츠 블록체인 엔지니어링 부트캠프 5주차 회고...</a><a class="next" href="/jekyll-theme-yat/beb/2022/02/07/sixth-bootcamp-retrospective.html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 6주차 회고">코드스테이츠 블록체인 엔지니어링 부트캠프 6주차 회고...</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/28/fungible-token.html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 6주차 회고">Fungible Token (ERC-20)</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/23/promise-async-await.html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 6주차 회고">Javascript의 비동기</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react/2022/01/16/react-click-to-edit-ui.html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 6주차 회고">React Click-to-Edit UI</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/typescript/2022/09/06/decorator.html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 6주차 회고">Typescript Decorator</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>
+<span class="copyleft">©</span> 2017-2022 Robin H.J. Kwon</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="http://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

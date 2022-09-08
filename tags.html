@@ -1,0 +1,2854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Tags | Robin’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Tags">
+<meta name="author" content="Robin H.J. Kwon">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+<link rel="canonical" href="/jekyll-theme-yat/tags.html">
+<meta property="og:url" content="/jekyll-theme-yat/tags.html">
+<meta property="og:site_name" content="Robin’s Blog">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Tags">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Robin H.J. Kwon"},"description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"Tags","url":"/jekyll-theme-yat/tags.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="Robin's Blog">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  Robin's Blog
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/archives.html">ARCHIVES</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/">HOME</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <div class="page-segments">
+  <ul class="page-segments-list">
+    
+    <h2 id="Authentication" class="segment-name">Authentication</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 24, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/authentication/2022/02/24/oauth.html">
+    OAuth
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Feb 23, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/authentication/2022/02/23/authentication.html">
+    웹 개발에서의 인증
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Authorisation" class="segment-name">Authorisation</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 23, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/authentication/2022/02/23/authentication.html">
+    웹 개발에서의 인증
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="BEB" class="segment-name">BEB</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Apr 04, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/04/04/fifteenth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 15주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Mar 28, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/03/28/fourteenth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 14주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Mar 26, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/03/26/thirteenth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 13주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Mar 02, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/03/02/nineth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 9주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Feb 21, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/02/21/eighth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 8주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Feb 13, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/02/13/seventh-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 7주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Feb 07, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/02/07/sixth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 6주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 30, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/30/fifth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 5주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 23, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/23/fourth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 4주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 16, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/16/third-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 3주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 09, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/09/second-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 2주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 02, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/02/first-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 1주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Blockchain" class="segment-name">Blockchain</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">May 02, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/05/02/Project2.html">
+    Web 2.0 기반 블록체인 커뮤니티 프로젝트
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Apr 18, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/18/Project1.html">
+    OpenSea Clone coding
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Apr 07, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/07/KAS.html">
+    Klaytn API Service
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Apr 06, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html">
+    KIP-7 and KIP-17
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Apr 04, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/04/04/fifteenth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 15주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Mar 28, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/03/28/fourteenth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 14주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Mar 28, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/28/fungible-token.html">
+    Fungible Token (ERC-20)
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Mar 26, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/03/26/thirteenth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 13주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Mar 26, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/26/mnemonic-wallet-development.html">
+    Mnemonic wallet development
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Mar 26, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/26/basic-solidity.html">
+    Solidity fundamentals
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Mar 02, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/03/02/nineth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 9주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Feb 21, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/02/21/eighth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 8주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Feb 13, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/02/13/seventh-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 7주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Feb 07, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/02/07/sixth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 6주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 30, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/30/fifth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 5주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 23, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/23/fourth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 4주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 16, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/16/third-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 3주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 09, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/09/second-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 2주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 02, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/02/first-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 1주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Bootcamp" class="segment-name">Bootcamp</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Apr 04, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/04/04/fifteenth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 15주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Mar 28, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/03/28/fourteenth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 14주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Mar 26, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/03/26/thirteenth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 13주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Mar 02, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/03/02/nineth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 9주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Feb 21, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/02/21/eighth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 8주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Feb 13, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/02/13/seventh-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 7주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Feb 07, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/02/07/sixth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 6주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 30, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/30/fifth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 5주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 23, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/23/fourth-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 4주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 16, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/16/third-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 3주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 09, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/09/second-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 2주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 02, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/beb/2022/01/02/first-bootcamp-retrospective.html">
+    코드스테이츠 블록체인 엔지니어링 부트캠프 1주차 회고
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="CORS" class="segment-name">CORS</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 30, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/nodejs/2022/01/30/basic-nodejs-feat-cors.html">
+    Node.js with Express 기초 (feat. CORS)
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Caver" class="segment-name">Caver</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Apr 07, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/07/KAS.html">
+    Klaytn API Service
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Click-to-Edit-UI" class="segment-name">Click-to-Edit-UI</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 16, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/01/16/react-click-to-edit-ui.html">
+    React Click-to-Edit UI
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Closure" class="segment-name">Closure</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 09, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/09/higher-order-function.html">
+    일급객체(First-class citizen)와 고차함수(Higher order function)
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Cookie" class="segment-name">Cookie</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 23, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/authentication/2022/02/23/authentication.html">
+    웹 개발에서의 인증
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="CurringFunction" class="segment-name">CurringFunction</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 09, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/09/higher-order-function.html">
+    일급객체(First-class citizen)와 고차함수(Higher order function)
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Database" class="segment-name">Database</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 24, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/database/2022/02/24/database.html">
+    Database
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Declarative" class="segment-name">Declarative</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 09, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/09/declarative-and-imperative-programming.html">
+    선언형(Declarative) 프로그래밍과 절차형(Imperative) 프로그래밍
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Decorator" class="segment-name">Decorator</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Sep 06, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/typescript/2022/09/06/decorator.html">
+    Typescript Decorator
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="ERC-20" class="segment-name">ERC-20</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Mar 28, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/28/fungible-token.html">
+    Fungible Token (ERC-20)
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Express" class="segment-name">Express</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 30, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/nodejs/2022/01/30/basic-nodejs-feat-cors.html">
+    Node.js with Express 기초 (feat. CORS)
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="FT" class="segment-name">FT</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Apr 06, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html">
+    KIP-7 and KIP-17
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Mar 28, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/28/fungible-token.html">
+    Fungible Token (ERC-20)
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="First-classCitizen" class="segment-name">First-classCitizen</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 09, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/09/higher-order-function.html">
+    일급객체(First-class citizen)와 고차함수(Higher order function)
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Flux" class="segment-name">Flux</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 13, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/pattern/2022/02/13/MVC-and-flux-pattern.html">
+    MVC 패턴과 Flux 패턴
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="FunctionComposition" class="segment-name">FunctionComposition</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 09, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/09/higher-order-function.html">
+    일급객체(First-class citizen)와 고차함수(Higher order function)
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="HD Wallet" class="segment-name">HD Wallet</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Mar 26, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/26/mnemonic-wallet-development.html">
+    Mnemonic wallet development
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="HoF" class="segment-name">HoF</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 09, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/09/higher-order-function.html">
+    일급객체(First-class citizen)와 고차함수(Higher order function)
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="IRL" class="segment-name">IRL</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Dec 27, 2021</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/irl/2021/12/27/first-post.html">
+    첫 포스트
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Imperative" class="segment-name">Imperative</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 09, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/09/declarative-and-imperative-programming.html">
+    선언형(Declarative) 프로그래밍과 절차형(Imperative) 프로그래밍
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="JWT" class="segment-name">JWT</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 23, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/authentication/2022/02/23/authentication.html">
+    웹 개발에서의 인증
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="JavaScript" class="segment-name">JavaScript</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 09, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/09/higher-order-function.html">
+    일급객체(First-class citizen)와 고차함수(Higher order function)
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 09, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/09/declarative-and-imperative-programming.html">
+    선언형(Declarative) 프로그래밍과 절차형(Imperative) 프로그래밍
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Javascript" class="segment-name">Javascript</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 23, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/23/promise-async-await.html">
+    Javascript의 비동기
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 16, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/16/recursion.html">
+    Recursion (재귀)
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="JavascriptAsync" class="segment-name">JavascriptAsync</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 23, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/23/promise-async-await.html">
+    Javascript의 비동기
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="JavascriptRecursion" class="segment-name">JavascriptRecursion</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 16, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/16/recursion.html">
+    Recursion (재귀)
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="KAS" class="segment-name">KAS</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Apr 07, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/07/KAS.html">
+    Klaytn API Service
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="KIP-17" class="segment-name">KIP-17</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Apr 06, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html">
+    KIP-7 and KIP-17
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="KIP-7" class="segment-name">KIP-7</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Apr 06, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html">
+    KIP-7 and KIP-17
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="MVC" class="segment-name">MVC</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 13, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/pattern/2022/02/13/MVC-and-flux-pattern.html">
+    MVC 패턴과 Flux 패턴
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Mnemonic" class="segment-name">Mnemonic</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Mar 26, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/26/mnemonic-wallet-development.html">
+    Mnemonic wallet development
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="MongoDB" class="segment-name">MongoDB</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 24, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/database/2022/02/24/database.html">
+    Database
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="MySQL" class="segment-name">MySQL</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 24, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/database/2022/02/24/database.html">
+    Database
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="NFT" class="segment-name">NFT</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Apr 06, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html">
+    KIP-7 and KIP-17
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="NoSQL" class="segment-name">NoSQL</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 24, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/database/2022/02/24/database.html">
+    Database
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="NodeJS" class="segment-name">NodeJS</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 30, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/nodejs/2022/01/30/basic-nodejs-feat-cors.html">
+    Node.js with Express 기초 (feat. CORS)
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="OAuth" class="segment-name">OAuth</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 24, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/authentication/2022/02/24/oauth.html">
+    OAuth
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Feb 23, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/authentication/2022/02/23/authentication.html">
+    웹 개발에서의 인증
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Pattern" class="segment-name">Pattern</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 13, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/pattern/2022/02/13/MVC-and-flux-pattern.html">
+    MVC 패턴과 Flux 패턴
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Project" class="segment-name">Project</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">May 02, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/05/02/Project2.html">
+    Web 2.0 기반 블록체인 커뮤니티 프로젝트
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Apr 18, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/18/Project1.html">
+    OpenSea Clone coding
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="React" class="segment-name">React</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 13, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/02/13/redux-middleware.html">
+    Redux Middleware
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 22, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/01/22/react-useEffect.html">
+    React useEffect
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 16, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/01/16/react-fundamentals.html">
+    React 기초
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 16, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/01/16/react-click-to-edit-ui.html">
+    React Click-to-Edit UI
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Redux" class="segment-name">Redux</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 13, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/02/13/redux-middleware.html">
+    Redux Middleware
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="SQL" class="segment-name">SQL</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 24, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/database/2022/02/24/database.html">
+    Database
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Session" class="segment-name">Session</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 23, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/authentication/2022/02/23/authentication.html">
+    웹 개발에서의 인증
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Solidity" class="segment-name">Solidity</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Mar 26, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/26/basic-solidity.html">
+    Solidity fundamentals
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Token" class="segment-name">Token</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 23, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/authentication/2022/02/23/authentication.html">
+    웹 개발에서의 인증
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Typescript" class="segment-name">Typescript</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Sep 06, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/typescript/2022/09/06/decorator.html">
+    Typescript Decorator
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="WAS" class="segment-name">WAS</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 07, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/server/2022/02/07/web-server-and-WAS.html">
+    Web Server와 Web Application Server
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Wallet" class="segment-name">Wallet</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Mar 26, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/26/mnemonic-wallet-development.html">
+    Mnemonic wallet development
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="Web3.0" class="segment-name">Web3.0</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">May 02, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/05/02/Project2.html">
+    Web 2.0 기반 블록체인 커뮤니티 프로젝트
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Apr 18, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/18/Project1.html">
+    OpenSea Clone coding
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="WebServer" class="segment-name">WebServer</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 07, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/server/2022/02/07/web-server-and-WAS.html">
+    Web Server와 Web Application Server
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="example" class="segment-name">example</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Dec 05, 2018</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/markdown/2018/12/05/an-exhibit-of-markdown.html">
+    An exhibit of Markdown
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jun 10, 2017</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/markdown/2017/06/10/quick-mardown-example.html">
+    Quick markdown example
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="hooks" class="segment-name">hooks</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 22, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/01/22/react-useEffect.html">
+    React useEffect
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 16, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/01/16/react-fundamentals.html">
+    React 기초
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="mapReduceModel" class="segment-name">mapReduceModel</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 09, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/09/higher-order-function.html">
+    일급객체(First-class citizen)와 고차함수(Higher order function)
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="markdown" class="segment-name">markdown</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Dec 05, 2018</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/markdown/2018/12/05/an-exhibit-of-markdown.html">
+    An exhibit of Markdown
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="mermaid" class="segment-name">mermaid</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Dec 08, 2017</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/example/2017/12/08/mermaid-example.html">
+    Mermaid example
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="middleware" class="segment-name">middleware</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 13, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/02/13/redux-middleware.html">
+    Redux Middleware
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="plantuml" class="segment-name">plantuml</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Dec 04, 2017</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/example/2017/12/04/plantuml-example.html">
+    Plantuml example
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="props" class="segment-name">props</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 16, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/01/16/react-fundamentals.html">
+    React 기초
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="redux-thunk" class="segment-name">redux-thunk</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Feb 13, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/02/13/redux-middleware.html">
+    Redux Middleware
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="state" class="segment-name">state</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 16, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/01/16/react-fundamentals.html">
+    React 기초
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="table" class="segment-name">table</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Dec 15, 2017</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/example/2017/12/15/table-example.html">
+    Table example
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="test" class="segment-name">test</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">May 26, 2018</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/markdown/2018/05/26/mathjax-test.html">
+    Mathjax Test
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Jan 01, 2016</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/markdown/2016/01/01/another-test-markdown.html">
+    Another test markdown
+  </a>
+</span>
+ </li>
+        
+      
+        
+        <li> 
+<span class="post-meta">Feb 28, 2015</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/markdown/2015/02/28/test-markdown.html">
+    Test markdown
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="useEffect" class="segment-name">useEffect</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 22, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/01/22/react-useEffect.html">
+    React useEffect
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="useState" class="segment-name">useState</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Jan 16, 2022</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/react/2022/01/16/react-fundamentals.html">
+    React 기초
+  </a>
+</span>
+ </li>
+        
+      
+    
+    <h2 id="video" class="segment-name">video</h2>
+      
+      
+        
+        <li> 
+<span class="post-meta">Dec 18, 2017</span>
+<span>
+  <a class="post-link" href="/jekyll-theme-yat/example/2017/12/18/video-example.html">
+    Video example
+  </a>
+</span>
+ </li>
+        
+      
+    
+  </ul>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="common-list">
+  <ul>
+    <li>
+      <a href="/jekyll-theme-yat/index.html">
+        All<span>44</span>
+      </a>
+    </li>
+
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Authentication">
+          Authentication <span>2</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Authorisation">
+          Authorisation <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-BEB">
+          BEB <span>12</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Blockchain">
+          Blockchain <span>19</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Bootcamp">
+          Bootcamp <span>12</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-CORS">
+          CORS <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Caver">
+          Caver <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Click-to-Edit-UI">
+          Click-to-Edit-UI <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Closure">
+          Closure <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Cookie">
+          Cookie <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-CurringFunction">
+          CurringFunction <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Database">
+          Database <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Declarative">
+          Declarative <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Decorator">
+          Decorator <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-ERC-20">
+          ERC-20 <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Express">
+          Express <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-FT">
+          FT <span>2</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-First-classCitizen">
+          First-classCitizen <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Flux">
+          Flux <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-FunctionComposition">
+          FunctionComposition <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-HD%20Wallet">
+          HD Wallet <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-HoF">
+          HoF <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-IRL">
+          IRL <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Imperative">
+          Imperative <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-JWT">
+          JWT <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-JavaScript">
+          JavaScript <span>2</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Javascript">
+          Javascript <span>2</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-JavascriptAsync">
+          JavascriptAsync <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-JavascriptRecursion">
+          JavascriptRecursion <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-KAS">
+          KAS <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-KIP-17">
+          KIP-17 <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-KIP-7">
+          KIP-7 <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-MVC">
+          MVC <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Mnemonic">
+          Mnemonic <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-MongoDB">
+          MongoDB <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-MySQL">
+          MySQL <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-NFT">
+          NFT <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-NoSQL">
+          NoSQL <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-NodeJS">
+          NodeJS <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-OAuth">
+          OAuth <span>2</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Pattern">
+          Pattern <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Project">
+          Project <span>2</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-React">
+          React <span>4</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Redux">
+          Redux <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-SQL">
+          SQL <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Session">
+          Session <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Solidity">
+          Solidity <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Token">
+          Token <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Typescript">
+          Typescript <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-WAS">
+          WAS <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Wallet">
+          Wallet <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-Web3.0">
+          Web3.0 <span>2</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-WebServer">
+          WebServer <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-example">
+          example <span>2</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-hooks">
+          hooks <span>2</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-mapReduceModel">
+          mapReduceModel <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-markdown">
+          markdown <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-mermaid">
+          mermaid <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-middleware">
+          middleware <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-plantuml">
+          plantuml <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-props">
+          props <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-redux-thunk">
+          redux-thunk <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-state">
+          state <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-table">
+          table <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-test">
+          test <span>3</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-useEffect">
+          useEffect <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-useState">
+          useState <span>1</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/jekyll-theme-yat/tags.html#h-video">
+          video <span>1</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>
+<span class="copyleft">©</span> 2017-2022 Robin H.J. Kwon</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="http://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

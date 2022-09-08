@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Redux Middleware | Robin’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Redux Middleware">
+<meta name="author" content="Robin H.J. Kwon">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Redux!!!">
+<meta property="og:description" content="Redux!!!">
+<link rel="canonical" href="/jekyll-theme-yat/react/2022/02/13/redux-middleware.html">
+<meta property="og:url" content="/jekyll-theme-yat/react/2022/02/13/redux-middleware.html">
+<meta property="og:site_name" content="Robin’s Blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-02-13T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Redux Middleware">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Robin H.J. Kwon"},"dateModified":"2022-02-13T00:00:00+00:00","datePublished":"2022-02-13T00:00:00+00:00","description":"Redux!!!","headline":"Redux Middleware","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/react/2022/02/13/redux-middleware.html"},"url":"/jekyll-theme-yat/react/2022/02/13/redux-middleware.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="Robin's Blog">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  Robin's Blog
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/archives.html">ARCHIVES</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/">HOME</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">Redux Middleware</h1>
+  <h2 class="post-subtitle">Redux의 꽃, 미들웨어!</h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2022-02-13T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Feb 13, 2022
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#React">#React</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Redux">#Redux</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#middleware">#middleware</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#redux-thunk">#redux-thunk</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="redux">Redux!!!</h2>
+
+<p>드디어 React의 상태관리 패키지 중 하나인 Redux를 배웠다. 예전에 포트폴리오를 만들면서 접해봤을때 정말 직관적이지가 않아서</p>
+
+<p>이해하는데 굉장히 힘이 들었던 기억이 있다. 하지만 계속해서 사용해보니 Flux 패턴도 이해하고 하니 정확한 동작방식을 이해 할 수가 있었다.</p>
+
+<p>그래서 사실 Redux에 관련된 포스팅을 하지 않으려고 했으나 redux-thunk 라는 리덕스의 미들웨어를 사용해봄으로서 리덕스의 미들웨어에 대해서 포스티을 하면 좋겠다는 생각이 들었다.</p>
+
+<p>그래서 이렇게 한번 리덕스 미들웨어에 대해 얘기 해보려고한다.</p>
+
+<p>(Redux라는 이름 때문에 React에서만 사용가능한가 라고 생각할 수 도 있지만 사실 Redux는 다양한 곳에서 사용이 가능하다!)</p>
+
+<h3 id="middleware">Middleware</h3>
+
+<p>사실 리덕스 처럼 전역으로 상태를 관리해주는 패키지는 많이 있지만 리덕스를 사용하는 큰 이유 중 하나는 바로 미들웨어이다.</p>
+
+<p>express를 배울때 미들웨어에 대해 잠깐 배웠는데 그것과 굉장히 비슷하게</p>
+
+<p><code class="language-plaintext highlighter-rouge">액션이 디스패치 된 다음, 리듀서가 해당 액션을 받아 상태를 변경하기 전에 추가적인 작업을 해주는 것</code></p>
+
+<p>이 바로 리덕스의 미들웨어이다.</p>
+
+<p>추가적인 작업은 여러가지가 있는데 다른 <a href="https://react.vlpt.us/redux-middleware/">블로그</a>에서 인용을 해보자면</p>
+
+<ul>
+  <li>특정 조건에 따라 액션이 무시되게 만들 수 있다.</li>
+  <li>액션을 콘솔에 출력하거나, 서버쪽에 로그를 남길 수 있다.</li>
+  <li>액션이 디스패치 됐을 때, 이를 수정해서 리듀서에게 전달될 수 있도록 할 수 있다.</li>
+  <li>특정 액션이 발생했을 때, 이에 기반하여 다른 액션이 발생되도록 할 수 있다.</li>
+  <li>특정 액션이 발생했을 때, 특정 자바스크립트 함수를 실행 시킬 수 있다.</li>
+</ul>
+
+<p>등이 있다.</p>
+
+<h4 id="middleware-만들기">Middleware 만들기</h4>
+
+<p>보통 실무에서 직접 미들웨어를 만들 일은 없다고 한다. 하지만 미들웨어를 어떻게 만드는지 이해하고 나면 리덕스에 대해 더 디테일하게 알게되고</p>
+
+<p>결과 더 효과적으로 사용 할 수 있다고 생각하기에 여기서 어떻게 미들웨어를 만드는지 한번 알아보자!</p>
+
+<p>리덕스 미들웨어를 만들때 보통 사용하는 템플릿이 있는데 다음과 같다.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">middleware</span> <span class="o">=</span> <span class="nx">store</span> <span class="o">=&gt;</span> <span class="nx">next</span> <span class="o">=&gt;</span> <span class="nx">action</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// what to do</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>express의 미들웨어와 미묘하게 닮아 있다는것도 위의 템플릿에서 확인이 가능하다.</p>
+
+<p>템플릿이 굉장히 복잡해보이는데 우리는 javascript의 고차함수와 closure에 대해 배웠기 때문에 위의 템플릿이 의미하는 바가 무엇인지 알 수 있을 것이다.</p>
+
+<p>위의 템플릿을 이해하기 쉽게 다시 적어보자면</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">middleware</span> <span class="o">=</span> <span class="nx">store</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">next</span> <span class="o">=&gt;</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">action</span> <span class="o">=&gt;</span> <span class="p">{</span>
+	  <span class="c1">// what to do</span>
+	<span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>처럼 된다. 즉 <code class="language-plaintext highlighter-rouge">미들웨어는 함수이고 함수를 연달아서 두번 리터하는 함수</code>인 것을 알 수 있다.</p>
+
+<p>이제 각 함수들의 매개변수가 무엇을 의미하는지 한번 알아보자!</p>
+
+<h5 id="store">store</h5>
+
+<p>먼저 store는 리덕스 스토어의 instance 이다. 우리는 스토어 안에 dispatch, getState, subscribe과 같은 내장 함수가 들어있다는 것을 알 수 있다.</p>
+
+<h5 id="next">next</h5>
+
+<p>next는 express의 미들웨어의 next와 비슷하게 액션을 다음 미들웨어 함수에게 전달해주는 함수이다.</p>
+
+<p>그렇기에 <code class="language-plaintext highlighter-rouge">next(action객체)</code>와 같은 형태로 사용하게 된다.</p>
+
+<p>만약 다음 미들웨어가 존재 하지 않는다면 바로 리듀서에게 액션 객체를 전달한다.</p>
+
+<p>(뇌피셜이긴 한데 express의 미들웨어랑 비슷하게 리듀서도 결국 함수이기때문에 리덕스의 마지막 미들웨어로 생각해도 되지않을까 싶다.)</p>
+
+<h5 id="action">action</h5>
+
+<p>action은 문자그대로 액션 객체를 나타내는 것이다. 더 정확하게 말해보자면 현재 처리하고 있는 액션 객체를 뜻한다.</p>
+
+<h4 id="middleware-등록">Middleware 등록</h4>
+
+<p>redux-thunk라는 리덕스 미들웨어를 사용해보았다면 알겠지만 해당 미들웨어를 사용하기 위해서는 어딘가에 등록할 필요가 있다.</p>
+
+<p>등록을 하기위해서는 처음 creatStore 함수를 이용해서 스토어를 만들때 applyMiddleware 함수로 미들웨어를 등록한다.</p>
+
+<p>당연하게 리덕스 스토어는 여러 미들웨어를 등록할 수 있고 위에서 언급한대로 등록한 순서대로 미들웨어 함수가 호출된다.</p>
+
+<p>next를 설명하면서 얘기했지만 <code class="language-plaintext highlighter-rouge">next(action객체)</code>를 호출하여 다음 미들웨어로 액션이 넘어가고 만약에 미들웨어 내에서 다른 액션을</p>
+
+<p>추가적으로 발생시킬 필요가 있다면 <code class="language-plaintext highlighter-rouge">store.dispatch</code>를 이용해서 할 수 있다. (왜냐하면 위에서 말했다시피 미들웨어 함수는 store라는 매개변수가 있기 때문이다.)</p>
+
+<h4 id="middleware-작성">Middleware 작성</h4>
+
+<p>여기서 이제 리덕스 미들웨어를 한번 직접 작성해보겠다.</p>
+
+<p>express의 미들웨어를 공부할 때 만들어보았던 로깅해주는 미들웨어를 만들어 보겠다. (redux-logger라는 좋은 미들웨어가 있으니 실제로 로그를 해주는 미들웨어를 사용할때는 이것을 사용하자!)</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="nx">store</span> <span class="o">=&gt;</span> <span class="nx">next</span> <span class="o">=&gt;</span> <span class="nx">action</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">next</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span> <span class="c1">// 다음 미들웨어나 리듀서에게 액션을 전달하고 반환되는 값을 result 변수에 저장한다.</span>
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span> <span class="c1">// result 변수는 next(action)의 반환값 즉, dispatch(action)의 반환값과 같다. 기본은 undefined이다.</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이런식으로 간단하게 미들웨어를 만들어 볼 수 있고 위에서 언급한대로 applyMiddleware 함수를 이용해서 미들웨어를 스토어에 등록 할 수 있다.</p>
+
+<h3 id="redux-thunk">redux-thunk</h3>
+
+<p>이렇게 까지 리덕스 미들웨어에 대해 정리를 해보니 redux-thunk 미들웨어에 대한 얘기도 하지 않을 수가 없겠다.</p>
+
+<p>redux-thunk를 사용하기 전에 사용법에 대해 검색을 해보았다면 알 수 있는 것이 이 미들웨어는 14줄 밖에 되지않지만</p>
+
+<p>redux의 비동기처리를 해주는 강력한 기능을 가진 미들웨어라는 얘기를 들어보았을 것이다.</p>
+
+<p>이 14줄짜리 코드가 어떻게 비동기 처리를 할 수 있는지 한번 알아보자!!!</p>
+
+<p>일단 redux-thunk를 사용하려면 어떻게 action creator 함수를 작성하는지부터 먼저 보겠다.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">getData</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">async</span> <span class="p">(</span><span class="nx">dispatch</span><span class="p">,</span> <span class="nx">getState</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://some.url.com</span><span class="dl">'</span><span class="p">);</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getState</span><span class="p">());</span>
+
+  <span class="nx">dispatch</span><span class="p">({</span><span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span> <span class="na">payload</span><span class="p">:</span> <span class="nx">data</span><span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">// 파일 어디선가 데이터를 받아야할때</span>
+<span class="nx">dispatch</span><span class="p">(</span><span class="nx">getData</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>redux-thunk를 사용해본적이 있다면 위의 코드와 같이 <code class="language-plaintext highlighter-rouge">함수를 반환</code>하는 action creator 함수를 만들었을 것이다.</p>
+
+<p>그래서 코드의 마지막 줄과 같이 dispatch를 이용해서 action creator 함수를 호출하여 반환되는 값을 인자로 넣어 보내주는데</p>
+
+<p>여기서 중요한 것은 <code class="language-plaintext highlighter-rouge">인자로 보내지는 것이 함수</code>라는 것이다!</p>
+
+<p>이것을 이해하고 다음 redux-thunk의 코드를 보자!</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">thunk</span> <span class="o">=</span> <span class="nx">store</span> <span class="o">=&gt;</span> <span class="nx">next</span> <span class="o">=&gt;</span> <span class="nx">action</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">typeof</span> <span class="nx">action</span> <span class="o">===</span> <span class="s2">`function`</span>
+	<span class="p">?</span> <span class="nx">action</span><span class="p">(</span><span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">,</span> <span class="nx">store</span><span class="p">.</span><span class="nx">getState</span><span class="p">)</span>
+	<span class="p">:</span> <span class="nx">next</span><span class="p">(</span><span class="nx">action</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>redux-thunk의 코드가 위의 코드와 동일하다는 것이 아니라는 것을 말해주고 싶고</p>
+
+<p>위의 action creator 함수가 반환한 것이 함수이기 때문에 redux-thunk 라는 미들웨어가 저런식으로 동작하는지 알 수 있다.</p>
+
+<h3 id="마치며">마치며</h3>
+
+<p>리덕스 미들웨어에 대해 이렇게 정리를 해보았다.</p>
+
+<p>이때까지는 그냥 이렇게 쓰는거니까 하면서 사용을 했었는데 이렇게 정리를 해보니 리덕스의 핵심기능 중 하나가 미들웨어인것을 알 수 있게 되었다.</p>
+
+<p>미들웨어를 직접 만들어서 사용해볼일은 위에서 말한대로 없을것 같긴하지만 동작 방식을 알게되니</p>
+
+<p>redux-thunk도 어떻게 동작하는지 알게되어 더 효율적으로 사용할 수 있을 것 같다.</p>
+
+<p><a href="https://react.vlpt.us/redux-middleware/">reference</a></p>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/pattern/2022/02/13/MVC-and-flux-pattern.html" title="MVC 패턴과 Flux 패턴">MVC 패턴과 Flux 패턴</a><a class="next" href="/jekyll-theme-yat/beb/2022/02/21/eighth-bootcamp-retrospective.html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 8주차 회고">코드스테이츠 블록체인 엔지니어링 부트캠프 8주차 회고...</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/23/promise-async-await.html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 8주차 회고">Javascript의 비동기</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/beb/2022/02/07/sixth-bootcamp-retrospective.html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 8주차 회고">코드스테이츠 블록체인 엔지니어링 부트캠프 6주차 회고</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react/2022/02/13/redux-middleware.html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 8주차 회고">Redux Middleware</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/example/2017/12/04/plantuml-example.html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 8주차 회고">Plantuml example</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>
+<span class="copyleft">©</span> 2017-2022 Robin H.J. Kwon</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="http://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,2239 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/jekyll-theme-yat/feed.xml" rel="self" type="application/atom+xml" /><link href="/jekyll-theme-yat/" rel="alternate" type="text/html" /><updated>2022-09-08T00:29:58+00:00</updated><id>/jekyll-theme-yat/feed.xml</id><title type="html">Robin’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>Robin H.J. Kwon</name></author><entry><title type="html">Typescript Decorator</title><link href="/jekyll-theme-yat/typescript/2022/09/06/decorator.html" rel="alternate" type="text/html" title="Typescript Decorator" /><published>2022-09-06T00:00:00+00:00</published><updated>2022-09-06T00:00:00+00:00</updated><id>/jekyll-theme-yat/typescript/2022/09/06/decorator</id><content type="html" xml:base="/jekyll-theme-yat/typescript/2022/09/06/decorator.html"><![CDATA[<h2 id="typescript-decorator-정리">Typescript Decorator 정리</h2>
+
+<p>Nest.js를 사용하면서 Decorator를 정리할 필요가 있어 정리해본다.</p>
+
+<h3 id="class-decorator">Class Decorator</h3>
+
+<p>Class decorator applies to class constructor to read or modify class definition.</p>
+
+<p>Below example is to show adding new property to class.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">reportableClassDecorator</span><span class="o">&lt;</span><span class="nx">T</span> <span class="kd">extends</span> <span class="p">{</span> <span class="k">new</span> <span class="p">(...</span><span class="na">args</span><span class="p">:</span> <span class="kr">any</span><span class="p">[]):</span> <span class="p">{}</span> <span class="p">}</span><span class="o">&gt;</span><span class="p">(</span><span class="kd">constructor</span><span class="p">:</span> <span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">class</span> <span class="kd">extends</span> <span class="kd">constructor</span> <span class="p">{</span>
+    <span class="nx">reportingURL</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">http://www.example.com</span><span class="dl">"</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="p">@</span><span class="nd">reportableClassDecorator</span>
+<span class="kd">class</span> <span class="nx">BugReport</span> <span class="p">{</span>
+  <span class="kd">type</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">report</span><span class="dl">"</span><span class="p">;</span>
+  <span class="nl">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">t</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">t</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">bug</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BugReport</span><span class="p">(</span><span class="dl">"</span><span class="s2">Needs dark mode</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bug</span><span class="p">);</span>
+
+<span class="c1">// {type: 'report', title: 'Needs dark mode', reportingURL: 'http://www.example.com'}</span>
+</code></pre></div></div>
+
+<h3 id="method-decorator">Method Decorator</h3>
+
+<p>Method decorator applies to method’s property descriptor to read or modify method definition.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">HandleError</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="nx">propertyKey</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">descriptor</span><span class="p">:</span> <span class="nx">PropertyDescriptor</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">propertyKey</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">descriptor</span><span class="p">)</span>
+
+    <span class="kd">const</span> <span class="nx">method</span> <span class="o">=</span> <span class="nx">descriptor</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+
+    <span class="nx">descriptor</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">method</span><span class="p">();</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 에러 핸들링 로직 구현</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">Greeter</span> <span class="p">{</span>
+  <span class="p">@</span><span class="nd">HandleError</span><span class="p">()</span>
+  <span class="nx">hello</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">테스트 에러</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Greeter</span><span class="p">();</span>
+<span class="nx">t</span><span class="p">.</span><span class="nx">hello</span><span class="p">();</span>
+
+<span class="c1">// {constructor: ƒ, greet: ƒ}</span>
+<span class="c1">// hello</span>
+<span class="c1">// {value: ƒ, writable: true, enumerable: false, configurable: true}</span>
+<span class="c1">// Error: 테스트 에러</span>
+</code></pre></div></div>
+
+<h3 id="property-decorator">Property Decorator</h3>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">format</span><span class="p">(</span><span class="nx">formatString</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">target</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="nx">propertyKey</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="kr">any</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">target</span><span class="p">[</span><span class="nx">propertyKey</span><span class="p">];</span>
+
+    <span class="kd">function</span> <span class="nx">getter</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s2">`</span><span class="p">${</span><span class="nx">formatString</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">value</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">setter</span><span class="p">(</span><span class="nx">newVal</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">value</span> <span class="o">=</span> <span class="nx">newVal</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">get</span><span class="p">:</span> <span class="nx">getter</span><span class="p">,</span>
+      <span class="na">set</span><span class="p">:</span> <span class="nx">setter</span><span class="p">,</span>
+      <span class="na">enumerable</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">configurable</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">Greeter</span> <span class="p">{</span>
+  <span class="p">@</span><span class="nd">format</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello</span><span class="dl">'</span><span class="p">)</span>
+  <span class="nx">greeting</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Greeter</span><span class="p">();</span>
+<span class="nx">t</span><span class="p">.</span><span class="nx">greeting</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">World</span><span class="dl">'</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">greeting</span><span class="p">);</span>
+
+<span class="c1">// Hello World</span>
+</code></pre></div></div>
+
+<h3 id="parameter-decorator">Parameter Decorator</h3>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">BadRequestException</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@nestjs/common</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// parameter decorator</span>
+<span class="kd">function</span> <span class="nx">MinLength</span><span class="p">(</span><span class="nx">min</span><span class="p">:</span> <span class="kr">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">target</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="nx">propertyKey</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">parameterIndex</span><span class="p">:</span> <span class="kr">number</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">target</span><span class="p">.</span><span class="nx">validators</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">minLength</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="na">args</span><span class="p">:</span> <span class="kr">string</span><span class="p">[])</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">args</span><span class="p">[</span><span class="nx">parameterIndex</span><span class="p">].</span><span class="nx">length</span> <span class="o">&gt;=</span> <span class="nx">min</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// function decorator</span>
+<span class="kd">function</span> <span class="nx">Validate</span><span class="p">(</span><span class="nx">target</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="nx">propertyKey</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">descriptor</span><span class="p">:</span> <span class="nx">PropertyDescriptor</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">method</span> <span class="o">=</span> <span class="nx">descriptor</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+
+  <span class="nx">descriptor</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">target</span><span class="p">.</span><span class="nx">validators</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">key</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">target</span><span class="p">.</span><span class="nx">validators</span><span class="p">[</span><span class="nx">key</span><span class="p">](</span><span class="nx">args</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">BadRequestException</span><span class="p">();</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="nx">method</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">User</span> <span class="p">{</span>
+  <span class="k">private</span> <span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+
+  <span class="p">@</span><span class="nd">Validate</span>
+  <span class="nx">setName</span><span class="p">(@</span><span class="nd">MinLength</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">();</span>
+<span class="nx">t</span><span class="p">.</span><span class="nx">setName</span><span class="p">(</span><span class="dl">'</span><span class="s1">Dexter</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">----------</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">t</span><span class="p">.</span><span class="nx">setName</span><span class="p">(</span><span class="dl">'</span><span class="s1">De</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// 에러 발생</span>
+</code></pre></div></div>
+
+<h2 id="reference">Reference</h2>
+
+<p><a href="https://wikidocs.net/158481">Blog</a>.</p>
+
+<h2 id="ps">P.S</h2>
+
+<p>There is one more decorator called ‘Accessor Decorator’ and it will be added to this post later.</p>]]></content><author><name>Robin H.J. Kwon</name></author><category term="TypeScript" /><category term="Typescript" /><category term="Decorator" /><summary type="html"><![CDATA[Typescript Decorator 정리]]></summary></entry><entry><title type="html">Web 2.0 기반 블록체인 커뮤니티 프로젝트</title><link href="/jekyll-theme-yat/blockchain/2022/05/02/Project2.html" rel="alternate" type="text/html" title="Web 2.0 기반 블록체인 커뮤니티 프로젝트" /><published>2022-05-02T00:00:00+00:00</published><updated>2022-05-02T00:00:00+00:00</updated><id>/jekyll-theme-yat/blockchain/2022/05/02/Project2</id><content type="html" xml:base="/jekyll-theme-yat/blockchain/2022/05/02/Project2.html"><![CDATA[<h2 id="second-project---web-20-기반-블록체인-인센티브-커뮤니티">Second project - Web 2.0 기반 블록체인 인센티브 커뮤니티</h2>
+
+<p>프로젝트 1이 끝이나고 드디어 두번째 프로젝트가 시작되었다. 기간은 대략 2주정도 주어졌고 나를 포함한 네명의 팀으로 프로젝트를 진행하게 되었다.</p>
+
+<p>프로젝트 1과 다르게 이번에는 백엔드 서버의 개발도 필요하게 되었는데 개발 해야하는것이 하나만 늘어난 것인데 개인적으로 프로젝트의 난이도가 많이 올랐다고 느꼈다.</p>
+
+<p>이번에도 내가 팀장을 맡아 프로젝트를 매니징 하였으며 프로젝트를 시작하면서 역할 분담과 함께 Agile하게 프로젝트를 진행하기 위해</p>
+
+<p>Agile 방법론을 팀원들에게 설명하고 최대한 그에 맞춰서 진행하였다.</p>
+
+<p>이번에는 기간이 늘기는 했지만 그래도 2주라는 기간은 짧았기에 Sprint를 총 세개로 나눠 진행했으면 첫번째 Sprint는 구체적은 우리의 프로덕트 구상과 계획을 하기로 했고</p>
+
+<p>두번째 Sprint는 본견적인 개발단계 그리고 세번째 Sprint에서 리팩토링과 디버깅을 진행하기로 했다.</p>
+
+<p>자세한 이야기는 아래에서 더 세부적으로 진행해보겠다.</p>
+
+<h3 id="team">Team</h3>
+
+<p>위에서 언급한대로 나 포함 총 네명의 팀원이 한 팀이 되었고 본인이 팀장을 맡으면서 프로젝트 매니징을 하면서 프로젝트를 시작해보기로 했다.</p>
+
+<ul>
+  <li>
+    <p>팀장: 팀장인 나는 프로젝트 매니지먼트를 하면서 프로젝트의 올바른 방향성을 제시하면서 시간내에 프로젝트를 완료할 수 있는것에 목표를 두었다. 그리고 개발적인 부분은 우리 프로젝트의 백엔드 서버 및 Daemon의 구현을 맡았다.</p>
+  </li>
+  <li>
+    <p>팀원1: 팀원 한 분은 나와 같이 백엔드 서버를 맡기로 했다. 같이 긴밀하게 소통을 하며 구현해야 기능을 세부적으로 나눠 각자 구현을 하였다.</p>
+  </li>
+  <li>
+    <p>팀원2: 또 다른 팀원 한분은 React를 활용하여 클라이언트 개발을 맡기로 했다. 백엔드 팀에서 제공해주는 API 문서를 토대로 기능을 구현하였고 뿐만아니라 CSS 스타일링까지 진행하였다.</p>
+  </li>
+  <li>
+    <p>팀원3: 마지막 팀원분은 우리의 프로덕트가 사용할 스마트 컨트랙트를 맡아주셨다.</p>
+  </li>
+</ul>
+
+<h3 id="project-management">Project Management</h3>
+
+<p>이번 프로젝트도 위에서 말한대로 내가 팀장을 맡게 되어 프로젝트 매니징을 담당했다. 프로젝트 1과 동일하게 Agile 방법론과 SCRUM 프레임워크를 사용하여 프로젝트를 진행했다.</p>
+
+<p>프로젝트를 대부분 처음 하시는 분들이여서 Agile 방법론과 SCRUM 프레임워크에 대해 간단하게 설명해드렸는데 지금 생각해보면 내 설명이 조금 부족했다는 생각이 들었다.</p>
+
+<p>왜냐하면 Agile 방법론이라는 것은 우선순위가 높은 task를 여러 iterations을 거치면서 지속적으로 테스트를 하면서 진행하는 것인데</p>
+
+<p>나중에 얘기하겠지만 프로젝트 자체는 무난히 완주했지만 그 우선순위 높은 task를 먼저한다는 부분이 잘 지켜지지 않았던것 같았다.</p>
+
+<p>다행히 우리가 목표로 하는 프로덕트를 개발하기는 했지만 이 부분에 있어서는 팀장이였던 나의 역할을 제대로 수행하지 못한것같아</p>
+
+<p>아쉬웠다. 하지만 이렇게 프로젝트를 하면서 아쉬웠던 부분을 회고하며 배워나가는 부분이라고 생각이 들어서 다음에는 좀더 잘 할 수 있다는 생각이든다.</p>
+
+<p>그럼 아래에서 각 Sprint에서 있었던일을 회고하며 기술적으로 이슈가 있었던 부분을 얘기해보겠다.</p>
+
+<h3 id="sprint-01">Sprint 01</h3>
+
+<p>Sprint 01에서는 얘기한대로 각자의 역할분담과 프로젝트 구상 그리고 Software Requirements에 대한 계획을 짰다.</p>
+
+<p>우선순위에 관한 내용이 잘 전해진것 같지 않아서 본격적인 개발에 착수 했을때 우선순위를 생각하지 않고 개발이 진행되었다.</p>
+
+<p>물론 잘 마무리 하기는 했지만 아쉬운 부분이 있었던것은 사실이여서 다음에는 이 부분을 간과하지말고 또 팀장을 맡게 된다면 팀원 분들에게 잘 설명을 할 수 있도록 해야겠다고 느꼈다.</p>
+
+<p>그리고 프로젝트 1에서 느낀 부분이 있어서 역할분담을 하기전에 팀원분들에게 나중에 취업하게 되면 하고 싶은 직무에 관해 물어보고</p>
+
+<p>역할분담을 하였다. 왜냐하면 이 프로젝트는 우리가 프로젝트를 배우기 위한 하나의 스탭으로도 볼 수 있지만 우리가 성공적으로 프로젝트를 완주한다면</p>
+
+<p>이 프로젝트를 포트폴리오로 사용 할 수 있기때문에 역할을 최대한 자신이 원하는 직무와 관련되게 하면 좋겠다고 생각했기 때문이다.</p>
+
+<p>나는 미래에 블록체인을 활용한 풀스택 개발자를 꿈꾸기 때문에 프로젝트 1에서 프론트엔드를 진행하여 이번 프로젝트 2에서는 팀장역할과 백엔드 개발을 맡기로 했다.</p>
+
+<p>나머지 분들도 그에 맞춰 백엔드, 프론트엔드, 스마트 컨트랙트 개발을 맡았다.</p>
+
+<p>밑의 Sprint 02에서 본격적인 개발에 대해서 얘기해보겠다.</p>
+
+<h3 id="sprint-02">Sprint 02</h3>
+
+<p>Sprint 02에서 본격적인 개발 단계가 진행이 되었고 Sprint 01에서 계획해놓은 task들을 가져가면서 각자 개발에 착수 하였다.</p>
+
+<p>프로젝트 1과 다르게 프로젝트 2에서는 백엔드의 개발이 필요하다고 말했었다. 프로젝트 2에서도 프로젝트 1과 같이 <strong>개발이 동기적으로 진행</strong> 되는 문제가 생겼는데</p>
+
+<p>클라이언트에서 백엔드가 개발하는 API를 토대로 기능을 개발하여야하기 때문에 백엔드 팀에서 API 구현을 완료하지 않으면 클라이언트에서의 개발이 쉽지 않은 점이었다.</p>
+
+<p>프로젝트 01 리뷰 세션에서 크루분에게 프로젝트 개발을 비동기적으로 진행하는 방법에 대해 조언을 구하였고 거기서 들은 답변을 토대로</p>
+
+<p>팀원들끼리 잘 이야기를 하며 개발 진행을 어떻게 할건지 정하였다.</p>
+
+<p>일단 클라이언트는 백엔드가 API 개발을 완료하기전에 더미 데이터를 이용해서 마치 API 호출을 하는것처럼 구현을 하여 테스트를 하면서 진행해보기로 했다.</p>
+
+<p>그러면서 API 개발이 완료되면 실제로 API 호출을 진행하며 테스트를 하여 수정해야되는 부분이 있으면 우리 백엔드팀에 알려주기로 했다.</p>
+
+<p>결론 부터 말하자면 다행히 얘기 한대로 잘 진행이 되었다.</p>
+
+<p>이런 문제는 우리 백엔드팀에서도 동일하게 발생했는데 프로젝트 이름과 같이 Web 2.0 기반이지만 블록체인을 활용한 커뮤니티의 개발 이여서</p>
+
+<p>백엔드 서버가 블록체인상의 계정을 하나가지고 있고 그 계정이 모든 Transaction을 관리하여야했다. (이 계정을 이제 서버계정이라고 하겠다.)</p>
+
+<p>서버계정이 트랜잭션을 잘 핸들링하는지 테스트하기 위해서는 스마트 컨트랙트 개발이 완료되고 배포를 해서 확인을 할 수 있었는데 이 부분은</p>
+
+<p>OpenZeppelin으로 가장 기본적인 ERC-20과 ERC-721 스마트 컨트랙트를 만들어 배포한 다음 해당 스마트 컨트랙트를 활용해서 로컬 가나슈 RPC 서버에서 제대로 동작하는지 확인하면서 진행했다.</p>
+
+<p>그래서 팀 전체가 자신이 맡은 부분을 비동기적으로 개발을 진행할수있게 되었다.</p>
+
+<p>이때까지는 프로젝트 그 자체와 관련해서 어떤 이슈가 있었고 어떻게 해결했는지를 얘기해보았고 이제 밑에서는 개발하면서 생긴 기술적인 이슈에 관해서 얘기해보겠다.</p>
+
+<h4 id="error-01">Error 01</h4>
+
+<p>위에서 말한대로 우리의 어플리케이션은 서버 계정이 모든 트랜잭션을 보내면서 유저들의 계정을 대신해서 그들의 자산을 관리한다.</p>
+
+<p>그러니까 프로젝트 1과 같이 유저 계정이 직접 트랜잭션을 보내는게 아니라 서버 계정이 트랜잭션을 대신해서 보내준다는 말이다.</p>
+
+<p>그렇게 하기 위해서는 유저의 계정이 가진 모든 balance를 서버 계정에게 approve 해주는 식으로 하면 된다.</p>
+
+<p>문제는 서버 계정이 여러 트랜잭션을 보낼때 이미 보낸 트랜잭션이 pending에 걸려있고 또 다른 트랜잭션의 요청이 들어왔을때 nonce 값이 동일해지는 문제가 발생하여</p>
+
+<p>트랜잭션 하나가 pending에 걸려있으면 더 이상 트랜잭션이 보내지지 않는 에러가 발생했다.</p>
+
+<p>nonce 값이 같은 트랜잭션을 또 보내는것이 잘못된 것은 아니다. 해당 nonce 값을 가진 transaction을 status가 sucess하기 전에 수정할때는 이렇게 같은 nonce 값을 가진 트랜잭션을 보냄으로서 수정을 하는데</p>
+
+<p>수정하기위해서는 gasPrice가 기존의 gasPrice보다 10%가 높아진 값으로 보내야지 수정이된다.</p>
+
+<p>어쨌든 우리는 수정이 필요한게 아니라 새로운 트랜잭션을 보내려고 하기 때문에 nonce 값을 트랜잭션을 보낼때마다 늘려주면되기 때문에</p>
+
+<p><code class="language-plaintext highlighter-rouge">web3.eth.getTransactionCount(서버 계정 주소)</code> 함수를 사용하여 nonce값을 업데이트 해주는 식으로 하였다.</p>
+
+<p>하지만 이 함수를 사용해도 nonce 값이 같아지는 문제가 발생했고 공식문서를 확인한 결과 getTransactionCount 함수의 두번째 인자로 string을 넣어주면 이 문제를 해결할 수 있다는 것을 확인했다. <a href="https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html#gettransactioncount">공식문서</a>는 여기서 확인하자!</p>
+
+<p>두번째인자의 string은 <code class="language-plaintext highlighter-rouge">"eariliest", "latest", "pending"</code>을 넣을 수 있고 두번째 인자는 optional이기 때문에 넣지않으면 자동으로 <code class="language-plaintext highlighter-rouge">web3.eth.defaultBlock()</code>를 호출해서 두번째 인자로 넣고 함수를 실행한다.</p>
+
+<p>우리가 원하는 것은 pending에 걸려있는 트랜잭션까지 확인해서 nonce 값을 업데이트 하는 것이기 때문에 두번째 인자로 <code class="language-plaintext highlighter-rouge">"pending"</code>을 넣어주면 된다.</p>
+
+<p>이렇게 함수를 사용하니 nonce 값이 pending이 걸려있는 트랜잭션까지 카운팅해서 업데이트 되었다.</p>
+
+<h4 id="error-02">Error 02</h4>
+
+<p>두번째로 발생한 문제는 gasLimit과 관련해서 생긴 문제였다.</p>
+
+<p>트랜잭션을 보낼때 gasLimit을 설정해주어야하는데 보통 사용하고 남은 gas는 다시 돌려주기 때문에 gasLimit을 2000000정도로 설정해서 트랜잭션을 보냈다.</p>
+
+<p>공식문서를 살펴보니 <code class="language-plaintext highlighter-rouge">methods.myMethod().estimateGas()</code>라는 함수가 있었고 이 함수를 이용해서 미리 예상되는 가스 사용량을 계산을 해서 gasLimit을 설정해주기로 했다.</p>
+
+<p>하지만 이 함수를 사용하니까 gasLimit을 하드코딩으로 이백만을 주었을때는 발생하지 않은 <code class="language-plaintext highlighter-rouge">out of gas</code> 에러가 계속 발생했다.</p>
+
+<p>이것도 <a href="https://web3js.readthedocs.io/en/v1.7.3/web3-eth-contract.html?highlight=estimate#methods-mymethod-estimategas">공식문서</a>를 자세히 살펴보고 해결방법을 찾았다.</p>
+
+<pre><code class="language-nodejs">const gasLimit = await web3.eth.estimateGas({
+  data: bytecodeWithEncodedParameters,
+  from: data.address,
+  gasPrice: web3.utils.toHex(gasPrice)
+});
+</code></pre>
+
+<p>위의 코드와 같이 인자를 주어야하는데 객체형태로 <code class="language-plaintext highlighter-rouge">data, from, gasPrice</code>를 넣어줘야 올바른 gas 사용량을 예상해준다.</p>
+
+<p>이렇게 작성하니 <code class="language-plaintext highlighter-rouge">out of gas</code> 에러 없이 정상적으로 잘 작동하였다.</p>
+
+<h4 id="error-03">Error 03</h4>
+
+<p>내가 클라이언트를 담당하지 않았지만 코드 리뷰 미팅할때 리액트에서 Environment Variable을 사용하는 부분에 문제가 발생했다고 클라이언트를 담당한 팀원분이 말씀해주셔서 같이 머리를 맞대고 해결해보았다.</p>
+
+<p>일단 해당 부분을 맡은 팀원분이 환경 변수를 사용하기 위해서 백엔드에서 하듯이 <strong>dotenv</strong> 모듈을 설치해서 사용하려고 했는데 제대로 작동하지 않았다.</p>
+
+<p>같이 검색을 하면서 왜그런지 알아보니 리액트는 기본적으로 create-react-app을 사용해서 리액트 프로젝트를 초기화하면 환경 변수를 사용할 수있도록 모듈이 이미 추가되어있었다.</p>
+
+<p>그래서 추가적인 모듈의 설치를 하지않고 <code class="language-plaintext highlighter-rouge">.env</code> 파일을 생성하고 리액트에서 <code class="language-plaintext highlighter-rouge">process.env</code>를 이용해서 접근을 하면 되었다.</p>
+
+<p>그래도 정상적으로 설정해둔 <code class="language-plaintext highlighter-rouge">.env</code> 파일안의 환경 변수들을 사용할 수 없었는데 리액트에서 환경 변수를 사용하기 위해서는 환경변수의 이름 앞에 prefix로 <code class="language-plaintext highlighter-rouge">REACT_APP_</code>이라고 붙어주어야지 제대로 사용할 수 있었다.</p>
+
+<p>이때까지 개인적으로 포트폴리오를 만들면서 리액트 어플리케이션도 몇개 만들어봤는데 환경 변수를 사용하는 일은 없어서 전혀 몰랐던 사실이었다.</p>
+
+<p>팀원들과 자기가 겪은 이슈를 코드 리뷰 미팅에서 같이 이야기를 나누면서 내가 직접적으로 클라이언트를 개발하지는 않았더라도 여러가지를 배울 수 있었다.</p>
+
+<h4 id="error-04">Error 04</h4>
+
+<p>네번째 에러도 클라이언트 부분에서 발생했던 부분인데 API 요청을 하기 위해서 axios를 사용해서 데이터를 받아보는데 이러한 요청은 사이드 이펙트를 부르기 때문에 <code class="language-plaintext highlighter-rouge">useEffect()</code> 함수를 이용해서 핸들링하여야 한다.</p>
+
+<p>클라이언트를 담당한 팀원분도 <code class="language-plaintext highlighter-rouge">useEffect()</code>를 사용해서 구현하려고 했으나 해당 함수를 사용하면 계속해서 <code class="language-plaintext highlighter-rouge">useEffect()</code>가 실행되는 문제가 발생되었다.</p>
+
+<p>이 부분은 내가 예전에 useEffect함수와 관련해서 블로깅한 부분이 있어서 나의 <a href="https://robin-the-dev.github.io/react/2022/01/22/react-useEffect.html">블로그 포스트</a>를 공유하면서 해결하였다.</p>
+
+<p>아마도 useEffect함수를 사용할때 두번째 인자의 dependency부분을 주지 않아서 계속 re-rendering되면서 문제가 발생한듯 하였다.</p>
+
+<p>클라이언트에서 해당 컴포넌트 페이지는 마운트 될때마다 API 요청을 해서 데이터를 받기만 하면되기 때문에 빈 배열로 두번째 인자를 채워주면서 해결하였다.</p>
+
+<h4 id="error-05">Error 05</h4>
+
+<p>마지막으로 이 에러는 스마트 컨트랙트에서 발생했다.</p>
+
+<p>우리는 두개의 스마트 컨트랙트가 필요했는데 ERC-20과 ERC-721이 그것이다.</p>
+
+<p>유저 계정이 직접 트랜잭션을 보내는 식으로 개발을 하면 그냥 OpenZeppelin을 이용해서 가장 기본적인 ERC-20과 ERC-721을 구현하면 되지만</p>
+
+<p>우리 프로덕트는 서버 계정이 대신해서 트랜잭션을 보내기때문에 각 스마트 컨트랙트에서 서버 계정이 사용할 수 있도록 함수를 추가 해주어야했다.</p>
+
+<p>ERC-20의 스마트 컨트랙트에서는 항상하듯이 mintToken이라는 함수를 만들어 주었는데 기존의 mintToken 함수와 다르게 서버 계정에게 approve해서 서버 계정이 유저들의 토큰을 transfer 할 수 있도록 해주었다.</p>
+
+<p>어려운 부분은 ERC-721의 스마트 컨트랙트였는데 우리가 구현한 ERC-20의 스마트 컨트랙트의 토큰으로 ERC-721의 스마트 컨트랙트의 NFT를 구매할수있게 했어야했다.</p>
+
+<p>그렇게 할 수 있게 하기위해서</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">AbdoNFT</span> <span class="k">is</span> <span class="n">ERC721URIStorage</span><span class="p">,</span> <span class="n">Ownable</span> <span class="p">{</span>
+    <span class="k">using</span> <span class="n">Counters</span> <span class="k">for</span> <span class="n">Counters</span><span class="p">.</span><span class="n">Counter</span><span class="p">;</span>
+    <span class="n">Counters</span><span class="p">.</span><span class="n">Counter</span> <span class="k">private</span> <span class="n">_tokenIds</span><span class="p">;</span>
+    <span class="n">IERC20</span> <span class="n">token</span><span class="p">;</span>
+
+    <span class="k">constructor</span><span class="p">()</span> <span class="n">ERC721</span><span class="p">(</span><span class="s">"AbdoNFT"</span><span class="p">,</span> <span class="s">"PNFT"</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="k">function</span> <span class="n">mintNFT</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">tokenURI</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">nftPrice</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="n">onlyOwner</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">recipient</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">nftPrice</span><span class="p">);</span>
+
+        <span class="n">token</span><span class="p">.</span><span class="n">transferFrom</span><span class="p">(</span><span class="n">recipient</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">nftPrice</span><span class="p">);</span>
+
+        <span class="n">_tokenIds</span><span class="p">.</span><span class="n">increment</span><span class="p">();</span>
+        <span class="kt">uint256</span> <span class="n">newItemId</span> <span class="o">=</span> <span class="n">_tokenIds</span><span class="p">.</span><span class="n">current</span><span class="p">();</span>
+        <span class="n">_mint</span><span class="p">(</span><span class="n">recipient</span><span class="p">,</span> <span class="n">newItemId</span><span class="p">);</span>
+        <span class="n">_setTokenURI</span><span class="p">(</span><span class="n">newItemId</span><span class="p">,</span> <span class="n">tokenURI</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">newItemId</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">setToken</span><span class="p">(</span><span class="kt">address</span> <span class="n">tokenAddress</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyOwner</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">tokenAddress</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mh">0x0</span><span class="p">));</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">tokenAddress</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 코드를 작성했다. 먼저 <code class="language-plaintext highlighter-rouge">setToken()</code> 함수는 우리가 배포한 ERC-20 스마트 컨트랙트의 토큰을 사용할 수 있게끔 OpenZeppelin의 ERC-20 인터페이스를 이용해서 <code class="language-plaintext highlighter-rouge">token = IERC20(tokenAddress);</code> 하여 사용할 토큰을 set 해주었다.</p>
+
+<p>그다음은 <code class="language-plaintext highlighter-rouge">mintNFT()</code> 함수인데 이 부분도 크게 어려운건 없고 기존에 자주 사용하던 mintNFT 함수를 살짝 수정해주었다.</p>
+
+<p>setToken() 함수에서 set 해준 token 변수를 이용해서 충분히 balance가 있는지 확인하고 충분하다면 해당 양만큼 서버계정으로 transferFrom 함수를 이용해서 옮겨준후에 nft를 민팅해주는 식이다.</p>
+
+<p>문제는 잘 작동해야하는 코드가 자꾸 <code class="language-plaintext highlighter-rouge">Insufficient funds</code>라는 메세지를 뿜으면서 ERC-20에서의 transferFrom 함수에서의 require문에서 자꾸 걸려서 트랜잭션이 제대로 성공하지 않았다.</p>
+
+<p>OpenZeppelin이 제공해주는 transferFrom을 살펴보며 무엇이 문제인지 훑어보았고 ERC-721에서 ERC-20의 함수를 호출할때 msg.sender가 ERC-721의 주소로 설정되어 발생되는 문제인것 같아서 transferFrom함수의 두번째 인자인 to를 서버계정의 주소로 바꿔주었는데도 계속해서 같은 메세지를 뿜었다.</p>
+
+<p>분명히 제대로 한것같은데도 작동이 안되어서 또 팀원들과 함께 머리를 맞대며 고민해보았는데 내가 테스트를 해보기 위해서 to 부분을 하드코딩으로 서버 계정의 주소를 집어넣었는데</p>
+
+<p>팀원 한분이 대소문자를 구별해서 생기는 이슈를 겪은적이 있어 대소문자 이슈일수도있으니 하드코딩하지말고 인자로 전해받은 서버 계정 주소를 넣어보자고 했다. (여기서는 to 매개변수가 서버계정의 주소를 받기때문에 to를 넣었다.)</p>
+
+<p>그래서 코드를</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+  <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+  <span class="kt">uint256</span> <span class="n">amount</span>
+<span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">_spendAllowance</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+  <span class="n">_transfer</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 작성하여 override 했더니 그제서야 제대로 트랜잭션이 성공했다… ㅋㅋㅋ</p>
+
+<p>대소문자를 구별하는거는 web3.js 모듈을 이용해서 JavaScript 언어로 사용할때만 생기는 이슈인지 알았는데</p>
+
+<p>solidity도 어이없게도 대소문자를 구별하는것이였다!!!</p>
+
+<p>아무튼 이렇게 transferFrom 함수를 override 하는 식으로 해결하였다.</p>
+
+<h3 id="sprint-03">Sprint 03</h3>
+
+<p>Sprint 03는 디버깅과 리팩토링을 하기로 하였다.</p>
+
+<p>하지만 사실 Sprint 03에서는 예정한대로 원활하게 흘러가지는 않았다.</p>
+
+<p>스마트 컨트랙트를 담당했던 팀원 분께서 조금 느리게 진행이 되어서 해당부분을 같이 미팅때 해결해가면서 일정을 정확하게 맞추지 못하였다.</p>
+
+<p>다행히 Sprint 02에서 시간이 허락할때 리팩토링을 진행하며 했기에 그리고 큰 버그가 발생하지는 않아서 스마트 컨트랙트게 늦게 완료되는대로 바로 기능을 구현해서</p>
+
+<p>프로덕트를 완성하였다.</p>
+
+<p>조금 역량이 부족한 팀원이 있으면 팀장으로서 잘 살펴가며 이끌어갔어야했는데 이 부분에서는 소통이 좀 부족하지 않았나싶다.</p>
+
+<p>조금 더 팀원들을 살피며 프로젝트를 진행해야겠다고 느꼈다.</p>
+
+<h3 id="느낀점">느낀점</h3>
+
+<p>이번 프로젝트는 프로젝트 1과 다르게 다양한 이슈를 겪으며 기술적인 역량도 쌓을 수 있는 기회가 되었다.</p>
+
+<p>위에서 얘기한대로 소통을 중요시하며 다음 프로젝트 3도 잘 진행 해볼 수 있도록 해야겠다.</p>]]></content><author><name>Robin H.J. Kwon</name></author><category term="Blockchain" /><category term="Blockchain" /><category term="Project" /><category term="Web3.0" /><summary type="html"><![CDATA[Second project - Web 2.0 기반 블록체인 인센티브 커뮤니티]]></summary></entry><entry><title type="html">OpenSea Clone coding</title><link href="/jekyll-theme-yat/blockchain/2022/04/18/Project1.html" rel="alternate" type="text/html" title="OpenSea Clone coding" /><published>2022-04-18T00:00:00+00:00</published><updated>2022-04-18T00:00:00+00:00</updated><id>/jekyll-theme-yat/blockchain/2022/04/18/Project1</id><content type="html" xml:base="/jekyll-theme-yat/blockchain/2022/04/18/Project1.html"><![CDATA[<h2 id="first-project---opensea-clone-coding">First project - OpenSea Clone coding</h2>
+
+<p>드디어 프로젝트가 시작되었다. 각 주차회고를 쓰려고했으나 프로젝트가 시작되면서 프로젝트와 관련된 포스팅을 할 필요가 있어서 굳이 따로 회고 포스팅으로 나누지 않고</p>
+
+<p>느꼈던점을 한번에 프로젝트 포스팅에 적으려고 한다.</p>
+
+<p>일단 간단하게 어떤 프로젝트였는지 얘기를 하면 토픽은 OpenSea 클론 코딩이였다. 프로젝트에 들어가기 앞서서 OpenSea가 어떻게 동작하는지 알기위해 ERC-721이나 KIP-17을 기반으로 한</p>
+
+<p>NFT 스마트 컨트랙트를 배포해가면서 동작방식을 익혔다. 일단 이렇게 확인을 해보면서 OpenSea의 모든 부분을 그대로 따라하기에는 한주짜리 프로젝트에서 구현하는 것은 조금 힘들다고 느꼈다.</p>
+
+<p>어떻게 동작하는지 정확히는 모르겠지만 일단 스마트 컨트랙트로 NFT를 발행해서 OpenSea에 가서 해당 계정으로 로그인을 하면 내가 발행한 NFT를 내 프로필 페이지에서 확인할 수 있었다.</p>
+
+<p>불특정 다수가 많은 스마트 컨트랙트를 배포하고 할텐데 어떻게 OpenSea가 특정 NFT가 특정 계정의 소유이고 그것을 바로 OpenSea내에서 확인할수있는지는 모르겠지만</p>
+
+<p>아마도 OpenSea가 자체적으로 노드를 운영하고 블록체인에 기록된 모든 transactions를 확인하면서 그것이 NFT 스마트 컨트랙트이면 소유주를 확인해서 아마도 OpenSea 자체의 off-chain 서버에 저장해놓는것이 아닐까싶다.</p>
+
+<p>왜냐하면 프로젝트를 설명하면서도 얘기하겠지만 내가 소유하고 있는 NFT를 확인하기 위해서 web3 모듈을 이용해 블록체인과 직접 통신을 하며 확인을 하는 경우</p>
+
+<p>블록체인 특성상 시간이 굉장히 오래걸린다. User Experience 측면에서도 굉장히 좋지 않다고 생각이 든다. 물론 블록체인상의 state variable을 수정하거나 하는 경우가 아니기 때문에 gas는 들지 않더라도 말이다.</p>
+
+<p>아무튼 프로젝트를 시작하기전에 나름대로 OpenSea의 mechanism을 이해하려고 해보았다.</p>
+
+<p>프로젝트 당일이 되어서 알게된것은 OpenSea 클론 코딩이라기 보다는 NFT 마켓플레이스를 흉내내보는정도의 프로젝트였다.</p>
+
+<p>프로젝트 기간이 한주이기도 하고 나 포함 팀원 세명이기에 이때까지 배웠던 기술 스택을 이용해 NFT 민팅 그리고 보유 토큰을 확인하는 기능을 담고 있는 웹사이트를 만들어보기로 했다.</p>
+
+<h3 id="team">Team</h3>
+
+<p>위에서 언급한대로 나 포함 총 세명의 팀원이 한 팀이 되었고 본인이 팀장을 맡으면서 프로젝트 매니징을 하면서 프로젝트를 시작해보기로 했다.</p>
+
+<ul>
+  <li>
+    <p>팀장: 팀장인 나는 프로젝트 매니지먼트를 하면서 프로젝트의 올바른 방향성을 제시하면서 시간내에 프로젝트를 완료할 수 있는것에 목표를 두었다. 그리고 개발적인 부분은 우리 프로젝트의 <code class="language-plaintext highlighter-rouge">Minting Page</code>를 개발하기로 했다.</p>
+  </li>
+  <li>
+    <p>팀원1: 팀원 한 분은 해당 계정이 보유하고 있는 NFT를 보여줄 수 있는 페이지의 개발을 담당하였다.</p>
+  </li>
+  <li>
+    <p>팀원2: 그리고 마지막 팀원 분은 ERC-721 기반 NFT 스마트 컨트랙트 배포를 담당했고 우리 웹페이지의 홈페이지를 담당하였다.</p>
+  </li>
+</ul>
+
+<h3 id="project-management">Project Management</h3>
+
+<p>팀장으로서 Project Management를 담당하였는데 작은 프로젝트라서 사실 크게 신경쓰지 않아도 됐지만 대학교에서 배웠던 Agile Methodology와 SCRUM framework를 사용해서</p>
+
+<p>본격적으로 팀으로서 프로젝트를 진행하는것이라고 마음을 잡고 매니징 해보았다.</p>
+
+<p>결과적으로 말하자면 Project management 뿐만아니라 Time management에도 큰 도움을 받았고 작은 프로젝트라고 무시하면서 대충 하면 안되겠다고 깨달았다.</p>
+
+<p>SCRUM을 이용해서 짧은 시간이지만 Sprint 1, 2 그리고 3으로 나누어서 진행을 해보았는데 첫번째 Sprint에서는 시간을 마지막 두 Sprint 보다 조금 짧게 잡으면서</p>
+
+<p>전체적인 Software Requirement Specifications를 구상하고 그것을 작은 Task 단위로 나누어 서로가 감당할 수 있는 양만큼의 Task를 각각의 Sprint에서 할당했다.</p>
+
+<p>정리를 하자면 Sprint 1에서는 <strong>우리가 어떤 부분의 개발이 필요한지 얘기를 나누고 정해진 Software Requirements를 토대로 Task를 작성하였다.</strong></p>
+
+<p>Sprint 1이 끝나고 Sprint 2에서는 본격적으로 각자에게 할당한 Task들을 해치워나가며 개발을 진행하였다. 다행히 기술적인 부분이 많이 요구되는 프로젝트는 아니였기에</p>
+
+<p>각자 별 무리 없이 진행할 수 있었다.</p>
+
+<p>그리고 마지막으로 Sprint 3에서는 코드 Refactoring과 CSS 부분 그리고 Debugging을 진행하였다. 전체적인 개발은 이미 Sprint 2에서 끝이나서 우리가 원하는 동작들은 이미 다 구현을 했고</p>
+
+<p>Sprint 3에서는 스타일링과 리팩토링에 집중 했다. 위에 디버깅을 했다고 적어놨는데 혹시나 발견하지 못한 예외처리 같은것을 얘기하는 것이고 Sprint 2에서 개발을 하면서</p>
+
+<p>Test Driven Development를 강조하며 개발을 진행하였기 때문에 심각한 버그같은 것들은 애초에 원천 차단하는 느낌으로 진행했다.</p>
+
+<p>물론 스타일링 하는것이 어설프고 계획단계에서 어떤 방식으로 스타일링 할 것인지에 대해서 까지는 얘기를 크게 나누지는 않았기에 통일되지 못한 스타일링이라고 볼 수 있겠지만 그래도 어느정도 완성된 프로덕트와 함께 프로젝트를 완료할 수 있었다는 것이 고무적이었다.</p>
+
+<p>여기서 프로젝트 매니지먼트에 대해 얘기하면서 Sprint에 대해서도 얘기 해봤지만 각 Sprint에서 있었던 자세한 사항은 아래에서 얘기를 해보겠다.</p>
+
+<h3 id="sprint-01">Sprint 01</h3>
+
+<p>말한대로 첫번째 Sprint에서는 전체적인 계획을 잡는 Sprint 였다. 팀원 두분 다 프로젝트 자체가 처음이였고 GitHub에서 제공해주는 협업툴을 사용 또한 처음이였기에</p>
+
+<p>우리팀이 어떤식으로 프로젝트를 진행할지 간략하게 설명해드렸다. 물론이 설명단계에서 Agile Methodology와 SCRUM framework에 대해서도 설명을 해드렸다.</p>
+
+<p>그렇게 두분이 전체적으로 프로젝트 진행방식에 감을 잡았을때 GitHub의 Projects 툴과 Issues 툴을 이용해서 Task들을 만들기 시작했다.</p>
+
+<p>진행한 방식을 확인해보려면 <a href="https://github.com/codestates/beb-03-GroundY">이 링크</a>에 들어가서 Issues 탭과 Projects 탭에 들어가보면 된다.</p>
+
+<p>성공적으로 끝마칠 수 있어서 할 수 있는 이야기이지만 처음에 프로젝트 매니지먼트를 잘해놔서 성공적으로 끝낼 수 있지 않았나 싶다.</p>
+
+<h3 id="sprint-02">Sprint 02</h3>
+
+<p>두번째 Sprint에서는 우리가 짜놓은 Task들을 각자가 맡은 부분에 맞게 할당한 후 본격적인 개발에 들어가게 되었다.</p>
+
+<p>Sprint 1에서 계획을 할 때도 팀원들이랑 같이 고민했던 부분이긴한데 몇몇 개발 프로세스에서 <strong>동기적으로</strong> 개발이 진행되어야 되는 경우가 있었다.</p>
+
+<p>예를 들어 나와 팀원 한분이 배포된 스마트 컨트랙트를 이용해서 민팅하거나 보유 토큰을 확인하는 기능의 개발을 맡았는데 이 개발의 전제 조건은</p>
+
+<p>나머지 팀원 한분이 미리 스마트 컨트랙트를 배포해야지 진행 할 수 있다는 점이였다. 물론 OpenZeppelin을 통한 단순한 NFT 스마트 컨트랙트 배포라서</p>
+
+<p>크게 어려운 부분이 있는것은 아니여서 금방 배포 할 수 있었지만 개발 하는데에 있어 누군가의 work가 다른 누군가의 work에 의존적인 상황은 결코 좋아보이지 않았다.</p>
+
+<p>이것 말고도 우리는 React를 활용한 웹개발을 진행하였기에 누군가 한명이 App.js의 기본적인 부분을 완성해놓아야 민팅페이지나 NFT 확인 페이지의 개발이 원활해지는 점도 있었다.</p>
+
+<p>서로 같이 고민해봤지만 일단 시간을 오래 잡아먹는 일은 아니였기에 나와 팀원 한분이 스마트 컨트랙트 배포와 App.js의 기본적인 부분을 완료하고 개발에 착수하는것으로 얘기가 되었다.</p>
+
+<p>나는 학교에서 몇몇 프로젝트를 해보면서 경험을 해보긴했지만 이런 웹개발 프로젝트는 처음이었기에 위에 언급한 동기적으로 진행되는 개발 부분을 실무에서 어떻게 해결하는지 궁금하게되었다.</p>
+
+<p>아직도 가려운 부분을 시원하게 긁어주는 해결책은 찾지 못했지만 앞으로 남은 프로젝트를 진행하면서 내 나름대로의 답을 찾을수 있지 않을까 싶다.</p>
+
+<p>아래에서는 Sprint 2에서 겪었던 기술적인 문제에 대해서 얘기 해보겠다.</p>
+
+<h4 id="error-01">Error 01</h4>
+
+<p>이번 프로젝트에서 우리가 배포한 스마트 컨트랙트를 활용하기위해 web3.js 모듈을 사용하기로 결정했다.</p>
+
+<p>문제는 create-react-app이 업데이트되면서 몇가지 바뀐 부분 (webpack)이 있어서 web3.js 모듈을 사용하면 에러가 나는 부분이였다.</p>
+
+<p>구글링을 통해 알아보니 꽤 오래전 부터 있었던 이슈인것 같은데 아직 고쳐지지 않은듯 하다.</p>
+
+<p>가장 간단한 해결방법은 <code class="language-plaintext highlighter-rouge">package.json</code>에서 <code class="language-plaintext highlighter-rouge">react-scripts</code> 모듈의 버전을 구버전으로 바꿔주고 다시 인스톨하는 것이다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// package.json</span>
+<span class="dl">"</span><span class="s2">dependencies</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">@testing-library/jest-dom</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^5.16.4</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">@testing-library/react</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^12.1.4</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">@testing-library/user-event</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^13.5.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^18.0.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">react-dom</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^18.0.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">react-router-dom</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^6.3.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">react-scripts</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">4.0.3</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">styled-components</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^5.3.5</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">web-vitals</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^2.1.4</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">web3</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^1.7.3</span><span class="dl">"</span>
+  <span class="p">},</span>
+</code></pre></div></div>
+
+<p>위의 코드와 같이 react-scripts의 버전을 4.0.3으로 바꿔주면 잘 작동한다.</p>
+
+<p>처음에 빠르게 프로젝트를 진행하기 위해 위의 방법을 썼던 것이고 web3.js의 <a href="https://github.com/ChainSafe/web3.js">공식문서</a>를 보면 또 다른 해결방법을 제시한다. (Troubleshooting and known issues 쪽 확인)</p>
+
+<p>아마도 공식문서에서 제공하는 방법이니 링크의 방법이 더 적절해보인다.</p>
+
+<p>간단하게 설명하자면 <code class="language-plaintext highlighter-rouge">react-app-rewired</code>라는 패키지를 인스톨하고 web3.js를 사용할때 발생하는 에러메세지에서 제공하는 missing modules도 인스톨 해주는 방법이다.</p>
+
+<p>그 이후 <code class="language-plaintext highlighter-rouge">config-overrides.js</code>라는 root 디렉토리에 만들어서</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">webpack</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">override</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">fallback</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">resolve</span><span class="p">.</span><span class="nx">fallback</span> <span class="o">||</span> <span class="p">{};</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="nx">fallback</span><span class="p">,</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">crypto</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">crypto-browserify</span><span class="dl">"</span><span class="p">),</span>
+        <span class="dl">"</span><span class="s2">stream</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">stream-browserify</span><span class="dl">"</span><span class="p">),</span>
+        <span class="dl">"</span><span class="s2">assert</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">assert</span><span class="dl">"</span><span class="p">),</span>
+        <span class="dl">"</span><span class="s2">http</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">stream-http</span><span class="dl">"</span><span class="p">),</span>
+        <span class="dl">"</span><span class="s2">https</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">https-browserify</span><span class="dl">"</span><span class="p">),</span>
+        <span class="dl">"</span><span class="s2">os</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">os-browserify</span><span class="dl">"</span><span class="p">),</span>
+        <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">resolve</span><span class="p">.</span><span class="nx">fallback</span> <span class="o">=</span> <span class="nx">fallback</span><span class="p">;</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">plugins</span> <span class="o">=</span> <span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">plugins</span> <span class="o">||</span> <span class="p">[]).</span><span class="nx">concat</span><span class="p">([</span>
+        <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">ProvidePlugin</span><span class="p">({</span>
+            <span class="na">process</span><span class="p">:</span> <span class="dl">'</span><span class="s1">process/browser</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">Buffer</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">buffer</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Buffer</span><span class="dl">'</span><span class="p">]</span>
+        <span class="p">})</span>
+    <span class="p">])</span>
+    <span class="k">return</span> <span class="nx">config</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드부분을 추가해준다.</p>
+
+<p>그리고 마지막으로 <code class="language-plaintext highlighter-rouge">package.json</code>에서 <code class="language-plaintext highlighter-rouge">scripts</code> 부분을 아래와 같이</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">scripts</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">start</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">react-app-rewired start</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">build</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">react-app-rewired build</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">test</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">react-app-rewired test</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">eject</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">react-scripts eject</span><span class="dl">"</span>
+<span class="p">},</span>
+</code></pre></div></div>
+
+<p>바꿔준다.</p>
+
+<h4 id="warning-01">Warning 01</h4>
+
+<p>개발하면서 본 두번째 에러는 정확하게 에러는 아니고 warning이다.</p>
+
+<p>React 18로 업데이트 되면서 발생한 Deprecation warning인데 에러메세지는 다음과 같다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17.</code></p>
+
+<p>쉽게 말해서 <code class="language-plaintext highlighter-rouge">ReactDOM.render</code>가 deprecated 됐다는 내용이다. 친절하게 <code class="language-plaintext highlighter-rouge">createRoot</code>를 사용하라고 하니까 사용해주면 되겠다.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// index.js</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-dom/client</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="dl">"</span><span class="s2">./index.css</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">./App</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BrowserRouter</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-router-dom</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">createRoot</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">root</span><span class="dl">"</span><span class="p">));</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">React</span><span class="p">.</span><span class="nc">StrictMode</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">BrowserRouter</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">App</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">BrowserRouter</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nc">React</span><span class="p">.</span><span class="nc">StrictMode</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>웹개발은 React를 사용하는 나로서 앞으로 <code class="language-plaintext highlighter-rouge">index.js</code>에서 이렇게 createRoot 함수를 사용하는 방법을 익혀놓으면 좋을것 같다.</p>
+
+<h3 id="sprint-03">Sprint 03</h3>
+
+<p>위에서도 언급한대로 세번째 Sprint에서는 Refactoring 및 CSS Styling 그리고 발견하지못한 bug 처리를 진행하였다.</p>
+
+<p>SCRUM framework를 기반으로한 Test Driven Development가 확실히 도움이 되었는지 몇몇 예외처리를 제외하고는 작동을 멈추게하는 심각한 버그는 발생하지 않았다.</p>
+
+<p>Refactoring 부분도 애초에 신경을 쓰면서 하다보니까 그때 그때 적절하게 코드를 깔끔하게 해주었다.</p>
+
+<p>CSS Styling 부분은 앞에서도 언급한것 처럼 스타일링에 대해서까지 의논을 나눌정도로 계획 파트(Sprint 01)에서 여유 있지는 않았기 때문에 우리 세명 모두가</p>
+
+<p>각각 하나의 페이지를 담당했으니 각 페이지가 우리의 포트폴리오인것처럼 생각을 하고 굳이 통일을 하지말고 단순히 CSS를 사용해서 꾸밀 수 있다는것을 보여주기만 하자라고 합의를 했다.</p>
+
+<p>그래서 각 페이지의 CSS가 통일되지 못한 느낌은 있지만 팀원 한 분께서 그래도 백그라운드 이미지와 다른 컴포넌트의 색깔이 어느정도는 통일이 되게 간단하게만 손봐주었다.</p>
+
+<h3 id="느낀점">느낀점</h3>
+
+<p>포스팅을 하면서 그때 그때 느낀점을 적어가며 얘기를 해서 이미 다 언급을 했지만 간단하게 정리를 해보자면</p>
+
+<p>나도 처음 경험해봤던 웹 어플리케이션 프로젝트여서 고민을 해봐야할 부분이 생겼다. (개발 프로세스가 동기적으로 진행되는 부분)</p>
+
+<p>그리고 내가 팀장을 맡아 개발 프로젝트가 처음인 두 팀원분과 함께 프로젝트를 진행하게 되었는데 대학교에서 배웠던 Agile 방법론과 SCRUM framework 덕을 많이 본것 같다.</p>
+
+<p>두 팀원분들도 잘 이해해주시고 해당 방법론에 맞춰 최대한 개발을 진행하려고 해주셔서 그런지 성공적으로 화기애애하게 프로젝트를 끝맞힐수있었다.</p>
+
+<p>첫 프로젝트라서 어려운 프로젝트는 아니였지만 두분께서 잘 따라와주셔서 나도 배운것이 많고 느낀점도 많은 프로젝트였다.</p>
+
+<p>앞으로의 프로젝트도 이번에 했던 그대로의 방법을 살리면서 겪었던 애로사항을 더 잘 다듬어 진행해보도록 해야겠다.</p>
+
+<p>정말 재밌는 프로젝트였다!!!</p>]]></content><author><name>Robin H.J. Kwon</name></author><category term="Blockchain" /><category term="Blockchain" /><category term="Project" /><category term="Web3.0" /><summary type="html"><![CDATA[First project - OpenSea Clone coding]]></summary></entry><entry><title type="html">Klaytn API Service</title><link href="/jekyll-theme-yat/blockchain/2022/04/07/KAS.html" rel="alternate" type="text/html" title="Klaytn API Service" /><published>2022-04-07T00:00:00+00:00</published><updated>2022-04-07T00:00:00+00:00</updated><id>/jekyll-theme-yat/blockchain/2022/04/07/KAS</id><content type="html" xml:base="/jekyll-theme-yat/blockchain/2022/04/07/KAS.html"><![CDATA[<h2 id="what-is-kas">What is KAS?</h2>
+
+<p>KAS는 무엇일까? KAS는 Klaytn API Service의 약자로 개발자가 bApp을 개발할때 조금 더 쉽게 개발을 도와주는 API 이다. (생산성을 높혀주는!)</p>
+
+<p>Klaytn은 Ethereum을 포크해와 만든 블록체인 플랫폼이라서 많은 부분이 이더리움과 닮아 있지만 운용측면에서 조금 다르다.</p>
+
+<p>Ethereum은 알다시피 public blockchain 으로 누구나 Node 가 될 수 있다. 그래서 아직 포스팅을 쓰지는 않았지만 web3.js를 이용할때 infura 같이 RPC_URL을 제공해주는 서비스를 이용해서</p>
+
+<p>노드와 연결해 Ethereum blockchain 과 통신한다.</p>
+
+<p>하지만 Klaytn은 consortium blockchain 으로 누구나 Node 가 <strong>될 수 없다</strong>. 그렇기 때문에 Klaytn은 End-point Node (EN)라고 하는 Klaytn blockchain 과 통신 할 수 있게 해주는 프록시 역할의 노드를</p>
+
+<p>KAS와 연결해서 개발자들은 해당 부분을 신경쓰지 않고 간편하게 생산성을 높일 수 있게 해주었다.</p>
+
+<p>다른 방법이 있는지는 모르겠지만 결론적으로 Klaytn을 이용해 dApp 혹은 bApp을 개발 할 때는 KAS를 사용하여야한다.</p>
+
+<p>그리고 KAS는 말그대로 API Service로 해당 엔드포인트로 request를 보내면 response를 보내주는 API 이다.</p>
+
+<p>하지만 web3.js 같이 개발 도구로서 사용할 수 있게 해주는 caver.js라는 SDK가 존재한다.</p>
+
+<p>npm을 이용해 설치하면 KAS 서비스를 그대로 이용하면서 개발을 할 수 있다.</p>
+
+<p>자세한 코드는 밑에서 살펴보겠다.</p>
+
+<h3 id="entire-code">Entire Code</h3>
+
+<p><a href="https://github.com/Robin-the-dev/Practice-KAS">전체코드</a>는 링크를 눌러 확인하자!</p>
+
+<p>README.md 파일에도 적혀있지만 KAS를 간단하게 다뤄보고 포스팅 목적으로 repository를 만들고 코드를 올린것이기 때문에 file structure가 하나도 잡혀있지 않고</p>
+
+<p>몽땅 index.js에 넣어놔서 코드가 좀 더럽다… (contract를 받아오기 위한 ABI도 그대로 넣어놨음…)</p>
+
+<p>나중에 프로젝트 할때 KAS를 또 제대로 써볼테니까 그때는 제대로 정리를 해보겠다!</p>
+
+<h4 id="caver-설치-및-사용">Caver 설치 및 사용</h4>
+
+<p>위에서 언급한대로 KAS API를 사용하는게 아니라 Caver라는 SDK를 사용해서 개발을 할 것이기 때문에 일단</p>
+
+<p><code class="language-plaintext highlighter-rouge">npm install caver-js-ext-kas</code> 명령어를 쳐서 설치해주자!</p>
+
+<p>설치하고 <code class="language-plaintext highlighter-rouge">index.js</code> 파일 상단에</p>
+
+<pre><code class="language-nodejs">// package.json 에 "type": "module" 을 추가해줘서 ES6 문법을 사용할 수 있다.
+import CaverExtKAS from 'caver-js-ext-kas';
+import 'dotenv/config';
+import express from 'express';
+
+const app = express();
+
+const PORT = 8080;
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+const caver = new CaverExtKAS(1001, process.env.ACCESS_KEY_ID, process.env.SECRET_ACCESS_KEY);
+</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">import CaverExtKAS from 'caver-js-ext-kas';</code> 를 해서 import 해온 다음</p>
+
+<p><code class="language-plaintext highlighter-rouge">const caver = new CaverExtKAS(chainId, accessKeyId, secretAccessKey);</code> 를 해서 caver instance를 만들 수 있다.</p>
+
+<p>accessKeyId 와 secretAccessKey 는 <a href="https://www.klaytnapi.com/ko/landing/main">KAS console</a>에 가서 받을 수 있다. (오른쪽 상단에 콘솔 클릭)</p>
+
+<p>여기까지 하면 caver를 이용해서 blockchain과 interact할 준비가 된 것이다.</p>
+
+<h4 id="contract-instance-만들기">Contract instance 만들기</h4>
+
+<pre><code class="language-nodejs">const MyKIP7TokenV2 = caver.contract.create([ABI 생략], '0x0435B4960803136C2d97D2b4591F8898791AD950');
+</code></pre>
+
+<p>여기서는 어제 배포한 KIP-7 contract를 이용해서 실제로 토큰을 transfer 할 수 있게까지 해보려고 해서</p>
+
+<p><code class="language-plaintext highlighter-rouge">caver.contract.create(ABI, smartContractAddress);</code> 를 해서 contract instance를 만들었다.</p>
+
+<p>이제 <code class="language-plaintext highlighter-rouge">MyKIP7TokenV2</code> instance를 이용해서 배포한 KIP-7 contract의 함수들을 호출할 수 있다.</p>
+
+<p><a href="https://baobab.scope.klaytn.com/account/0x0435B4960803136C2d97D2b4591F8898791AD950?tabId=txList">Klaytn scope</a>에서 contract를 확인 해 볼 수 있다.</p>
+
+<h4 id="caver를-이용해서-잔액조회-하기">Caver를 이용해서 잔액조회 하기</h4>
+
+<p>caver를 간단하게 사용해보기 위해서 잔액을 조회 할 수 있는 함수를 하나 만들어봤다. 아래의 코드를 보면서 얘기해보겠다.</p>
+
+<pre><code class="language-nodejs">const hexToDec = (hex) =&gt; {
+  return parseInt(hex, 16);
+}
+
+const getBalance = async (addr) =&gt; {
+  try {
+	const balance = await caver.rpc.klay.getBalance(addr);
+	return hexToDec(balance);
+  } catch(err) {
+	console.log(err);
+	return err;
+  }
+}
+</code></pre>
+
+<p>먼저 getBalance 함수의 <code class="language-plaintext highlighter-rouge">caver.rpc.klay.getBalance(addr)</code> 을 보자!</p>
+
+<p><a href="https://ko.docs.klaytn.com/dapp/sdk/caver-js/api-references/caver.rpc/klay#caver-rpc-klay-getbalance">공식문서</a>는 여기서 확인 해 볼 수 있고 코드 그대로 인자로 주소값을 주면 해당 주소를 조회해서 계정 주소의 잔액을 반환한다.</p>
+
+<p>여기서 반환하는 잔액은 peb 단위로 주기 때문에 hexToDec 라는 함수를 만들어서 10진수로 바꿔서 반환해주게끔 했는데</p>
+
+<p>caver는 peb 단위를 klay 단위로 환산해주는 utils 도 보유하고 있다. 그래서 caver를 사용해서 변환해주는게 더 옳은 방법이다.</p>
+
+<p>굳이 실수한 코드를 올린 이유는 실수를 통해 배우고 배운 부분을 잊지 않기 위함이다.</p>
+
+<p>그래서 getBalance 함수의 return 부분을 <code class="language-plaintext highlighter-rouge">return caver.utils.convertFromPeb(balance);</code> 를 해주면 되겠다.</p>
+
+<p>참고로 <strong>1 klay == 10^18 peb</strong> 이다. 그래서 내가 직접 만든 hexToDec 함수를 사용하면 소수점이 제대로 표현되지 않는다.</p>
+
+<h4 id="배포한-kip-7-contract를-이용해서-토큰-잔액-확인하기">배포한 KIP-7 contract를 이용해서 토큰 잔액 확인하기</h4>
+
+<p>위의 contract instance를 이용해서 해당 계정 주소의 토큰 잔액을 확인하는 함수를 보자!!!</p>
+
+<pre><code class="language-nodejs">const getTokenBalance = async (addr) =&gt; {
+  try {
+	const tokenBalance = await MyKIP7TokenV2.methods.balanceOf(addr).call();
+	return tokenBalance;
+  } catch(err) {
+	console.log(err);
+	return err;
+  }
+}
+</code></pre>
+
+<p>내가 배포한 KIP-7 contract는 토큰 잔액을 조회하기 위한 balanceOf 라는 함수가 존재한다. 그렇기 때문에 해당 함수를 이용해서 토큰 잔액을 조회하면 되겠다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">MyKIP7TokenV2.methods.balanceOf(addr).call();</code> 부분이 위에서 받아온 contract instance를 이용해서 balanceOf 함수를 call()을 이용해서 호출 하는 것이다.</p>
+
+<p>코드를 보면 뒤에 call() 함수를 호출 하는데 앞에 있는 balanceOf(addr) 을 호출 한다는 뜻이다.</p>
+
+<p>call()은 balanceOf 같이 state variable을 수정하지 않는 view 함수같은 곳에서 사용한다.</p>
+
+<p>아래에서 transfer 부분을 보면서 얘기하겠지만 contract 내의 state variable을 수정하는 함수를 호출 할때는 send()를 써야한다.</p>
+
+<h4 id="토큰-transfer-하기">토큰 transfer 하기</h4>
+
+<p>이제 내가 진행하면서 가장 헤맸던 부분인 transfer 를 해보는 부분이다.</p>
+
+<p>transfer는 이름 그대로 보내는 주소로 원하는 양의 토큰을 보내는 함수이다. 보낸 내역을 기반으로 state variable을 수정하기 때문에 위에서 말한대로</p>
+
+<p>call()을 이용한 호출이 아니라 send()를 사용해야 한다. 자세한 부분은 코드를 보면서 얘기해보겠다.</p>
+
+<pre><code class="language-nodejs">const transferToken = async (from, to, amount) =&gt; {
+  try {
+	amount = await caver.utils.convertToPeb(amount);
+	const isTransferred = await MyKIP7TokenV2.methods.transfer(to, amount).send({from: from, gas: 1000000});
+	return isTransferred;
+  } catch(err) {
+	console.log(err);
+	return err;
+  }
+}
+</code></pre>
+
+<p>위의 토큰 잔액 조회하는 것과 동일하게 <code class="language-plaintext highlighter-rouge">MyKIP7TokenV2.methods.transfer(to, amount).send({from: from, gas: 1000000});</code> 해서 transfer를 하면 된다.</p>
+
+<p>당연히 transfer 함수는 배포한 KIP-7 contract 안에 포함된 함수이고 말한대로 call()이 아니라 send()를 써야한다.</p>
+
+<p>send()를 쓰기 위해서 인자로 옵션값을 객체 형태로 전해 주어야 하는데 이는 위의 잔액 조회 함수와 다르게 transfer 함수를 실행하면서 드는 gas가 있기 때문이다.</p>
+
+<p>from 키의 값으로 보내는 사람의 주소를 입력하면 된다. gas 키의 값으로는 사용할 가스양(limit)을 적어주면 된다.</p>
+
+<p>그리고 amount는 내가 만든 transferToken 함수에서는 단위를 klay로 받겠지만 transfer 함수는 단위를 peb으로 받는다.</p>
+
+<p>그렇기 때문에 <code class="language-plaintext highlighter-rouge">caver.utils.convertToPeb()</code> 을 이용해서 klay 단위를 peb 으로 변환해주자!</p>
+
+<p>이렇게 하면 코드 자체는 전혀 문제가 없고 실행이 되어야하지만 우리는 항상 transaction을 보낼때 sign을 하고 보낸다는것을 잊으면 안된다.</p>
+
+<p>위의 어떤 코드에서도 sign을 하는 프로세스가 전혀 없다.(정확하게 send를 할때 sign을 하지만 caver.wallet안에 보내려는 사람의 주소를 가진 keyring이 없기때문에 에러메세지로 해당 주소를 찾을 수 없다고 나온다.)</p>
+
+<p>이 부분 때문에 많이 헤맸는데 알아두어야할것은 지금 이 코드들은 KAS를 이용해서 개발을 하고 있는 것이다.</p>
+
+<p>KAS의 SDK인 Caver는 <code class="language-plaintext highlighter-rouge">caver.wallet</code> 이라는 것이 있는데 이 caver.wallet은 caver.wallet.keyring으로 만들어진 keyring을 보관한다.</p>
+
+<p>위의 코드에서 send() 함수를 호출하면 from의 값으로 있는 주소가 caver.wallet에 있는 keyring인지 조회하고</p>
+
+<p>존재한다면 저장되어있는 keyring으로 sign을 해주고 transfer 함수를 실행해주는 것이다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">caver.wallet.keyring</code> 으로 새로운 account를 만들어서 <code class="language-plaintext highlighter-rouge">caver.wallet</code>에 저장해줄 수 있다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">caver.wallet</code>은 KAS console로도 확인이 가능한데 KAS console로 가서 왼쪽에 Service -&gt; Wallet -&gt; Account Pools에서 확인이 가능하다.</p>
+
+<p>결과적으로 KAS를 이용한다면 KAS를 이용해 만든 account로만 transaction을 보낼 수 있다고 생각하면 되겠다.</p>
+
+<p>하지만 KAS 는 multiSigAccount를 지원해줘서 외부 account도 사용할 수 있다고하는 글을 본것 같은데 정확하게는 어떻게 하는지 모르겠고 일단은 여기까지 해보려고 한다.</p>
+
+<h3 id="마치며">마치며</h3>
+
+<p>web3.js에 비해서 Caver나 KAS나 정보가 조금 적어서 많이 헤맸던 부분이 있었다. (물론 공식문서는 잘되어있지만 공식문서만 보고 한번에 이해하기가 쉽지 않았다.)</p>
+
+<p>아직 부족한 부분이 많고 위에 정리해놓은 내용도 정확하다고는 말하기 힘들다.</p>
+
+<p>계속해서 사용해보고 배워나가면서 프로젝트가서 조금 완벽하게 다룰 수 있으면 좋겠다고 생각한다.</p>
+
+<p>아직도 많이 멀었지만 꾸준히 해나가면 분명히 익숙해지리라 믿는다!</p>]]></content><author><name>Robin H.J. Kwon</name></author><category term="Blockchain" /><category term="Blockchain" /><category term="KAS" /><category term="Caver" /><summary type="html"><![CDATA[What is KAS?]]></summary></entry><entry><title type="html">KIP-7 and KIP-17</title><link href="/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html" rel="alternate" type="text/html" title="KIP-7 and KIP-17" /><published>2022-04-06T00:00:00+00:00</published><updated>2022-04-06T00:00:00+00:00</updated><id>/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17</id><content type="html" xml:base="/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html"><![CDATA[<h2 id="what-is-kip-7-and-kip-17">What is KIP-7 and KIP-17?</h2>
+
+<p>저번 시간에 ERC-20을 활용한 FT 개발에 대해 포스팅을 해보았다. 이번에는 저번과 비슷하게 FT와 NFT를 Klaytn위에서 개발하는것을 해볼것이다.</p>
+
+<p>KIP란 Klaytn Improvement Propsal의 약자로 EIP의 Klaytn 버전이라고 생각하면 된다.</p>
+
+<p>그래서 KIP-7과 KIP-17은 각각 Klaytn위에서 FT와 NFT를 개발할 수 있는 Standard 이다.</p>
+
+<p>KIP-7은 ERC-20을 기반으로 약간의 변화만 주면서 개발되어 ERC-20과 거의 동일하다. (추가적인 함수가 있다.)</p>
+
+<p>KIP-17도 동일하게 ERC-721을 기반으로 개발되었기 때문에 특별하게 다른점은 없다.</p>
+
+<p>저번 포스팅에서 ERC-20을 얘기하면서 FT 얘기는 해보았기 때문에 이 포스팅에서 NFT 얘기를 간단하게 해보고 바로</p>
+
+<p>코드를 살펴보겠다.</p>
+
+<h3 id="what-is-nft">What is NFT?</h3>
+
+<p>NFT는 Non-Fungible Token의 약자로 <strong>대체 불가능한 토큰</strong>을 뜻한다. 너무 어렵게 생각하지말고 FT의 반대라고 생각하면 편할 듯하다.</p>
+
+<p>FT는 말그대로 대체가 가능하기 때문에 a라는 사람이 가지고 있는 1토큰과 b라는 사람이 가지고 있는 1토큰을 서로 교환해도</p>
+
+<p>아무런 문제가 없다. FT는 화폐같이 가치가 동일하기 때문이다.</p>
+
+<p>하지만 NFT는 대체가 불가능하기 때문에 서로 다른 토큰의 가치가 동일하지 않다. 이러한 대체 불가성 때문에 NFT를 활용해서</p>
+
+<p>디지털 세상의 특정 파일에 대한 소유권을 증명할 수 있다.</p>
+
+<p>그래서 Smart contract 상에서 각각의 토큰이 다르게 해주기 위해 각 토큰들은 겹치지 않는 unique 한 토큰 id를 갖게 된다.</p>
+
+<p>자세한 부분은 코드에서 살펴보자!</p>
+
+<h3 id="entire-code">Entire Code</h3>
+
+<p><a href="https://github.com/Robin-the-dev/Practice-Klaytn">전체코드</a>는 해당 링크의 contracts 폴더에서 볼 수 있다.</p>
+
+<p>ERC-20의 포스팅과 다르게 라이브러리를 통해 구현했기 때문에 contract의 코드가 굉장히 짧다.</p>
+
+<p><a href="https://github.com/klaytn/klaytn-contracts/tree/master/contracts">Klaytn contract library</a>는 여기서 확인 할 수 있다.</p>
+
+<p>Klaytn contract library는 이더리움의 OpenZeppelin이랑 동일하게 개발자가 편하게 contract를 구현할 수 있게 해주는 라이브러리이다.</p>
+
+<p>해당 라이브러리를 사용하려면 <code class="language-plaintext highlighter-rouge">npm install @klaytn/contracts</code> 해주면 손쉽게 사용할 수 있다.</p>
+
+<h4 id="kip-7">KIP-7</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.5</span><span class="p">.</span><span class="mi">6</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@klaytn/contracts/token/KIP7/KIP7Token.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">MyKIP7TokenV2</span> <span class="k">is</span> <span class="n">KIP7Token</span> <span class="p">{</span>
+  <span class="k">constructor</span><span class="p">()</span> <span class="k">public</span> <span class="n">KIP7Token</span><span class="p">(</span><span class="s">"My KIP7 Token V2"</span><span class="p">,</span> <span class="s">"MK7TV2"</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">100000000e18</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>보다시피 라이브러리를 활용했기 때문에 코드가 굉장히 짧다. 저번에 봤던 ERC-20과 동일하기 때문에 내가 직접 배포까지 해보면서 한 실수나</p>
+
+<p>ERC-20과 비교해서 다른점만 빠르게 짚고 넘어가겠다.</p>
+
+<p>먼저 위의 코드 constructor 부분에서 <code class="language-plaintext highlighter-rouge">KIP7Token</code>을 import 해왔기때문에 해당 constructor의 호출을</p>
+
+<p><code class="language-plaintext highlighter-rouge">KIP7Token("My KIP7 Token V2", "MK7TV2", 18, 1000000000e18)</code> 와 같이 해주고 있는데</p>
+
+<p>실수 했던 부분이 4번째 매개변수인 totalSupply를 뒤의 e18을 빼먹고 해버렸더니 작은 소수점으로만 표현이 되버려서</p>
+
+<p>kaikas 지갑에서 보유하고 있는 토큰이 정확하게 보이지가 않았다.</p>
+
+<p>ERC-20이나 KIP-7이나 3번째 매개변수인 decimals, 즉 소수점 자리가 18이기 때문에 totalSupply 부분에 항상 e18을 까먹지 말자!!!</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+* @dev  Moves `amount` tokens from the caller's account to `recipient`.
+*/</span>
+<span class="k">function</span> <span class="n">safeTransfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+    <span class="n">safeTransfer</span><span class="p">(</span><span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="s">""</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+* @dev Moves `amount` tokens from the caller's account to `recipient`.
+*/</span>
+<span class="k">function</span> <span class="n">safeTransfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+    <span class="nb">transfer</span><span class="p">(</span><span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">_checkOnKIP7Received</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">data</span><span class="p">),</span> <span class="s">"KIP7: transfer to non KIP7Receiver implementer"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+* @dev Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism.
+* `amount` is then deducted from the caller's allowance.
+*/</span>
+<span class="k">function</span> <span class="n">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+    <span class="n">safeTransferFrom</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="s">""</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+* @dev Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism.
+* `amount` is then deducted from the caller's allowance.
+*/</span>
+<span class="k">function</span> <span class="n">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+    <span class="n">transferFrom</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">_checkOnKIP7Received</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">data</span><span class="p">),</span> <span class="s">"KIP7: transfer to non KIP7Receiver implementer"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드는 MyKIP7TokenV2 contract에서 import 한 KIP7Token의 부모 contract 중 하나인 KIP7 contract의 부분이다.</p>
+
+<p>(<a href="https://github.com/klaytn/klaytn-contracts/blob/master/contracts/token/KIP7/KIP7.sol">전체코드</a>는 여기서 확인가능 하다.)</p>
+
+<p>KIP7 contract의 저 부분만 가져온 이유는 ERC-20과 비교해서 다른 부분이 저 부분이기 때문이다.</p>
+
+<p>코드를 보면 알겠지만 ERC-20에는 없는 <code class="language-plaintext highlighter-rouge">safeTransfer()</code> 그리고 <code class="language-plaintext highlighter-rouge">safeTransferFrom()</code> 함수가 존재한다.</p>
+
+<p>어려운 함수는 아니고 <code class="language-plaintext highlighter-rouge">_checkOnKIP7Recived()</code> 함수를 이용해서 recipient의 주소가 해당 토큰을 받을 수 있는지를 확인하고 일반적인 <code class="language-plaintext highlighter-rouge">transfer()</code> 함수같이 transfer를 해주는 것이다.</p>
+
+<p>ERC-20에는 없지만 ERC-721에는 KIP-7과 같이 <code class="language-plaintext highlighter-rouge">safeTransfer()</code> 함수가 존재한다.</p>
+
+<p>그래서 내 생각으로는 KIP-7과 KIP-17은 ERC-20과 ERC-721을 기반으로 만들었기 때문에 ERC-721에만 있는 기능이지만</p>
+
+<p>해당 함수를 KIP-7과 KIP-17에 넣지 않았나 싶다.</p>
+
+<h4 id="kip-17">KIP-17</h4>
+
+<p>이제 Klaytn의 NFT 표준인 KIP-17을 살펴보자!!</p>
+
+<p>먼저 코드부터!</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.5</span><span class="p">.</span><span class="mi">6</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@klaytn/contracts/token/KIP17/KIP17Token.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@klaytn/contracts/drafts/Counters.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">MyKIP17TokenV2</span> <span class="k">is</span> <span class="n">KIP17Token</span> <span class="p">{</span>
+  <span class="k">using</span> <span class="n">Counters</span> <span class="k">for</span> <span class="n">Counters</span><span class="p">.</span><span class="n">Counter</span><span class="p">;</span>
+  <span class="n">Counters</span><span class="p">.</span><span class="n">Counter</span> <span class="k">private</span> <span class="n">_tokenIds</span><span class="p">;</span>
+
+  <span class="k">constructor</span><span class="p">()</span> <span class="k">public</span> <span class="n">KIP17Token</span><span class="p">(</span><span class="s">"My KIP17 Token V2"</span><span class="p">,</span> <span class="s">"MK17TV2"</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">mintNFT</span><span class="p">(</span><span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">tokenURI</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyMinter</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">_tokenIds</span><span class="p">.</span><span class="n">increment</span><span class="p">();</span>
+
+	<span class="kt">uint256</span> <span class="n">newItemId</span> <span class="o">=</span> <span class="n">_tokenIds</span><span class="p">.</span><span class="n">current</span><span class="p">();</span>
+	<span class="n">_mint</span><span class="p">(</span><span class="n">recipient</span><span class="p">,</span> <span class="n">newItemId</span><span class="p">);</span>
+	<span class="n">_setTokenURI</span><span class="p">(</span><span class="n">newItemId</span><span class="p">,</span> <span class="n">tokenURI</span><span class="p">);</span>
+
+	<span class="k">return</span> <span class="n">newItemId</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>아까의 KIP-7의 코드와 비슷하게 라이브러리를 사용해서 짧지만 Counters 라이브러리를 import 해준것이 다르고</p>
+
+<p>Counters를 활용해 <code class="language-plaintext highlighter-rouge">_tokenIds</code>를 관리 해주면서 minting을 할 수 있는 <code class="language-plaintext highlighter-rouge">mintNFT()</code> 함수를 따로 만들어 주었다.</p>
+
+<p>먼저 KIP-7과 동일하게 KIP-17의 라이브러리를 코드와 같이 import 해오면 간편하게 NFT contract를 만들 수 있다.</p>
+
+<p>KIP17Token 라이브러리는 KIP17Mintable, KIP17Burnable 등 등을 상속받고 있기 때문에 <code class="language-plaintext highlighter-rouge">mint()</code> 함수가 있어서</p>
+
+<p>별다른 custom function이 불필요하게 보일 수 있지만 제공되는 <code class="language-plaintext highlighter-rouge">mint()</code> 함수는 tokenId를 관리하기 쉽지 않기 때문에</p>
+
+<p>해당 함수를 사용하지 않고 내가 직접 만든 custom function을 사용할 수 있게끔 해주었다.</p>
+
+<p>코드를 한줄씩 살펴보면 <code class="language-plaintext highlighter-rouge">using Counters for Counters.Counter;</code>라고 명시 해줘서 자료형이 Counters.Counter인 변수에 대해</p>
+
+<p>Counters 라이브러리에 존재하는 함수들을 다이렉트로 사용할 수 있게 해준다.</p>
+
+<p>그 다음줄에 <code class="language-plaintext highlighter-rouge">_tokenIds</code> 라는 변수를 Counters.Counter 형으로 선언 해주었는데 참고로 Counters.Counter는 Counters 라이브러리에 정의된 구조체이다.</p>
+
+<p>그 다음에 볼곳은 <code class="language-plaintext highlighter-rouge">mintNFT()</code> 함수 쪽인데 위에서 using을 해주었기 때문에 <code class="language-plaintext highlighter-rouge">_tokenIds.increment();</code>로 토큰 id를 1 씩 증가시켜준다.</p>
+
+<p>그 아래에 있는 <code class="language-plaintext highlighter-rouge">_tokenIds.current();</code>도 굉장히 직관적으로 현재 id를 손쉽게 알려줄 수 있다.</p>
+
+<p>그리고 <code class="language-plaintext highlighter-rouge">_mint()</code> 함수와 <code class="language-plaintext highlighter-rouge">_setTokenURI()</code> 함수를 이용해서 minting을 해준다.</p>
+
+<p>이렇게 하면 토큰 id가 겹칠일 없이 unique하게 관리 할 수 있게 된다.</p>
+
+<p>물론 해당 함수가 존재하지 않아도 <code class="language-plaintext highlighter-rouge">mint()</code> 함수가 있기때문에 어떻게든 minting은 할 수 있겠지만 토큰 id 추적이 쉽지 않기때문에</p>
+
+<p>이렇게 개발자의 기호에 맞춰 state variable 혹은 custom function을 작성해주면 된다.</p>
+
+<h3 id="truffle을-이용한-kip-7-및-kip-7-배포">Truffle을 이용한 KIP-7 및 KIP-7 배포</h3>
+
+<p>위에서 제공한 git repository를 보면 알겠지만 이 contract 들은 truffle로 배포 되었다.</p>
+
+<p>그래서 잊지 않도록 truffle을 활용한 baobab testnet으로의 배포 과정을 여기에 간단하게 적어보겠다.</p>
+
+<p>크게 어려운 부분은 없고 해당 git repository의 <a href="https://github.com/Robin-the-dev/Practice-Klaytn/blob/main/truffle-config.js">truffle-config.js 파일</a>을 보면 쉽게 이해 할 수 있다.</p>
+
+<p>일단 필요한 패키지가 두개 정도 있어서 <code class="language-plaintext highlighter-rouge">npm install dotenv truffle-hdwallet-provider-klaytn</code>을 인스톨 해주자!</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// truffle-config.js</span>
+<span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">dotenv</span><span class="dl">'</span><span class="p">).</span><span class="nx">config</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">HDWalletProvider</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">truffle-hdwallet-provider-klaytn</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>truffle-config.js 파일의 맨위에 이렇게 패키지를 불러와준다.</p>
+
+<p>(보통 dotenv말고 내장된 fs 패키지를 이용해서 숨긴 파일안에 private key를 적어두고 불러와서 사용하던데 dotenv를 사용해도 동일하게 작동할것같아 여기서는 dotenv를 사용했다.)</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// truffle-config.js</span>
+<span class="c1">// 생략</span>
+<span class="nx">networks</span><span class="p">:</span> <span class="p">{</span>
+    <span class="c1">// Useful for testing. The `development` name is special - truffle uses it by default</span>
+    <span class="c1">// if it's defined here and no other network is specified at the command line.</span>
+    <span class="c1">// You should run a client (like ganache-cli, geth or parity) in a separate terminal</span>
+    <span class="c1">// tab if you use this network and you must also set the `host`, `port` and `network_id`</span>
+    <span class="c1">// options below to some value.</span>
+    <span class="c1">//</span>
+    <span class="nl">baobab</span><span class="p">:</span> <span class="p">{</span>
+	  <span class="na">provider</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="k">new</span> <span class="nx">HDWalletProvider</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PRIVATE_KEY</span><span class="p">,</span> <span class="dl">'</span><span class="s1">https://api.baobab.klaytn.net:8651</span><span class="dl">'</span><span class="p">);</span>
+	  <span class="p">},</span>
+	  <span class="na">network_id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">1001</span><span class="dl">'</span><span class="p">,</span>       <span class="c1">// Any network (default: none)</span>
+	  <span class="na">gas</span><span class="p">:</span> <span class="dl">'</span><span class="s1">8500000</span><span class="dl">'</span><span class="p">,</span>
+	  <span class="na">gasPrice</span><span class="p">:</span> <span class="kc">null</span>
+    <span class="p">},</span>
+<span class="c1">// 생략</span>
+</code></pre></div></div>
+
+<p>그리고 networks 부분에 baobab testnet을 위의 코드와 같이 추가해준다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// truffle-config.js</span>
+<span class="c1">// 생략</span>
+<span class="nx">compilers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">solc</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">version</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0.5.6</span><span class="dl">"</span><span class="p">,</span>    <span class="c1">// Fetch exact version from solc-bin (default: truffle's version)</span>
+      <span class="c1">// docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)</span>
+      <span class="na">settings</span><span class="p">:</span> <span class="p">{</span>          <span class="c1">// See the solidity docs for advice about optimization and evmVersion</span>
+       <span class="na">optimizer</span><span class="p">:</span> <span class="p">{</span>
+         <span class="na">enabled</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+         <span class="na">runs</span><span class="p">:</span> <span class="mi">200</span>
+       <span class="p">},</span>
+       <span class="na">evmVersion</span><span class="p">:</span> <span class="dl">"</span><span class="s2">constantinople</span><span class="dl">"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+<span class="c1">// 생략</span>
+</code></pre></div></div>
+
+<p>마지막으로 깜빡하지말고 compilers 부분도 위와 같이 수정해주자! 왜냐하면 Klaytn에서는 solidity 0.5.6 버전을 사용하기 때문이다.</p>
+
+<p>위와 같이 truffle-config.js 파일을 수정해주고 <code class="language-plaintext highlighter-rouge">truffle deploy --network baobab</code> 명령으로 배포를 할 수 있다.</p>
+
+<p>(migration 폴더안의 migration 파일을 추가하거나 수정해주어야 하는데 어려운 부분이 없어 해당 repository의 migration 폴더를 확인하자!)</p>
+
+<p><code class="language-plaintext highlighter-rouge">truffle networks</code>로 배포된 contract를 확인할 수 있다.</p>
+
+<p>그리고 <code class="language-plaintext highlighter-rouge">truffle console --network baobab</code>으로 배포한 contract를 instance로 불러와 contract에 포함된 함수들이 잘작동하는지 확인 할 수 있다!</p>
+
+<p>마지막으로 만약에 contract 파일 (sol 파일)을 수정하고 재배포 하고 싶을때는 <code class="language-plaintext highlighter-rouge">truffle deploy --network baobab --reset</code> 처럼 reset 옵션을 추가해서 배포하면 된다.</p>
+
+<p>당연히 알고있겠지만 위와같이 baobab 테스트넷에서의 배포는 해당 테스트넷의 klay를 사용하기 때문에 먼저 local RPC에서 (ganache와 같은) 테스트를 하고 배포하는것이 올바르다!</p>
+
+<h3 id="마치며">마치며</h3>
+
+<p>이번에 이렇게 직접 KIP-7과 KIP-17을 개발 및 배포를 해보았는데 이더리움의 OpenZeppelin같이 Klaytn에도 제공해주는 라이브러리가 있어서</p>
+
+<p>정말 간단하게 토큰 개발을 할 수 있었다. 또한 ERC-20과 내용적으로 크게 다르지 않았기 때문에 위에서 언급한 몇몇 실수를 제외하고는</p>
+
+<p>무난하게 학습을 완료했다.</p>
+
+<p>빨리 직접 토큰을 개발해서 내가 원하는 서비스와 결합시켜 DeFi 프로젝트도 한번 시도해보고 싶고 아무튼 하고싶은게 정말 많다!</p>
+
+<p>빨리 프로젝트에 들어가서 팀원들을 만나 재밌게 개발해보고 싶다!</p>
+
+<h3 id="ps">P.S</h3>
+
+<p>KIP-7 Contract address: 0x0435B4960803136C2d97D2b4591F8898791AD950 <a href="https://baobab.scope.klaytn.com/account/0x0435B4960803136C2d97D2b4591F8898791AD950?tabId=internalTx">Klaytn scope</a></p>
+
+<p>KIP-17 Contract address: 0x5a86D396F5166103e5F69Ce74885E364c704dFA1 <a href="https://baobab.scope.klaytn.com/account/0x5a86D396F5166103e5F69Ce74885E364c704dFA1?tabId=txList">Klaytn scope</a></p>]]></content><author><name>Robin H.J. Kwon</name></author><category term="Blockchain" /><category term="Blockchain" /><category term="FT" /><category term="KIP-7" /><category term="NFT" /><category term="KIP-17" /><summary type="html"><![CDATA[What is KIP-7 and KIP-17?]]></summary></entry><entry><title type="html">코드스테이츠 블록체인 엔지니어링 부트캠프 15주차 회고</title><link href="/jekyll-theme-yat/beb/2022/04/04/fifteenth-bootcamp-retrospective.html" rel="alternate" type="text/html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 15주차 회고" /><published>2022-04-04T00:00:00+00:00</published><updated>2022-04-04T00:00:00+00:00</updated><id>/jekyll-theme-yat/beb/2022/04/04/fifteenth-bootcamp-retrospective</id><content type="html" xml:base="/jekyll-theme-yat/beb/2022/04/04/fifteenth-bootcamp-retrospective.html"><![CDATA[<h2 id="section-4의-끝이-보인다">Section 4의 끝이 보인다!</h2>
+
+<p>제목대로 이제 다음주에 web3.js를 활용한 개발 부분을 학습하고 나면 Section 4도 끝이 난다! 어떻게 보면 기초 부분이였던</p>
+
+<p>Section 1과 2의 Web development 보다 더 빨리 끝난 느낌이 든다. 어찌되었든 Section 4가 끝난다는 말은 이제 Section 5가</p>
+
+<p>시작된다는 것이고 Section 5에서는 대망의 프로젝트가 시작된다.</p>
+
+<p>부트캠프를 처음 시작할때는 Section 5의 시간표가 그냥 대충 프로젝트라고만 나와있었는데 이제 Section 5가 다가오니 변화가 생겼다.</p>
+
+<p>프로젝트는 총 세가지를 하게 되는데 첫번째와 두번째 프로젝트는 클론코딩을 하게 되는듯 하고 세번째 프로젝트가 아이디어를 하나 가지고</p>
+
+<p>팀으로서 처음부터 끝까지 개발을 하게 되는 것이다!</p>
+
+<p>정말 아직도 해야될것이 많고 프로젝트에 들어가게되면 지금보다 더 빡세지겠지만 팀으로 같이 개발을 할 수 있다는 것이 너무 기대되고 재밌을것 같다.</p>
+
+<h3 id="한주동안-배운-것">한주동안 배운 것</h3>
+
+<p>NFT 남은 부분을 이어서 했기때문에 남은 시간동안 NFT에 대한 복습을 진행하였고 그 이후에 SSI와 DID에 대해서 학습을 하였다.</p>
+
+<p>SSI는 학습을 하면서 적지 않은 어려움을 겪었는데 학습을 하면서 보니 SSI와 DID는 아직도 여전히 표준이 잡혀가고 있는 시기이고</p>
+
+<p>무엇보다 크게 상용화가 되지 않아 정확히 어떠한 방식으로 진행이 되는지 이해하기 쉽지가 않았다. 하지만 SSI meetup이라는 foundation을 찾아</p>
+
+<p>관련 영상을 보고나니 여전히 자세한 부분의 동작방식은 잘 모르겠지만 대략적으로 어떤식으로 자신의 신원을 증명하는지는 알 수 있게 되었다.</p>
+
+<p>그리고 SSI 이후에는 web3.js를 이용해서 프론트엔드와 백엔드를 합치는 방법에 대해서 학습을 시작하였다. 어떻게 보면</p>
+
+<p>내가 가장 기대하고 내가 이때까지 배워온 프론트엔드와 백엔드 기술을 결합 할 수 있게 되는 기술이라 정말 재밌게 학습을 시작하게 되었다.</p>
+
+<h3 id="마치며">마치며…</h3>
+
+<p>블록체인 개발자라고 하기에는 한없이 부족하기는 하지만 그래도 블록체인을 활용한 서비스를 개발 할 수 있는 단계에 왔다고 생각하니</p>
+
+<p>가슴이 정말 두근두근 거린다. 이때까지 열심히 해왔던게 도움이 된건지 블록체인이 어렵다고 하지만 그래도 무난하게 즐겁게 배울 수 있었던 것 같다.</p>
+
+<p>이제 곧 Section 5다. 빨리 프로젝트에 들어가서 좋은 포트폴리오를 만들어보고 싶다!!!</p>]]></content><author><name>Robin H.J. Kwon</name></author><category term="BEB" /><category term="BEB" /><category term="Blockchain" /><category term="Bootcamp" /><summary type="html"><![CDATA[Section 4의 끝이 보인다!]]></summary></entry><entry><title type="html">Fungible Token (ERC-20)</title><link href="/jekyll-theme-yat/blockchain/2022/03/28/fungible-token.html" rel="alternate" type="text/html" title="Fungible Token (ERC-20)" /><published>2022-03-28T00:00:00+00:00</published><updated>2022-03-28T00:00:00+00:00</updated><id>/jekyll-theme-yat/blockchain/2022/03/28/fungible-token</id><content type="html" xml:base="/jekyll-theme-yat/blockchain/2022/03/28/fungible-token.html"><![CDATA[<h2 id="what-is-fungible-tokenft">What is Fungible Token(FT)?</h2>
+
+<p>Fungible Token이란 무엇일까? NFT라는 것은 일반적으로 많이 들어봤을테니 이것의 반대되는 개념이라고는 유추할 수 있을것이다.</p>
+
+<p>일단 Fungible의 사전적인 의미부터 먼저 보자면 <strong>대체 가능한</strong>이라는 뜻을 가지고 있다.</p>
+
+<p>그래서 FT는 <strong>대체 가능한 토큰</strong>일 것이고 NFT는 <strong>대체 불가능한 토큰</strong>일 것이다.</p>
+
+<p>NFT는 다음 포스트에서 얘기를 해보고 일단 FT 얘기부터 하자면</p>
+
+<p><strong>대체 가능하다</strong>라는 것은 무엇을 의미 하는 걸까?</p>
+
+<p>일반적인 화폐라고 생각하면 편하겠다. 예를 들어서 원화 1만원은 내가 가지고 있는 1만원이나 A라는 사람이 가지고 있는 1만원이나</p>
+
+<p>가치가 동일하다. 그렇기 때문에 서로 가지고 있는 1만원권을 서로 교환하더라도 전혀 문제가 없다.</p>
+
+<p>FT는 이 부분의 개념과 동일하다. 내가 이더리움 기반으로 토큰을 만들어서 A라는 사람이 100토큰 B라는 사람이 100토큰을 가지고 있다면</p>
+
+<p>이 두사람이 가지고 있는 토큰의 양이 동일하기에 가치가 동일하다.</p>
+
+<p>그래서 정리를 하자면 FT를 어렵게 생각하지말고 그냥 일반적인 돈의 개념과 비슷하다고 생각하면 될 것 같다.</p>
+
+<p>이번 포스트가 FT와 관련된 내용이니까 코인과 토큰에 대해서도 얘기를 해보겠다.</p>
+
+<p>코인과 토큰의 차이는 mainnet의 유무라고 할수있겠다.</p>
+
+<p>이더리움과 같은 경우 이더리움이라는 플랫폼에서 사용하는 토큰은 ether라고 하고 이더리움은 직접 mainnet을 운용하고 있기 때문에</p>
+
+<p>ether는 코인이라고 할 수 있고 Governance Token이라고 할 수 있다.</p>
+
+<p>반면에 우리가 ERC-20 표준을 사용해서 이더리움 플랫폼 위에서 FT를 발행한다면 이더리움 mainnet에 의존하고 있기 때문에</p>
+
+<p>코인이 아니라 토큰이라고 부른다.</p>
+
+<p>이더리움과 같이 mainnet을 보유한 코인이 돌아가는 생태계를 <strong>Crypto Economy</strong>라고 하고</p>
+
+<p>직접 mainnet을 운용하지 않고 다른 mainnet에 의존적인 FT가 돌아가는 생태계를 <strong>Token Economy</strong>라고 한다.</p>
+
+<p>FT에 관한 포스팅이여서 내가 아는 FT에 대한 정보들을 코인과 비교해서 한번 정리해보았다.</p>
+
+<p>아래에서는 코드를 살펴보며 ERC-20과 KIP-7를 이용해 발행한 FT에 대해 정리를 해보겠다.</p>
+
+<h3 id="erc-20">ERC-20</h3>
+
+<p>ERC-20이란 EIP-20에서 제안된 이더리움에서 FT를 만들기위한 표준이다.</p>
+
+<p>그래서 이더리움 위에서 돌아가게 하는 FT를 발행하고 싶으면 ERC-20 표준을 지켜서 만들면 된다.</p>
+
+<h4 id="entire-code">Entire Code</h4>
+
+<p><a href="https://github.com/Robin-the-dev/Practice-ERC20">전체코드</a>는 여기서 볼 수 있다.</p>
+
+<p>각 함수들이 어떻게 동작하는지 보기 위해 openZeppelin을 사용하지 않고 구현했다.</p>
+
+<p>밑에서 코드를 나눠서 해당 코드가 무엇을 하는지 살펴보자!</p>
+
+<h4 id="safemath">SafeMath</h4>
+
+<p>먼저 contract 부분을 보기 전에 SafeMath가 무엇인지 얘기를 해보겠다.</p>
+
+<p>SafeMath는 contract 내에서 연산을 했을때 생길 수 있는 <strong>overflow</strong>와 <strong>underflow</strong>를 예방해주는 library이다.</p>
+
+<p>overflow 하나만 알면 자연스럽게 underflow도 알 수 있어서 overflow만 설명해보겠다.</p>
+
+<p>Solidity에서는 uint 옆에 8의 배수의 숫자를 명시해서 표현할 수 있는 범위를 설정할 수 있는데</p>
+
+<p>예를 들어 uint8이라고 하면 2^8-1 만큼 표현할 수 있다. 여기서 overflow가 발생한다는 것은</p>
+
+<p>2^8-1 보다 큰 수가 들어가서 에러가 발생함을 말한다. (underflow는 반대)</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">library</span> <span class="n">SafeMath</span> <span class="p">{</span>
+  	<span class="k">function</span> <span class="n">mul</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">a</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">b</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">uint256</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
+		<span class="nb">assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">c</span> <span class="o">/</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">c</span><span class="p">;</span>
+  	<span class="p">}</span>
+
+  	<span class="k">function</span> <span class="n">div</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">a</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">b</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+	    <span class="kt">uint256</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">;</span>
+		<span class="k">return</span> <span class="n">c</span><span class="p">;</span>
+  	<span class="p">}</span>
+
+  	<span class="k">function</span> <span class="n">sub</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">a</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">b</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nb">assert</span><span class="p">(</span><span class="n">b</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">;</span>
+  	<span class="p">}</span>
+
+  	<span class="k">function</span> <span class="n">add</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">a</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">b</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">uint256</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+		<span class="nb">assert</span><span class="p">(</span><span class="n">c</span> <span class="o">&gt;=</span> <span class="n">a</span><span class="p">);</span>
+		<span class="k">return</span> <span class="n">c</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">contract</span> <span class="n">Foo</span> <span class="p">{</span>
+  <span class="k">using</span> <span class="n">SafeMath</span> <span class="k">for</span> <span class="kt">uint256</span><span class="p">;</span>
+
+  <span class="c1">// Contract contents
+</span>
+  <span class="k">function</span> <span class="n">bar</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// Let's assume that _amount is data type of uint256
+</span>	<span class="k">return</span> <span class="n">_amount</span><span class="p">.</span><span class="n">sub</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드와 같이 <code class="language-plaintext highlighter-rouge">library</code>를 이용해서 SafeMath의 내용을 정의 할 수 있고 contract 내에서</p>
+
+<p><code class="language-plaintext highlighter-rouge">using SafeMath for uint256;</code>을 해서 데이터 타입 uint256으로 정의된 변수가 SafeMath 함수를 사용할수있게</p>
+
+<p>명시해준다.</p>
+
+<p>직접적으로 사용하는 방법은 <code class="language-plaintext highlighter-rouge">bar()</code>함수 안에 있으니 확인해보자!</p>
+
+<h4 id="erc20-interface">ERC20 Interface</h4>
+
+<p>Solidity에도 JAVA와 같이 interface와 abstract라는 것이 있는데 JAVA의 그것과 동일하다고 생각하면 되겠다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">ERC20Interface</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">totalSupply</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">allowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">spender</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    
+    <span class="k">event</span> <span class="n">Transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">Transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">Approval</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>그래서 위의 코드는 ERC20의 표준을 따르는 interface를 저렇게 정의를 해놓은 것이고 실제로 구현할 contract가 해당 interface를</p>
+
+<p>상속하면서 interface에 정의된 function들을 override 해주면 된다.</p>
+
+<p>이 <a href="https://medium.com/upstate-interactive/solidity-override-vs-virtual-functions-c0a5dfb83aaf">링크</a>에서 solidity에서 interface와 override 그리고 virtual이 어떻게 쓰이는지 확인해보자!</p>
+
+<p>기본적으로 다른 프로그래밍 언어와 동작하는 방식이 동일하고 위의 코드에서 interface안에서 정의해준 function들은 virtual이라는 키워드가</p>
+
+<p>명시되어있지 않는데 명시되지않았을 경우 interface에서 정의 function은 virtual로 간주된다. (링크 확인)</p>
+
+<h4 id="abstract-contract">abstract contract</h4>
+
+<p>전체 코드를 보면 abstract contract도 사용 했는데 OwnerHelper라는 abstract contract를 만들어서 내가 구현한 contract가 그것을 상속하는 식으로 쓰였다.</p>
+
+<p>interface 부분에서 interface와 abstract 둘 다 JAVA의 그것과 동일하다고 생각하면 된다고 했는데 interface와 abstract 그 자체에 대한 설명이 부족한 것 같아 여기서 설명 해보겠다.</p>
+
+<p>interface는 function에 대한 정의만 할 수 있다. interface 안에서 function의 구현을 하면 안된다.</p>
+
+<p>반면에 abstract는 interface와 동일하게 function에 대한 정의만 해놓고 다른 contract가 abstract contract를 상속해서 해당 function 을 override 할 수 있지만 완전하게 구현된 function도 abstract contract 안에 넣어 놓을 수 있다.</p>
+
+<p>코드를 보면 이해가 더 쉬울것이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="k">contract</span> <span class="n">OwnerHelper</span> <span class="p">{</span>
+  	<span class="kt">address</span> <span class="k">private</span> <span class="n">_owner</span><span class="p">;</span>
+
+  	<span class="k">event</span> <span class="n">OwnershipTransferred</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">preOwner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">nextOwner</span><span class="p">);</span>
+
+  	<span class="k">modifier</span> <span class="n">onlyOwner</span> <span class="p">{</span>
+		<span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">_owner</span><span class="p">,</span> <span class="s">"OwnerHelper: caller is not owner"</span><span class="p">);</span>
+		<span class="n">_</span><span class="p">;</span>
+  	<span class="p">}</span>
+
+  	<span class="k">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">_owner</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">;</span>
+  	<span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">owner</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">_owner</span><span class="p">;</span>
+    <span class="p">}</span>
+
+  	<span class="k">function</span> <span class="n">transferOwnership</span><span class="p">(</span><span class="kt">address</span> <span class="n">newOwner</span><span class="p">)</span> <span class="n">onlyOwner</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">newOwner</span> <span class="o">!=</span> <span class="n">_owner</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">newOwner</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mh">0x0</span><span class="p">));</span>
+        <span class="kt">address</span> <span class="n">preOwner</span> <span class="o">=</span> <span class="n">_owner</span><span class="p">;</span>
+    	<span class="n">_owner</span> <span class="o">=</span> <span class="n">newOwner</span><span class="p">;</span>
+    	<span class="k">emit</span> <span class="n">OwnershipTransferred</span><span class="p">(</span><span class="n">preOwner</span><span class="p">,</span> <span class="n">newOwner</span><span class="p">);</span>
+  	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>코드에서의 abstract contract는 오히려 반대로 정의만 해놓은 function이 없다!</p>
+
+<p>그리고 abstract contract라고 꼭 코드에서 처럼 abstract라고 명시 하지 않아도 된다.</p>
+
+<p>왜냐하면 contract는 적어도 하나의 function이 구현되어 있지않다면 abstract를 적던 적지 않던 그것은 abstract contract로 간주되기 때문이다.</p>
+
+<p>이 <a href="https://medium.com/upstate-interactive/solidity-how-to-know-when-to-use-abstract-contracts-vs-interfaces-874cab860c56#:~:text=Abstract%20contracts%20are%20base%20contracts,cannot%20include%20any%20implemented%20functions.">링크</a>에서 자세한 내용을 살펴보자!</p>
+
+<h4 id="main-contract">main contract</h4>
+
+<p>main contract라고 해놨는데 별다른 뜻이 있는게 아니라 이 smart contract에서의 주 목적이 담긴 contract를 말하는 것이다.</p>
+
+<p>이 코드에서는 <strong>MyLittlePreciousToken</strong> contract가 되겠다.</p>
+
+<p>사실 코드자체가 어려운 내용은 전혀 없고 단순히 ERC-20의 표준에 맞게 코드를 작성해주면 되는것 같다. (예를 들어 소수점은 18자리 등 등)</p>
+
+<p>그리고 솔직한 생각으로 ERC-20을 이용해서 모든 코드를 직접 구현하는 것은 별로 현명하지 않다라는 생각이 든다.</p>
+
+<p>왜냐하면 smart contract라는 것은 본질적으로 돈의 이동과 관련되어 있는데 내가 직접 구현해서 조그만 취약점이나 실수가 발견되면 블록체인 특성상</p>
+
+<p>수정이 쉽지 않고 나의 서비스를 사용하는 사용자들이 큰 손해를 볼 수 있기 때문이다.</p>
+
+<p>그래서 이미 잘 쓰여진 ERC-20 표준을 따르는 코드를 들고와서 내가 운영하려는 서비스나 목적에 맞게 필요한 function들만 따로 작성을 해주는게</p>
+
+<p>현명하지 않을까라는 생각이 든다.</p>
+
+<p>나의 이런 생각이 틀린 것은 아닌지 openzeppelin이라는 이더리움 전용 라이브러리가 존재한다.</p>
+
+<p>해당 라이브러리를 사용하면 오늘 작성해본 포스팅과 관련된 ERC-20 그리고 나중에 또 작성할 ERC-721 등을 정말 간단하게 구현을 할 수 있다.</p>
+
+<p>main contract의 내용은 길어서 위의 entire code에서 확인을 해보자!</p>
+
+<h4 id="openzeppelin">OpenZeppelin</h4>
+
+<p>위에서 OpenZeppelin을 언급했으니까 이 부분도 얘기를 안 할 수가 없겠다.</p>
+
+<p>일단 OpenZeppelin은 말한대로 이더리움 표준을 사용하기위해 적어야 하는 코드가 많은데 그 부분을 라이브러리로 만들어놓고 단순히</p>
+
+<p>import해와서 쓸수있도록 해주는 라이브러리이다.</p>
+
+<p>여기서는 truffle을 활용해 OpenZeppelin을 사용할 수 있는 방법에 대해서 얘기 해보겠다.</p>
+
+<p>그전에 remix에서의 사용법을 먼저 간단하게 얘기하고 넘어가겠다. remix에서는 OpenZeppelin 사용법은 훨씬 더 간단하다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
+
+<span class="c1">// 이렇게 openzeppelin을 import한다고 명시해주면 자동으로 remix가 해당 라이브러리를 다운 받아준다.
+</span><span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC20/ERC20.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">MyLittlePreciousToken</span> <span class="k">is</span> <span class="n">ERC20</span> <span class="p">{</span>
+    <span class="k">constructor</span><span class="p">()</span> <span class="n">ERC20</span><span class="p">(</span><span class="s">"MyLittlePreciousToken"</span><span class="p">,</span> <span class="s">"MLPT"</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">_mint</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="mi">100000000e18</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이런식으로 import만 해주면 자동으로 remix가 해당 라이브러리를 받아오기때문에 훨씬 간단하다.</p>
+
+<p>그럼 바로 truffle을 활용해서 OpenZeppelin을 이용하는 법을 보자!</p>
+
+<p>먼저 작업할 폴더를 하나 만들어주고 해당 폴더에 들어가서 <code class="language-plaintext highlighter-rouge">truffle init</code>과 <code class="language-plaintext highlighter-rouge">npm init</code>을 해서 초기화를 시켜준다.</p>
+
+<p>그 이후에 Solidity 사용을 위해 openzeppelin solidity 라이브러리를 받아준다. <code class="language-plaintext highlighter-rouge">npm install -E openzeppelin-solidity</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">-E</code>옵션은 <code class="language-plaintext highlighter-rouge">--save-exact</code>와 동일하고 인스톨받은 패키지의 정확한 버전을 package.json에 저장할 수 있게 해준다.</p>
+
+<p>그리고 <code class="language-plaintext highlighter-rouge">truffle-config.js</code>파일의 compiler 부분의 버전을 openzeppelin이 사용하는 컴파일러 버전과 동일하게 바꿔준다.</p>
+
+<p>ganache를 통해 local RPC에 배포해서 해당 contract를 확인을 할 것이라면 <code class="language-plaintext highlighter-rouge">truffle-confg.js</code>파일의 network 부분을 바꿔주면 된다.</p>
+
+<p>contracts 폴더안에 위의 코드를 들고와서 저장을 해주고 코드에서 import 한 경로를 추가해주기 위해 <code class="language-plaintext highlighter-rouge">npm install @openzeppelin/contracts</code>을 해준다.</p>
+
+<p>그러면 마지막으로 <code class="language-plaintext highlighter-rouge">truffle deploy</code> 혹은 <code class="language-plaintext highlighter-rouge">truffle migrate</code> 명령어를 입력해 배포를 해주면 된다!</p>
+
+<p>똑같은 ERC-20 코드인데 OpenZeppelin을 사용하니 엄청 짧아졌다. 이더리움 기반으로 dApp을 개발한다고 하면 OpenZeppelin을 사용하면 되겠다!</p>
+
+<h3 id="마치며">마치며</h3>
+
+<p>Fungible Token 포스팅에 ERC-20과 KIP-7 둘 다 넣을려고 했는데 글을 쓰다보니 생각보다 ERC-20의 내용이 너무 많아서 KIP-7의 내용은</p>
+
+<p>따로 또 포스팅을 작성하려고 한다.</p>
+
+<p>KIP-7 자체는 ERC-20에서 거의 따왔다고 해도될만큼 크게 다른 내용은 없어서 해당 포스트는 내용이 좀 짧아질 수 도 있지만</p>
+
+<p>어쨌든 몇가지 다른 부분이 있기는 하기 때문에 그 부분에 대해서는 해당 포스트에서 얘기를 해보겠다.</p>
+
+<p>아무튼 이렇게 ERC-20을 testnet 환경 혹은 로컬 환경에서 배포를 해보았는데 내 지갑에 내가 만든 토큰이 찍혀있는것을 보니</p>
+
+<p>재밌기도 하고 뭔가 감개무량했다. ㅋㅋㅋ 블록체인과 관련해서 배우기 시작하면서 학습하는 내용의 양이 방대해서 블로그에</p>
+
+<p>포스팅하는 것도 사실 쉽지는 않지만 최대한 배운 것들을 간략하게나마 쓸수 있도록 노력 해봐야겠다!!!</p>]]></content><author><name>Robin H.J. Kwon</name></author><category term="Blockchain" /><category term="Blockchain" /><category term="FT" /><category term="ERC-20" /><summary type="html"><![CDATA[What is Fungible Token(FT)?]]></summary></entry><entry><title type="html">코드스테이츠 블록체인 엔지니어링 부트캠프 14주차 회고</title><link href="/jekyll-theme-yat/beb/2022/03/28/fourteenth-bootcamp-retrospective.html" rel="alternate" type="text/html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 14주차 회고" /><published>2022-03-28T00:00:00+00:00</published><updated>2022-03-28T00:00:00+00:00</updated><id>/jekyll-theme-yat/beb/2022/03/28/fourteenth-bootcamp-retrospective</id><content type="html" xml:base="/jekyll-theme-yat/beb/2022/03/28/fourteenth-bootcamp-retrospective.html"><![CDATA[<h2 id="드디어-토큰을-직접-개발해보았다">드디어 토큰을 직접 개발해보았다!!!</h2>
+
+<p>저번 회고에 말했다시피 지금 본격적으로 블록체인을 활용해 개발을 배우고 있다.</p>
+
+<p>저번주에 지갑 개발, Solidity 기본 문법과 간단한 Smart contract에 대해 배웠다면 14주차에는 본격적으로</p>
+
+<p>Fungible Token (FT)와 Non-Fungible Token (NFT)에 대한 개념을 배우고 직접 개발을 해서 local environment와</p>
+
+<p>testnet에 배포를 하는 것을 배웠다.</p>
+
+<p>이더리움 토큰을 만들때는 ERC-20이라는 표준을 이용해서 만들기에 코드를 From the scratch에서 짜지는 않았지만</p>
+
+<p>해당 standard에 포함되어 있는 함수들을 보고 어떤식으로 작동하는지 이해한 다음 openZeppelin을 이용해 개발을 해서</p>
+
+<p>배포를 해봤는데 내 지갑에 내가 만든 토큰이 찍히니 뭔가 감개무량 했다. ㅋㅋㅋ</p>
+
+<p>역시 이론도 중요하지만 뭔가 직접적으로 코드를 짜서 내 눈에 실제로 뭔가가 보이니 이 부분이 훨씬 재밌긴 했다.</p>
+
+<p>처음은 ERC-20 standard로 이더리움기반 토큰을 만들어 봤고 이후에 KIP-7 standard를 보고 Klaytn 기반 토큰도 만들어서</p>
+
+<p>Klaytn의 testnet인 baobab에 배포해보았다.</p>
+
+<p>자세한 내용은 개발기 포스트에 올리겠지만 Klaytn이 Ethereum을 포크해와서 만든 플랫폼이고 KIP-7 자체도 ERC-20 standard를 많이 따랐다. (safeTransfer()와 같은 몇몇 함수를 제외하고)</p>
+
+<p>그래서 많은 부분이 서로 닮아 있어서 이더리움 기반으로 학습을 해놓으니 클레이튼 기반은 별 무리 없이 진행 할 수 있었다.</p>
+
+<p>그래서 개발기 포스트에는 이더리움과 클레이튼 두가지 플랫폼 모두에 대해 작성을 해보려고 한다.</p>
+
+<h3 id="한주동안-배운-것">한주동안 배운 것</h3>
+
+<p>FT와 NFT를 실제로 이더리움과 클레이튼 기반으로 각각 표준을 사용하여 개발 해 보았다.</p>
+
+<p>testnet에 각각 배포를 해서 metamask 지갑과 kaikas 지갑으로 토큰을 받아 볼 수 있었을때 너무 재밌고 신기했다.</p>
+
+<p>다음주는 Decentralised Identification (DID)를 활용해서 dAPP 개발을 하는데 미리 한번 읽어보고 예습을 해보려고 한다.</p>
+
+<h3 id="마치며">마치며…</h3>
+
+<p>저번주에 원래 몸 컨디션을 찾게 되어서 기분 좋게 학습을 진행할 수 있어서 너무 좋았다.</p>
+
+<p>역시 다시 한번 건강이 최고다라는 것을 깨달았다. 재밌다고 공부도 너무 오버페이스로 하지말고 적당히 쉬기도 하면서</p>
+
+<p>조절을 해서 항상 꾸준히 할 수 있게 해야겠다.</p>
+
+<p>빨리 Project를 해서 팀 단위로 dAPP 개발을 해보고 싶다!!!</p>]]></content><author><name>Robin H.J. Kwon</name></author><category term="BEB" /><category term="BEB" /><category term="Blockchain" /><category term="Bootcamp" /><summary type="html"><![CDATA[드디어 토큰을 직접 개발해보았다!!!]]></summary></entry><entry><title type="html">Solidity fundamentals</title><link href="/jekyll-theme-yat/blockchain/2022/03/26/basic-solidity.html" rel="alternate" type="text/html" title="Solidity fundamentals" /><published>2022-03-26T00:00:00+00:00</published><updated>2022-03-26T00:00:00+00:00</updated><id>/jekyll-theme-yat/blockchain/2022/03/26/basic-solidity</id><content type="html" xml:base="/jekyll-theme-yat/blockchain/2022/03/26/basic-solidity.html"><![CDATA[<h2 id="what-is-solidity">What is Solidity?</h2>
+
+<p>Solidity는 프로그래밍 언어의 한 종류로 Ethereum Virtual Machine (EVM)에서 실행되는 smart contract 개발을 위해 설계된 정적 타입 (static-typed)의 중괄호 (curly-braces) 프로그래밍 언어이다.</p>
+
+<p>BitCoin의 OP code와 다르게 turing-complete한 언어 이다. 그래서 반복문 사용이 가능하다.</p>
+
+<p>(EVM이 Solidity 코드를 읽어들여 OP code로 변환을 해주기에 동일선상에서 비교를 해보았다.)</p>
+
+<p>반복문 사용이 가능하게 만들 수 있었던것은 Ethereum이 gas라는 개념의 수수료를 사용하기 있기 때문이다.</p>
+
+<p>Solidity로 작성된 코드를 Ethereum chain 위에서 돌아가게 하려면 연산을 할때마다 그에 걸맞는 gas가 필요하고 gas가 부족하면</p>
+
+<p>모든 state variable을 원래 상태로 만든다.</p>
+
+<p>Solidity는 이러한 컨셉으로 돌아간다고 알면 되겠다.</p>
+
+<p>아래에서 Solidity의 기본 문법에 대해 하나하나 설명해보겠다.</p>
+
+<h3 id="basic-syntax">Basic syntax</h3>
+
+<h4 id="spdx-license-identifier">SPDX License Identifier</h4>
+
+<p>SPDX License Identifier는 저작권 혹은 라이센스 문제를 해소하기 위해 맨 첫줄에 주석으로 라이센스를 명시해주어야하는 것이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT
+</span></code></pre></div></div>
+
+<p><a href="https://spdx.org/licenses/">SPDX-License list</a></p>
+
+<h4 id="pragma">Pragma</h4>
+
+<p>Pragma는 Solidity compiler 버전을 명시해주는 것이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.8</span><span class="p">.</span><span class="mi">7</span><span class="p">;</span> <span class="c1">// 0.8.7 버전 사용
+</span>
+<span class="c1">// 혹은
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">7</span><span class="p">;</span>	<span class="c1">// 0.8.7 이상의 버전 사용
+</span></code></pre></div></div>
+
+<p>버전 규칙은 npm과 동일 하기에 <a href="https://docs.npmjs.com/cli/v6/using-npm/semver">npm 버전 규칙</a>을 참고하자!</p>
+
+<h4 id="import">import</h4>
+
+<p>JS에서 사용한 방식과 비슷하기에 별다른 설명은 하지 않겠다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="s">"파일이름"</span><span class="p">;</span>
+
+<span class="c1">// as를 사용해서 alias 가능
+</span><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="n">symbolName</span> <span class="n">from</span> <span class="s">"파일이름"</span><span class="p">;</span>  
+<span class="k">import</span> <span class="s">"파일이름"</span> <span class="k">as</span> <span class="n">symbolName</span><span class="p">;</span>
+
+<span class="c1">// 중괄호를 사용해서 일부만 import 가능
+</span><span class="k">import</span> <span class="p">{</span><span class="n">symbol1</span> <span class="k">as</span> <span class="kr">alias</span><span class="p">,</span> <span class="n">symbol2</span><span class="p">}</span> <span class="n">from</span> <span class="s">"파일이름"</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<h3 id="contract-architecture">Contract architecture</h3>
+
+<p>Contract는 State Variable, Function, Function Modifier, Error, Inheritance, Enum Types 등으로 구성된다.</p>
+
+<p>아래에서 Contract의 구성 요소를 하나씩 살펴보겠다.</p>
+
+<h4 id="state-variable">State Variable</h4>
+
+<p>State Variable은 변수의 값이 Contract의 Storage에 영구적으로 저장되는 변수를 의미한다.</p>
+
+<p>아래의 코드와 같이 선언 혹은 선언 및 초기화를 할 수 있고 JS와 다르게 데이터 타입을 명시해주어야 한다.</p>
+
+<p>아래의 uint 자료형은 uint256과 동일하고 2^256-1 만큼의 양수를 표현 할 수 있다. (uint의 u는 unsigned)</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.8</span><span class="p">.</span><span class="mi">7</span><span class="p">;</span>
+
+<span class="c1">// contract 키워드를 사용해서 SimpleStorage라는 contract 생성
+</span><span class="k">contract</span> <span class="n">SimpleStorage</span> <span class="p">{</span>
+    <span class="kt">uint</span> <span class="n">storedData</span><span class="p">;</span> <span class="c1">// State Variable 선언
+</span>    <span class="kt">uint</span> <span class="n">storedData</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span> <span class="c1">// State Variable 선언 및 초기화
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>State Variable은 Value type (값형)과 Reference type (참조형)을 가진다.</p>
+
+<h5 id="value-type">Value type</h5>
+
+<ul>
+  <li>Bool</li>
+</ul>
+
+<p>boolean 값을 가진다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="n">isGood</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">isBad</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>int, uint</li>
+</ul>
+
+<p>위쪽에서 간단하게 설명했기에 예제만 쓰겠다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int8</span> <span class="n">signedInteger</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">;</span>
+<span class="kt">uint16</span> <span class="n">unsignedInteger</span> <span class="o">=</span> <span class="mi">19</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>참고로 int와 uint 뒤에 붙는 숫자는 8의 배수로 올 수 있다.</p>
+
+<ul>
+  <li>fixed-size byte array (고정 바이트 배열)</li>
+</ul>
+
+<p>bytes1에서 bytes32까지의 고정된 크기의 배열을 선언한다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bytes3</span> <span class="n">alphabets</span> <span class="o">=</span> <span class="s">'abc'</span><span class="p">;</span>
+
+<span class="n">alphabets</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// 'a'
+</span><span class="n">alphabets</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="c1">// 'b'
+</span><span class="n">alphabets</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// 'c'
+</span></code></pre></div></div>
+
+<ul>
+  <li>address</li>
+</ul>
+
+<p>주소 객체는 0x로 시작하고 최대 40자리의 16진수로 구성된 크기가 20byte인 문자열을 가진다.</p>
+
+<p>주로 계정의 잔액을 반환하는 balance() 함수와 ether를 account로 전송하는 transfer() 함수에서 사용한다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">address</span> <span class="n">myAddress</span> <span class="o">=</span> <span class="mh">0x10abb5efEcdc01234f7b2384912398798E089Ab2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>0.8 버전부터는 address 형식은 transfer가 불가능한 주소값이기때문에 <strong>address payable</strong> 형식을 사용해야 한다.</p>
+
+<p>address payable 형식에는 ether의 transfer를 위한 transfer(), send() 함수가 내장되어 있다.</p>
+
+<p>address payable 형식 데이터는 address 형식 데이터를 <strong>payable()</strong> 함수에 인자로 담아 만들 수 있다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">address</span> <span class="n">myAddress</span> <span class="o">=</span> <span class="mh">0x10abb5efEcdc01234f7b2384912398798E089Ab2</span><span class="p">;</span>
+<span class="kt">address</span> <span class="k">payable</span> <span class="n">myPayableAddress</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="n">myAddress</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>smart contract를 작성하기 위해서 구글링을 하거나 리서치를 하다보면 <code class="language-plaintext highlighter-rouge">address(0) 혹은 address(0x0)</code>을 많이 볼 수 있을텐데</p>
+
+<p>보통 어떤 함수에 전해진 주소 값이 존재하는지 하지않는지 확인할때 위의 코드와 비교를 하면서 확인한다.</p>
+
+<p>Solidity 에서 <code class="language-plaintext highlighter-rouge">address(0)</code>이 의미하는 것이 새로운 contract가 배포되었을때를 말한다고 하는데 사실 아직 이것이</p>
+
+<p>의미하는 것이 정확히 무엇인지는 모르겠고 <a href="https://stackoverflow.com/questions/48219716/what-is-address0-in-solidity">링크</a>에서 확인 해보자!</p>
+
+<p>일단 <code class="language-plaintext highlighter-rouge">address(0)</code>는 전해받은 address가 존재하는지 하지않는지 확인을 위해서 사용한다고 생각하자!</p>
+
+<p>왜냐하면 인자로 address 형식을 받는 함수에 address를 보내주지 않으면 <code class="language-plaintext highlighter-rouge">address(0)</code>의 값과 동일하기 때문이다.</p>
+
+<h5 id="reference-type">Reference type</h5>
+
+<p>참조형 데이터 타입은 이름만 들어도 알수있다시피 배열과 같이 첫번째 메모리의 주소를 값으로 가지는 데이터 타입이다.</p>
+
+<p>Solidity에서는 데이터 영역에 두가지 종류가 있는데</p>
+
+<p>memory: 프로그램이 작동할때만 값을 가지고 있다가 종료되면 값을 잃는 데이터 영역</p>
+
+<p>storage: 블록체인에 영구적으로 기록되어 값이 유지되는 데이터 영역</p>
+
+<p>이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">uint8</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">memory</span> <span class="n">bar</span><span class="p">;</span>
+  <span class="n">bar</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드처럼 bar는 길이가 3이고 요소의 데이터 타입이 uint8인 배열이다. 데이터 영역은 memory로 위와 같이 작성을 하여 명시해준다.</p>
+
+<p>이러한 feature를 가진 것이 reference type 이고 아래에서 각각의 참조형 타입을 알아보자!!!</p>
+
+<ul>
+  <li>Array (배열)</li>
+</ul>
+
+<p>데이터 형식에 []를 붙여 선언한다. 배열에는 정적배열과 동적배열이 존재하는데 <code class="language-plaintext highlighter-rouge">uint8[4]</code> 와 같이 하는 것이 정적배열이고 <code class="language-plaintext highlighter-rouge">uint8[]</code> 와 같이 하는것이 동적배열이다.</p>
+
+<p>길이를 지정하느냐 하지않느냐의 차이이다.</p>
+
+<ul>
+  <li>String (문자열)</li>
+</ul>
+
+<p>문자열은 bytes와 동일하지만, 길이와 push() 함수가 없다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">string</span> <span class="n">foo</span> <span class="o">=</span> <span class="s">"bar"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Struct (구조체)</li>
+</ul>
+
+<p>C 언어의 구조체와 쓰임새가 비슷하다. 서로 다른 유형의 항목을 포함하는 집합으로 <strong>사용자 정의 형식</strong>이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="n">Bar</span> <span class="p">{</span>
+	<span class="kt">address</span> <span class="n">foofoo</span><span class="p">;</span>
+	<span class="kt">string</span> <span class="n">barbar1</span><span class="p">;</span>
+	<span class="kt">string</span> <span class="n">barbar2</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">f</span><span class="p">(</span><span class="kt">address</span> <span class="n">newFooFoo</span><span class="p">,</span> <span class="kt">string</span> <span class="n">newBarBar1</span><span class="p">,</span> <span class="kt">string</span> <span class="n">newBarBar2</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">Bar</span> <span class="k">memory</span> <span class="n">newBar</span> <span class="o">=</span> <span class="n">Bar</span><span class="p">({</span>
+	  <span class="n">foofoo</span><span class="o">:</span> <span class="n">newFooFoo</span><span class="p">,</span> <span class="n">barbar1</span><span class="o">:</span> <span class="n">newBarBar1</span><span class="p">,</span> <span class="n">barbar2</span><span class="o">:</span> <span class="n">newBarBar2</span>
+	<span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드와 같이 구조체를 정의하고 자료형으로서 사용하면 된다.</p>
+
+<ul>
+  <li>Mapping (매핑)</li>
+</ul>
+
+<p>매핑은 Storage 데이터 영역에서 key-value 쌍으로 데이터를 저장할때 사용하는 Reference type 자료형이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">int</span><span class="p">)</span> <span class="k">public</span> <span class="n">userAddress</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>위와 같이 선언하고 JS의 객체와 비슷하다고 생각하면 되겠다.</p>
+
+<h4 id="global-variable">Global variable</h4>
+
+<p>글로벌 변수라고 해서 헷갈릴수있는데 Solidity가 가지고 있는 변수라고 생각하면 되겠다.</p>
+
+<p>종류로는</p>
+
+<ul>
+  <li>block: 블록에 대한 정보를 가지고 있다.
+    <ul>
+      <li>blockhash(uint blocknumber): 주어진 블록의 hash를 bytes32 형태로 반환한다.</li>
+      <li>coinbase: 블록의 채굴자 주소를 address 형식으로 받는다.</li>
+      <li>gaslimit: 블록의 가스 한도를 uint 형식으로 받는다.</li>
+      <li>number: 블록의 번호를 uint 형식으로 받는다.</li>
+      <li>timestamp: 블록의 타임스탬프를 uint 형식으로 받는다.</li>
+    </ul>
+  </li>
+  <li>msg: 컨트랙트를 시작한 트랜잭션 콜이나 메시지 콜에 대한 정보를 가지고 있다.
+    <ul>
+      <li>gasleft(): 남아있는 가스의 양을 uint 형태로 반환한다.</li>
+      <li>data: 전체 콜데이터 본문을 bytes 형식으로 받는다.</li>
+      <li>sender: 현재 호출을 수행하고 있는 메시지 발신자를 address 형식으로 받는다.</li>
+      <li>gas: 남은 가스양의 uint 형식으로 받는다.</li>
+      <li>value: 메시지와 함께 보낸 ether를 uint 형식으로 받는다.</li>
+    </ul>
+  </li>
+  <li>tx: 트랜잭션 데이터를 가지고 있다.
+    <ul>
+      <li>gasprice: 트랜잭션 가스 비용을 uint 형식으로 받는다.</li>
+      <li>origin: 트랜잭션 발신자를 address 형식으로 받는다.</li>
+    </ul>
+  </li>
+  <li>This: 현재 Contract를 참조한다. 현재 Contract 주소로 암시적으로 변환된다.</li>
+</ul>
+
+<h4 id="상태-변수-접근-수준">상태 변수 접근 수준</h4>
+
+<p>Contract 내의 State variable의 접근 수준을 지정할 수 있는 키워드들이 있다.</p>
+
+<ul>
+  <li>
+    <p>public: public으로 State variable을 생성할 시에 compiler가 자동으로 getter 함수를 생성해준다. public state variable은 contract 내에서 직접 상태 변쑤를 사용할 수 도 있고 외부 contract나 클라이언트에서도 getter 함수를 이용해서 접근 할 수 있다.</p>
+  </li>
+  <li>
+    <p>private: private으로 생성되면 같은 contract 내에서만 접근 할 수 있다.</p>
+  </li>
+  <li>
+    <p>internal: State variable을 선언할때 접근 수준을 명시해주지 않으면 default 값으로 internal이 들어가게 된다. internal로 생성이 되면 현재 contract와 해당 contract를 상속받은 conract 만 접근 할 수 있다.</p>
+  </li>
+</ul>
+
+<h4 id="constant">constant</h4>
+
+<p>상태 변수를 상수로 선언하는 것이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="kt">uint</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">constantBar</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Solidity에서는 상수를 이렇게 선언한다.</p>
+
+<h4 id="function">function</h4>
+
+<p>이미 위의 코드에서 함수를 많이 선언해서 간단하게 설명을 해보자면</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="k">function</span> <span class="n">bar</span><span class="p">(</span><span class="kt">uint</span> <span class="n">fooBar</span><span class="p">,</span> <span class="kt">uint8</span> <span class="n">barFoo</span><span class="p">)</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint8</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// function contents
+</span>	<span class="kt">uint8</span> <span class="n">something</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+	<span class="k">return</span> <span class="n">something</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이런식으로 하면되고 반환해줄값이 있을경우 위의 코드와 같이 자료형만 적어주고 함수 내용에서 해당 값을 return이라는 키워드를 이용해서 직접 반환 할 수 도 있고</p>
+
+<p><code class="language-plaintext highlighter-rouge">returns(uint8 something)</code>이라고 적으면 uint8의 자료형을 가진 something이라는 변수가 자동적으로 반환된다. (즉 return 이라는 키워드를 명시하지 않아도 something이 반환된다.)</p>
+
+<h5 id="함수-접근-수준">함수 접근 수준</h5>
+
+<p>상태 변수의 접근 수준과 같이 함수에도 접근 수준을 명시할 수 있는데 default 값은 public 이고 상태 변수의 접근 수준보다 한가지가 더있다.</p>
+
+<ul>
+  <li>
+    <p>external: 상태 변수의 접근 수준에는 없는 키워드이다. 외부 contract나 클라이언트 쪽에서는 호출이 가능하나 내부에서는 불가능하다.</p>
+  </li>
+  <li>
+    <p>public: 위에서 언급한대로 default 값이고 contract 내부, 외부, 클라이언트 모든 곳에서 호출이 가능하다.</p>
+  </li>
+  <li>
+    <p>internal: contract 내부와 해당 contract를 상속한 contract에서만 호출이 가능하다.</p>
+  </li>
+  <li>
+    <p>private: 내부에서만 호출 할 수 있다.</p>
+  </li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">fooContract</span> <span class="p">{</span>
+  <span class="k">function</span> <span class="n">foo</span><span class="p">(</span><span class="kt">address</span> <span class="n">userAddress</span><span class="p">,</span> <span class="kt">string</span> <span class="n">userName</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+	<span class="c1">// function contents
+</span>  <span class="p">}</span>
+  <span class="k">function</span> <span class="n">bar</span><span class="p">(</span><span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">private</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// function contents
+</span>	<span class="kt">bool</span> <span class="n">isTrue</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="k">return</span> <span class="n">isTrue</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드와 같이 매개변수를 작성해준 괄호 다음에 붙여서 쓰면 된다.</p>
+
+<h4 id="view와-pure">view와 pure</h4>
+
+<ul>
+  <li>
+    <p>view: view 키워드를 사용한다면 해당 함수는 일반적으로 getter 함수라고 생각하면 편하겠다. 상태를 변경하지 않는 읽기 전용 함수를 명시한다.</p>
+  </li>
+  <li>
+    <p>pure: 항상 view와 pure가 같이 언급이 되면서 뭔가 view의 반대되는 속성이라고 생각할 수 도 있는데 그게 아니라 JS를 배울때 나왔던 순수함수 (pure function) 같이 state variable을 읽지도 쓰지도 않는 함수이다.</p>
+  </li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">fooContract</span> <span class="p">{</span>
+  <span class="kt">uint</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">maximum</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+  <span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="k">public</span> <span class="n">frozenAccount</span><span class="p">;</span>
+
+  <span class="k">function</span> <span class="n">checkGas</span><span class="p">(</span><span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">private</span> <span class="k">pure</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">amount</span> <span class="o">&lt;</span> <span class="n">maximum</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">validateAccount</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="n">frozenAccount</span><span class="p">[</span><span class="n">account</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드에서 pure 함수와 view 함수가 어떻게 다른지 비교해보자!!!</p>
+
+<h4 id="payable">payable</h4>
+
+<p>payable을 붙여서 함수를 선언하면 ether를 함께 보내며 함수를 실행시킬 수 있다.</p>
+
+<p>smart contract를 배포하고 etherscan 혹은 remix에서 배포된 contract를 살펴보면 payable로 선언된 함수는</p>
+
+<p>ether를 보낼 수 있게 빈칸이 나와있다.</p>
+
+<h4 id="constructor">constructor</h4>
+
+<p>OOP에서 많이 나오는 그 생성자가 맞고 contract가 처음에 실행될때 constructor 함수가 같이 실행되어 state variable을 초기화하거나 해줄수 있다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">fooContract</span> <span class="p">{</span>
+  <span class="kt">address</span> <span class="k">public</span> <span class="n">add</span><span class="p">;</span>
+
+  <span class="k">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_add</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+	<span class="n">add</span> <span class="o">=</span> <span class="n">_add</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="slefdestruct">slefdestruct()</h4>
+
+<p><code class="language-plaintext highlighter-rouge">selfdestruct()</code> 함수를 이용하여 contract를 소멸 할 수 있다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">selfdestruct</span><span class="p">(</span><span class="k">contract</span> <span class="k">constructor</span> <span class="kt">address</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="modifier">modifier</h4>
+
+<p>변경자라고 부르고 함수를 선언할때 미리 만들어둔 modifier를 추가하여 함수에 변경자를 적용할 수 있다.</p>
+
+<p>변경자 코드는 <code class="language-plaintext highlighter-rouge">_;</code> 부분을 기준으로 실행시점이 달라지는데 여기서 어설프게 설명하는 것 보다 ERC-20을 만들어봤는데</p>
+
+<p>해당 코드도 나중에 포스팅으로 올릴것이니 그 코드를 참고하며 어떻게 modifier가 작동하는지 확인 해보면 좋을것이다.</p>
+
+<p>간단하게만 설명을 해보자면 <code class="language-plaintext highlighter-rouge">_;</code>를 기준으로 위에 있는 코드는 modifier가 적용된 함수가 실행하기 전에 먼저 동작하고</p>
+
+<p>아래에 있는 코드는 modifier가 적용된 함수가 실행한 후에 동작하는것이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">modifier</span> <span class="n">onlyOwner</span> <span class="p">{</span>
+  <span class="nb">require</span><span class="p">(</span><span class="n">isOwner</span><span class="p">,</span> <span class="s">"Caller is not an owner"</span><span class="p">);</span>
+  <span class="n">_</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드같이 쓰면 된다.</p>
+
+<h4 id="inheritance">inheritance</h4>
+
+<p>Solidity는 다중 상속도 지원하며 <code class="language-plaintext highlighter-rouge">is</code> 를 이용해서 상속하면 된다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="k">is</span> <span class="n">bar1</span><span class="p">,</span> <span class="n">bar2</span><span class="p">,</span> <span class="n">bar3</span> <span class="p">{</span>
+  <span class="c1">// contract contents
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errror-handling">Errror handling</h4>
+
+<p>Solidity에서 error를 처리 할 때 <code class="language-plaintext highlighter-rouge">assert</code>, <code class="language-plaintext highlighter-rouge">require</code>, <code class="language-plaintext highlighter-rouge">revert</code> 함수를 사용한다.</p>
+
+<ul>
+  <li>
+    <p>revert: revert는 코드에서 revert를 만났을때 바로 함수를 종료하고 error를 반환한다.</p>
+  </li>
+  <li>
+    <p>assert와 require: revert와 다르게 require와 assert는 개발자가 설정한 조건이 참인지 확인하고 거짓일때만 error를 반환한다.</p>
+  </li>
+</ul>
+
+<p>그러면 assert와 require가 헷갈릴 수 있는데 두가지는 차이가 있다.</p>
+
+<p>일단 assert는 사용하지 않은 가스를 호출한 사람에게 반환하지 않는 반면 require는 남은 가스를 반환한다.</p>
+
+<p>그리고 require는 함수를 실행하기전에 결과를 미리 알 수 있지만 assert는 함수를 실행해봐야지만 결과를 알 수 있다.</p>
+
+<p>미리 안다는것이 무슨 말이냐 하면 remix로 contract를 배포하고 배포된 contract에서 특정 함수를 호출 할때 실행하기 전에 미리</p>
+
+<p>메시지를 띄워서 함수가 제대로 실행되지 않을 수 도 있는데 실행을 할건지 말건지 묻는다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="k">function</span> <span class="n">bar</span><span class="p">(</span><span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">)</span> <span class="nb">revert</span><span class="p">(</span><span class="s">"Not enough ether"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>revert는 위의 코드와 같이 쓰면 되고</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="k">function</span> <span class="n">bar</span><span class="p">(</span><span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+	<span class="nb">require</span><span class="p">(</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">,</span> <span class="s">"Not enough ether"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>require나 assert는 위의 코드처럼 쓰면 된다.</p>
+
+<h4 id="enumerator">Enumerator</h4>
+
+<p>열거형은 특정 값들로 집합을 만들고, 그 집합안에 있는 값들로만 데이터를 가지는 것이다.</p>
+
+<p>학부때 Unity를 사용해서 게임 개발을 했는데 거기에 있던 enum과 동일하다고 생각하면 되겠다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">enum</span> <span class="n">Characteristics</span> <span class="p">{</span><span class="n">Angry</span><span class="p">,</span> <span class="n">Good</span><span class="p">,</span> <span class="n">Bad</span><span class="p">};</span>
+
+<span class="n">Characteristics</span> <span class="n">rk</span> <span class="o">=</span> <span class="n">Characteristics</span><span class="p">.</span><span class="n">Good</span><span class="p">;</span>
+
+<span class="kt">uint8</span> <span class="n">characteristicsIndex</span> <span class="o">=</span> <span class="kt">uint8</span><span class="p">(</span><span class="n">rk</span><span class="p">);</span> <span class="c1">// enum 값 1을 정수형으로 반환
+</span></code></pre></div></div>
+
+<p>Unity라고 생각하고 쓰면 될거같다. 위의 코드처럼 쓰면 된다.</p>
+
+<h4 id="event">event</h4>
+
+<p>이벤트는 emit이라는 키워드를 이용해서 event를 일으키면 클라이언트 혹은 다른 contract에게 그 정보들을 전달해준다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="k">event</span> <span class="n">Bar</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">);</span>
+
+  <span class="k">function</span> <span class="n">bar</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// function contents
+</span>	<span class="k">emit</span> <span class="n">Bar</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>말로 설명하는 것보다 코드로 보는게 이해가 쉬울것 같다. 위와 같이 event를 정의하고 emit을 이용해서 event를 일으킬수있고</p>
+
+<p>저렇게 실행된 event는 클라이언트에서 로그를 받아 볼 수 있다.</p>
+
+<p>이 <a href="https://betterprogramming.pub/what-is-an-event-in-solidity-420caeb38859">링크</a>에서 event에 대해 좀 더 확인해보자!</p>
+
+<h3 id="마치며">마치며</h3>
+
+<p>Solidity의 기본 문법을 배우면서 이렇게 한번 정리를 해보았는데 다양한 언어를 접해봤고 툴들을 사용해본 경험이 있어서 그런지</p>
+
+<p>크게 어렵지 않게 사용할 수 있을것 같다.</p>
+
+<p>crypto zombie 같은 플랫폼을 이용해서 시간이 될때 solidity를 더 익숙해지게끔 노력을 할 필요가 있겠다.</p>]]></content><author><name>Robin H.J. Kwon</name></author><category term="Blockchain" /><category term="Blockchain" /><category term="Solidity" /><summary type="html"><![CDATA[What is Solidity?]]></summary></entry><entry><title type="html">Mnemonic wallet development</title><link href="/jekyll-theme-yat/blockchain/2022/03/26/mnemonic-wallet-development.html" rel="alternate" type="text/html" title="Mnemonic wallet development" /><published>2022-03-26T00:00:00+00:00</published><updated>2022-03-26T00:00:00+00:00</updated><id>/jekyll-theme-yat/blockchain/2022/03/26/mnemonic-wallet-development</id><content type="html" xml:base="/jekyll-theme-yat/blockchain/2022/03/26/mnemonic-wallet-development.html"><![CDATA[<h2 id="how-to-develop-a-wallet">How to develop a wallet?</h2>
+
+<p>13주차 부트캠프 회고에 말했다시피 드디어 Section 4를 들어와서 블록체인 이론이 아닌 직접적인 개발을 해보고 있다.</p>
+
+<p>그 첫번째 프로젝트로 Mnemonic wallet 개발을 해보았다. 정확하게는 Mnemonic phrase를 사용하는 HD wallet 개발이 되겠다.</p>
+
+<p>사용한 package는 eth-lightwallet이고 <a href="https://github.com/ConsenSys/eth-lightwallet#readme">공식문서</a>는 이곳을 참조하자!</p>
+
+<p>공식문서에는 A minimal ethereum javascript wallet이라고 되어있으며 보안에 대해서도 언급했는데</p>
+
+<p>In official document, it said it has not been gone through security review which means it is still experimental software.</p>
+
+<p>Also, it said this wallet is intended to store small amount of crypto currency.</p>
+
+<p>라고 얘기 하고 있으니 감안하고 사용하면 되겠다.</p>
+
+<p>코드를 보기전에 Mnemonic wallet development는 Node.js 환경에서 개발 되었고 code에서 명시된 end point로</p>
+
+<p>get 혹은 post 요청을 보내(여기서는 post요청만 사용) Mnemonic phrase를 받거나 wallet을 만들거나 할 수 있게 되어있다.</p>
+
+<p>여기서는 Node.js의 app.js 파일에 대해서는 설명하지 않고 실제로 eth-lightwallet 모듈을 사용한 코드 파일에 대해서만 정리를 해보려고 한다.</p>
+
+<p>아래에서 코드를 보며 정리해보겠다.</p>
+
+<h3 id="code">Code</h3>
+
+<h4 id="importing-necessary-package">Importing necessary package</h4>
+
+<p>일단 import 해오는 package부터 보자!</p>
+
+<pre><code class="language-nodejs">var express = require('express');
+var router = express.Router();
+const lightwallet = require("eth-lightwallet");
+const fs = require('fs');
+</code></pre>
+
+<p>Node.js로 user가 wallet을 발급받을 수 있는 플랫폼을 만들었기 때문에 express를 import 해오고</p>
+
+<p>router를 통해서 end-point를 나눠줄것이기 때문에 <code class="language-plaintext highlighter-rouge">express.Router()</code>를 통해 router를 가져온다.</p>
+
+<p>그리고 이번 개발의 key package인 eth-lightwallet을 import 하고 fs module도 import 해온다.</p>
+
+<p>fs module이 필요한 이유는 key store를 파일로 가져오려하기 때문에 필요하다.</p>
+
+<p>fs module을 사용하지 않으려면 key store의 내용들을 response와 함께 보내주면 된다.</p>
+
+<h4 id="to-get-new-mnemonic-phrase">To get new mnemonic phrase</h4>
+
+<pre><code class="language-nodejs">router.post('/newMnemonic', async(req,res) =&gt; {
+  let mnemonic;
+
+  try {
+	mnemonic = lightwallet.keystore.generateRandomSeed();
+	res.json({mnemonic});
+  } catch(err) {
+	console.log(err);
+	res.json({message: err});
+  }
+});
+</code></pre>
+
+<p>유저가 Mnemonic phrase를 받을수있게 해주는 코드이다.</p>
+
+<p>/newMnemonic 쪽으로 post 요청을 보내면 응답으로 json 형태로 Mnemonic phrase를 받을 수 있다.</p>
+
+<p>여기서는 Mnemonic phrase를 받기 위해 eht-lightwallet module의 generateRandomSeed() 함수를 사용하였다.</p>
+
+<p>generateRandomSeed() 함수는 이름대로 seed 값을 리턴해주는 함수인데 그 seed가 Mnemonic phrase로 되어있다.</p>
+
+<p>여기서 알 수 있는 것은 seed를 사용한다는 것은 이것이 HD wallet이라는 것을 알 수 있고</p>
+
+<p><strong>seed == Mnemonic</strong> 이라는 것도 알 수 있다.</p>
+
+<p>일반적인 seed 값은 사람이 보기 불편한 값이기에 직접 적거나 할때 충분히 오타가 날 수 있기에 사람이 보기 편한</p>
+
+<p>Mnemonic phrase로 변환을 해서 그 값을 유저들이 안전하게 어딘가에 적어서 보관하면 훨씬 관리하기 용이하다.</p>
+
+<p>그래서 Mnemonic phrase를 사용한다고 생각하면 되겠다.</p>
+
+<h4 id="to-create-new-wallet">To create new wallet</h4>
+
+<pre><code class="language-nodejs">router.post('/newWallet', async(req, res) =&gt; {
+  const password = req.body.password;
+  const mnemonic = req.body.mnemonic;
+
+  try {
+	lightwallet.keystore.createVault({
+	  password: password, 
+	  seedPhrase: mnemonic,
+	  hdPathString: "m/0'/0'/0'"
+	}, (err, ks) =&gt; {
+	  ks.keyFromPassword(password, (err, pwDerivedKey) =&gt; {
+		ks.generateNewAddress(pwDerivedKey);
+
+		const addresses = ks.getAddresses();
+		const keystore = ks.serialize();
+
+		fs.writeFile('wallet.json', keystore, (err) =&gt; {
+		  if(err) {
+			res.json({message: 'Failed to create new wallet'});
+		  } else {
+			res.json({address: addresses[0], message: 'Successfully created new wallet'});
+		  }
+		});
+	  });
+	});
+  } catch(err) {
+	console.log(err);
+	res.json({message: err});
+  }
+});
+</code></pre>
+
+<p>이 코드는 제공받은 Mnemonic phrase를 이용해서 새로운 지갑을 개설하는 코드이다.</p>
+
+<p>/newWallet이라는 end-point로 post 요청을 보내면 local에 key store 파일을 저장하고 응답으로 address와 성공 message를 받을 수 있다.</p>
+
+<p>일단 key store라는 새로운 단어를 보게되었으니 이것 부터 정리를 해보면 key store 라는 것은 <strong>암호 화폐지갑을 사용하기 위한 private key를 암호화한 텍스트 혹은 파일</strong> 이다.</p>
+
+<p><a href="http://wiki.hash.kr/index.php/%ED%82%A4%EC%8A%A4%ED%86%A0%EC%96%B4#:~:text=%ED%82%A4%EC%8A%A4%ED%86%A0%EC%96%B4(Key%20Store)%EB%9E%80,%ED%95%9C%20%ED%85%8D%EC%8A%A4%ED%8A%B8%20%EB%98%90%EB%8A%94%20%ED%8C%8C%EC%9D%BC%EC%9D%B4%EB%8B%A4.">Reference for key store</a></p>
+
+<p>그리고 지갑의 원리를 알면 public key가 address인것을 알 수 있다.</p>
+
+<p>다시 코드를 돌어와서 일단 요청은 body에 private key를 암호화 할 (key store로 만들) password와 제공받은 mnemonic을 함께 보내야한다.</p>
+
+<p>그러면 그것을 받아와 각각 password와 mnemonic 변수를 만들어 할당해놓는다.</p>
+
+<p>그러면 제일 먼저 해야할 일은 createVault() 함수를 이용해 key store를 만들어야 한다.</p>
+
+<p>해당 함수는 첫번째 argument로 객체로 되어있는 option값을 주어야 한다. 공식문서를 가보면 어떤 값을 mandatory로 주어야 하는지 적혀있으니</p>
+
+<p>확인해보고 option 값을 주면된다. option에 대해서는 한가지만 얘기 해보겠다.</p>
+
+<p>option 중에서 hdPathString이라는 값을 주어야하는데 BIP-39의 default path는 m/0’/0’/0’ 이기에 이 값을 그대로 주었다.</p>
+
+<p>이 말은 BIP-39 (Mnemonic 관련 proposal)의 내용을 따라 HD wallet을 개발하는것이라고 보면 되겠다.</p>
+
+<p>공식문서를 보면 BIP-44 (HD wallet 관련 proposal)는 default path는 m/44’/60’/0’/0 이고 이것 또한 사용이 가능하다고 한다.</p>
+
+<p>그리고 이어서 두번째 argument는 callback function을 받는데 callback의 첫번째 argument는 error를 두번째 argument로는 createVault()가 만든 key store를 받을 수 있다.</p>
+
+<p>그래서 callback function 내에서 전달받은 key store를 가지고 계속해서 작업을 이어나가면 된다. (key store를 ks라는 변수 이름으로 받았으니 앞으로 ks라고 하겠다.)</p>
+
+<p>그 다음으로는 keyFromPassword() 함수를 이용해서 key 값을 가지고 와야한다. 이렇게 가져온 key 값을 이용해서</p>
+
+<p>새로운 주소를 받을 수 있다.</p>
+
+<p>keyFromPassword() 함수는 위의 ks를 가지고 호출 할 수 있기 때문에 ks.keyFromPassword()로 사용하면 된다.</p>
+
+<p>해당 함수의 첫번째 argument는 password를 받는데 우리가 위에서 만든 ks를 암호화한 password이다.</p>
+
+<p>그리고 두번째 argument로는 또 다시 callback function을 받는데 첫번째 argument는 error 그리고 두번째 argument는 keyFromPassword()가 만든 key 값이다.</p>
+
+<p>그러면 또 callback function안에서 작업을 계속 해주면 된다. (callback hell 처럼 되는것이 맞다.)</p>
+
+<p>generateNewAddress() 함수를 이용해서 새로운 주소를 받을 수 있다.</p>
+
+<p>첫번째 argument로는 위에서 받은 key 값과 두번째 argument로 만들 갯수를 정수형으로 주면 된다.</p>
+
+<p>ks.generateNewAddress()로 함수를 실행하기때문에 해당 주소는 우리가 위에서 만든 ks안에 들어있게 된다.</p>
+
+<p>이제 wallet을 만들기 위한 모든 작업이 끝났다.</p>
+
+<p>ks.getAddresses()를 이용해서 주소값을 받아 올 수 있다. 배열 형태로 만든 모든 주소값을 리턴해준다.</p>
+
+<p>그리고 당연히 key store 파일을 json 형식으로 만들어서 fs module을 이용해 local에 저장할수있게끔 해줄것이기 때문에</p>
+
+<p>ks.serialize() 함수를 이용해서 json 형식으로 key store를 직렬화해준다.</p>
+
+<p>그 다음 부터는 주소값과 json 형식의 key store를 유저에게 적절한 방식으로 전해주기만 하면된다.</p>
+
+<p>address는 응답으로 보내주고 직렬화된 key store는 fs.writeFile() 함수를 이용해서 local에 저장해주게끔 하면 된다.</p>
+
+<p>그리고 아래는 전체 코드이다.</p>
+
+<h4 id="entire-code">Entire code</h4>
+
+<pre><code class="language-nodejs">var express = require('express');
+var router = express.Router();
+const lightwallet = require("eth-lightwallet");
+const fs = require('fs');
+
+router.post('/newMnemonic', async(req,res) =&gt; {
+  let mnemonic;
+
+  try {
+	mnemonic = lightwallet.keystore.generateRandomSeed();
+	res.json({mnemonic});
+  } catch(err) {
+	console.log(err);
+	res.json({message: err});
+  }
+});
+
+
+router.post('/newWallet', async(req, res) =&gt; {
+  const password = req.body.password;
+  const mnemonic = req.body.mnemonic;
+
+  try {
+	lightwallet.keystore.createVault({
+	  password: password, 
+	  seedPhrase: mnemonic,
+	  hdPathString: "m/0'/0'/0'"
+	}, (err, ks) =&gt; {
+	  ks.keyFromPassword(password, (err, pwDerivedKey) =&gt; {
+		ks.generateNewAddress(pwDerivedKey);
+
+		const addresses = ks.getAddresses();
+		const keystore = ks.serialize();
+
+		fs.writeFile('wallet.json', keystore, (err) =&gt; {
+		  if(err) {
+			res.json({message: 'Failed to create new wallet'});
+		  } else {
+			res.json({address: addresses[0], message: 'Successfully created new wallet'});
+		  }
+		});
+	  });
+	});
+  } catch(err) {
+	console.log(err);
+	res.json({message: err});
+  }
+});
+
+module.exports = router;
+</code></pre>
+
+<h3 id="마치며">마치며</h3>
+
+<p>이렇게 eth-lightwallet module을 이용해서 HD wallet 이자 Mnemonic wallet인 지갑을 직접 개발 해보았다.</p>
+
+<p>지갑 개발을 from the scratch에서 하는 것이 아닌 누군가 만들어 놓은 package를 이용해서 개발을 했기 때문에</p>
+
+<p>어떤 함수가 어떤 동작을 하고 지갑 개발을 위해서는 정확히 어떤 함수를 사용하는지만 알면 크게 어렵지 않게 개발 할 수 있다.</p>
+
+<p>여기서 중요한것은 역시 내가 항상 언급하는 공식문서를 잘 보는 것이고 사용한 함수들을 공식문서에서 확인하고</p>
+
+<p>스스로 코딩을 해보니 크게 어렵지 않게 할 수 있었다.</p>
+
+<p>앞으로도 항상 공식문서를 참고하면서 개발 능력을 키울수있게 하자!!!</p>]]></content><author><name>Robin H.J. Kwon</name></author><category term="Blockchain" /><category term="Blockchain" /><category term="Wallet" /><category term="Mnemonic" /><category term="HD Wallet" /><summary type="html"><![CDATA[How to develop a wallet?]]></summary></entry></feed>

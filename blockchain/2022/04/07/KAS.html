@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Klaytn API Service | Robin’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Klaytn API Service">
+<meta name="author" content="Robin H.J. Kwon">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="What is KAS?">
+<meta property="og:description" content="What is KAS?">
+<link rel="canonical" href="/jekyll-theme-yat/blockchain/2022/04/07/KAS.html">
+<meta property="og:url" content="/jekyll-theme-yat/blockchain/2022/04/07/KAS.html">
+<meta property="og:site_name" content="Robin’s Blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-04-07T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Klaytn API Service">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Robin H.J. Kwon"},"dateModified":"2022-04-07T00:00:00+00:00","datePublished":"2022-04-07T00:00:00+00:00","description":"What is KAS?","headline":"Klaytn API Service","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/blockchain/2022/04/07/KAS.html"},"url":"/jekyll-theme-yat/blockchain/2022/04/07/KAS.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="Robin's Blog">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  Robin's Blog
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/archives.html">ARCHIVES</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/">HOME</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">Klaytn API Service</h1>
+  <h2 class="post-subtitle">How to interact with Klaytn?</h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2022-04-07T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 07, 2022
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#KAS">#KAS</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Caver">#Caver</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="what-is-kas">What is KAS?</h2>
+
+<p>KAS는 무엇일까? KAS는 Klaytn API Service의 약자로 개발자가 bApp을 개발할때 조금 더 쉽게 개발을 도와주는 API 이다. (생산성을 높혀주는!)</p>
+
+<p>Klaytn은 Ethereum을 포크해와 만든 블록체인 플랫폼이라서 많은 부분이 이더리움과 닮아 있지만 운용측면에서 조금 다르다.</p>
+
+<p>Ethereum은 알다시피 public blockchain 으로 누구나 Node 가 될 수 있다. 그래서 아직 포스팅을 쓰지는 않았지만 web3.js를 이용할때 infura 같이 RPC_URL을 제공해주는 서비스를 이용해서</p>
+
+<p>노드와 연결해 Ethereum blockchain 과 통신한다.</p>
+
+<p>하지만 Klaytn은 consortium blockchain 으로 누구나 Node 가 <strong>될 수 없다</strong>. 그렇기 때문에 Klaytn은 End-point Node (EN)라고 하는 Klaytn blockchain 과 통신 할 수 있게 해주는 프록시 역할의 노드를</p>
+
+<p>KAS와 연결해서 개발자들은 해당 부분을 신경쓰지 않고 간편하게 생산성을 높일 수 있게 해주었다.</p>
+
+<p>다른 방법이 있는지는 모르겠지만 결론적으로 Klaytn을 이용해 dApp 혹은 bApp을 개발 할 때는 KAS를 사용하여야한다.</p>
+
+<p>그리고 KAS는 말그대로 API Service로 해당 엔드포인트로 request를 보내면 response를 보내주는 API 이다.</p>
+
+<p>하지만 web3.js 같이 개발 도구로서 사용할 수 있게 해주는 caver.js라는 SDK가 존재한다.</p>
+
+<p>npm을 이용해 설치하면 KAS 서비스를 그대로 이용하면서 개발을 할 수 있다.</p>
+
+<p>자세한 코드는 밑에서 살펴보겠다.</p>
+
+<h3 id="entire-code">Entire Code</h3>
+
+<p><a href="https://github.com/Robin-the-dev/Practice-KAS">전체코드</a>는 링크를 눌러 확인하자!</p>
+
+<p>README.md 파일에도 적혀있지만 KAS를 간단하게 다뤄보고 포스팅 목적으로 repository를 만들고 코드를 올린것이기 때문에 file structure가 하나도 잡혀있지 않고</p>
+
+<p>몽땅 index.js에 넣어놔서 코드가 좀 더럽다… (contract를 받아오기 위한 ABI도 그대로 넣어놨음…)</p>
+
+<p>나중에 프로젝트 할때 KAS를 또 제대로 써볼테니까 그때는 제대로 정리를 해보겠다!</p>
+
+<h4 id="caver-설치-및-사용">Caver 설치 및 사용</h4>
+
+<p>위에서 언급한대로 KAS API를 사용하는게 아니라 Caver라는 SDK를 사용해서 개발을 할 것이기 때문에 일단</p>
+
+<p><code class="language-plaintext highlighter-rouge">npm install caver-js-ext-kas</code> 명령어를 쳐서 설치해주자!</p>
+
+<p>설치하고 <code class="language-plaintext highlighter-rouge">index.js</code> 파일 상단에</p>
+
+<pre><code class="language-nodejs">// package.json 에 "type": "module" 을 추가해줘서 ES6 문법을 사용할 수 있다.
+import CaverExtKAS from 'caver-js-ext-kas';
+import 'dotenv/config';
+import express from 'express';
+
+const app = express();
+
+const PORT = 8080;
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+const caver = new CaverExtKAS(1001, process.env.ACCESS_KEY_ID, process.env.SECRET_ACCESS_KEY);
+</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">import CaverExtKAS from 'caver-js-ext-kas';</code> 를 해서 import 해온 다음</p>
+
+<p><code class="language-plaintext highlighter-rouge">const caver = new CaverExtKAS(chainId, accessKeyId, secretAccessKey);</code> 를 해서 caver instance를 만들 수 있다.</p>
+
+<p>accessKeyId 와 secretAccessKey 는 <a href="https://www.klaytnapi.com/ko/landing/main">KAS console</a>에 가서 받을 수 있다. (오른쪽 상단에 콘솔 클릭)</p>
+
+<p>여기까지 하면 caver를 이용해서 blockchain과 interact할 준비가 된 것이다.</p>
+
+<h4 id="contract-instance-만들기">Contract instance 만들기</h4>
+
+<pre><code class="language-nodejs">const MyKIP7TokenV2 = caver.contract.create([ABI 생략], '0x0435B4960803136C2d97D2b4591F8898791AD950');
+</code></pre>
+
+<p>여기서는 어제 배포한 KIP-7 contract를 이용해서 실제로 토큰을 transfer 할 수 있게까지 해보려고 해서</p>
+
+<p><code class="language-plaintext highlighter-rouge">caver.contract.create(ABI, smartContractAddress);</code> 를 해서 contract instance를 만들었다.</p>
+
+<p>이제 <code class="language-plaintext highlighter-rouge">MyKIP7TokenV2</code> instance를 이용해서 배포한 KIP-7 contract의 함수들을 호출할 수 있다.</p>
+
+<p><a href="https://baobab.scope.klaytn.com/account/0x0435B4960803136C2d97D2b4591F8898791AD950?tabId=txList">Klaytn scope</a>에서 contract를 확인 해 볼 수 있다.</p>
+
+<h4 id="caver를-이용해서-잔액조회-하기">Caver를 이용해서 잔액조회 하기</h4>
+
+<p>caver를 간단하게 사용해보기 위해서 잔액을 조회 할 수 있는 함수를 하나 만들어봤다. 아래의 코드를 보면서 얘기해보겠다.</p>
+
+<pre><code class="language-nodejs">const hexToDec = (hex) =&gt; {
+  return parseInt(hex, 16);
+}
+
+const getBalance = async (addr) =&gt; {
+  try {
+	const balance = await caver.rpc.klay.getBalance(addr);
+	return hexToDec(balance);
+  } catch(err) {
+	console.log(err);
+	return err;
+  }
+}
+</code></pre>
+
+<p>먼저 getBalance 함수의 <code class="language-plaintext highlighter-rouge">caver.rpc.klay.getBalance(addr)</code> 을 보자!</p>
+
+<p><a href="https://ko.docs.klaytn.com/dapp/sdk/caver-js/api-references/caver.rpc/klay#caver-rpc-klay-getbalance">공식문서</a>는 여기서 확인 해 볼 수 있고 코드 그대로 인자로 주소값을 주면 해당 주소를 조회해서 계정 주소의 잔액을 반환한다.</p>
+
+<p>여기서 반환하는 잔액은 peb 단위로 주기 때문에 hexToDec 라는 함수를 만들어서 10진수로 바꿔서 반환해주게끔 했는데</p>
+
+<p>caver는 peb 단위를 klay 단위로 환산해주는 utils 도 보유하고 있다. 그래서 caver를 사용해서 변환해주는게 더 옳은 방법이다.</p>
+
+<p>굳이 실수한 코드를 올린 이유는 실수를 통해 배우고 배운 부분을 잊지 않기 위함이다.</p>
+
+<p>그래서 getBalance 함수의 return 부분을 <code class="language-plaintext highlighter-rouge">return caver.utils.convertFromPeb(balance);</code> 를 해주면 되겠다.</p>
+
+<p>참고로 <strong>1 klay == 10^18 peb</strong> 이다. 그래서 내가 직접 만든 hexToDec 함수를 사용하면 소수점이 제대로 표현되지 않는다.</p>
+
+<h4 id="배포한-kip-7-contract를-이용해서-토큰-잔액-확인하기">배포한 KIP-7 contract를 이용해서 토큰 잔액 확인하기</h4>
+
+<p>위의 contract instance를 이용해서 해당 계정 주소의 토큰 잔액을 확인하는 함수를 보자!!!</p>
+
+<pre><code class="language-nodejs">const getTokenBalance = async (addr) =&gt; {
+  try {
+	const tokenBalance = await MyKIP7TokenV2.methods.balanceOf(addr).call();
+	return tokenBalance;
+  } catch(err) {
+	console.log(err);
+	return err;
+  }
+}
+</code></pre>
+
+<p>내가 배포한 KIP-7 contract는 토큰 잔액을 조회하기 위한 balanceOf 라는 함수가 존재한다. 그렇기 때문에 해당 함수를 이용해서 토큰 잔액을 조회하면 되겠다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">MyKIP7TokenV2.methods.balanceOf(addr).call();</code> 부분이 위에서 받아온 contract instance를 이용해서 balanceOf 함수를 call()을 이용해서 호출 하는 것이다.</p>
+
+<p>코드를 보면 뒤에 call() 함수를 호출 하는데 앞에 있는 balanceOf(addr) 을 호출 한다는 뜻이다.</p>
+
+<p>call()은 balanceOf 같이 state variable을 수정하지 않는 view 함수같은 곳에서 사용한다.</p>
+
+<p>아래에서 transfer 부분을 보면서 얘기하겠지만 contract 내의 state variable을 수정하는 함수를 호출 할때는 send()를 써야한다.</p>
+
+<h4 id="토큰-transfer-하기">토큰 transfer 하기</h4>
+
+<p>이제 내가 진행하면서 가장 헤맸던 부분인 transfer 를 해보는 부분이다.</p>
+
+<p>transfer는 이름 그대로 보내는 주소로 원하는 양의 토큰을 보내는 함수이다. 보낸 내역을 기반으로 state variable을 수정하기 때문에 위에서 말한대로</p>
+
+<p>call()을 이용한 호출이 아니라 send()를 사용해야 한다. 자세한 부분은 코드를 보면서 얘기해보겠다.</p>
+
+<pre><code class="language-nodejs">const transferToken = async (from, to, amount) =&gt; {
+  try {
+	amount = await caver.utils.convertToPeb(amount);
+	const isTransferred = await MyKIP7TokenV2.methods.transfer(to, amount).send({from: from, gas: 1000000});
+	return isTransferred;
+  } catch(err) {
+	console.log(err);
+	return err;
+  }
+}
+</code></pre>
+
+<p>위의 토큰 잔액 조회하는 것과 동일하게 <code class="language-plaintext highlighter-rouge">MyKIP7TokenV2.methods.transfer(to, amount).send({from: from, gas: 1000000});</code> 해서 transfer를 하면 된다.</p>
+
+<p>당연히 transfer 함수는 배포한 KIP-7 contract 안에 포함된 함수이고 말한대로 call()이 아니라 send()를 써야한다.</p>
+
+<p>send()를 쓰기 위해서 인자로 옵션값을 객체 형태로 전해 주어야 하는데 이는 위의 잔액 조회 함수와 다르게 transfer 함수를 실행하면서 드는 gas가 있기 때문이다.</p>
+
+<p>from 키의 값으로 보내는 사람의 주소를 입력하면 된다. gas 키의 값으로는 사용할 가스양(limit)을 적어주면 된다.</p>
+
+<p>그리고 amount는 내가 만든 transferToken 함수에서는 단위를 klay로 받겠지만 transfer 함수는 단위를 peb으로 받는다.</p>
+
+<p>그렇기 때문에 <code class="language-plaintext highlighter-rouge">caver.utils.convertToPeb()</code> 을 이용해서 klay 단위를 peb 으로 변환해주자!</p>
+
+<p>이렇게 하면 코드 자체는 전혀 문제가 없고 실행이 되어야하지만 우리는 항상 transaction을 보낼때 sign을 하고 보낸다는것을 잊으면 안된다.</p>
+
+<p>위의 어떤 코드에서도 sign을 하는 프로세스가 전혀 없다.(정확하게 send를 할때 sign을 하지만 caver.wallet안에 보내려는 사람의 주소를 가진 keyring이 없기때문에 에러메세지로 해당 주소를 찾을 수 없다고 나온다.)</p>
+
+<p>이 부분 때문에 많이 헤맸는데 알아두어야할것은 지금 이 코드들은 KAS를 이용해서 개발을 하고 있는 것이다.</p>
+
+<p>KAS의 SDK인 Caver는 <code class="language-plaintext highlighter-rouge">caver.wallet</code> 이라는 것이 있는데 이 caver.wallet은 caver.wallet.keyring으로 만들어진 keyring을 보관한다.</p>
+
+<p>위의 코드에서 send() 함수를 호출하면 from의 값으로 있는 주소가 caver.wallet에 있는 keyring인지 조회하고</p>
+
+<p>존재한다면 저장되어있는 keyring으로 sign을 해주고 transfer 함수를 실행해주는 것이다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">caver.wallet.keyring</code> 으로 새로운 account를 만들어서 <code class="language-plaintext highlighter-rouge">caver.wallet</code>에 저장해줄 수 있다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">caver.wallet</code>은 KAS console로도 확인이 가능한데 KAS console로 가서 왼쪽에 Service -&gt; Wallet -&gt; Account Pools에서 확인이 가능하다.</p>
+
+<p>결과적으로 KAS를 이용한다면 KAS를 이용해 만든 account로만 transaction을 보낼 수 있다고 생각하면 되겠다.</p>
+
+<p>하지만 KAS 는 multiSigAccount를 지원해줘서 외부 account도 사용할 수 있다고하는 글을 본것 같은데 정확하게는 어떻게 하는지 모르겠고 일단은 여기까지 해보려고 한다.</p>
+
+<h3 id="마치며">마치며</h3>
+
+<p>web3.js에 비해서 Caver나 KAS나 정보가 조금 적어서 많이 헤맸던 부분이 있었다. (물론 공식문서는 잘되어있지만 공식문서만 보고 한번에 이해하기가 쉽지 않았다.)</p>
+
+<p>아직 부족한 부분이 많고 위에 정리해놓은 내용도 정확하다고는 말하기 힘들다.</p>
+
+<p>계속해서 사용해보고 배워나가면서 프로젝트가서 조금 완벽하게 다룰 수 있으면 좋겠다고 생각한다.</p>
+
+<p>아직도 많이 멀었지만 꾸준히 해나가면 분명히 익숙해지리라 믿는다!</p>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/blockchain/2022/04/06/KIP7-KIP17.html" title="KIP-7 and KIP-17">KIP-7 and KIP-17</a><a class="next" href="/jekyll-theme-yat/blockchain/2022/04/18/Project1.html" title="OpenSea Clone coding">OpenSea Clone coding</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/blockchain/2022/04/07/KAS.html" title="OpenSea Clone coding">Klaytn API Service</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/blockchain/2022/05/02/Project2.html" title="OpenSea Clone coding">Web 2.0 기반 블록체인 커뮤니티 프로젝트</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/javascript/2022/01/23/promise-async-await.html" title="OpenSea Clone coding">Javascript의 비동기</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/example/2017/12/04/plantuml-example.html" title="OpenSea Clone coding">Plantuml example</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>
+<span class="copyleft">©</span> 2017-2022 Robin H.J. Kwon</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="http://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

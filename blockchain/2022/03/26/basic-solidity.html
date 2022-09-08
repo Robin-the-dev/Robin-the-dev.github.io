@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Solidity fundamentals | Robin’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Solidity fundamentals">
+<meta name="author" content="Robin H.J. Kwon">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="What is Solidity?">
+<meta property="og:description" content="What is Solidity?">
+<link rel="canonical" href="/jekyll-theme-yat/blockchain/2022/03/26/basic-solidity.html">
+<meta property="og:url" content="/jekyll-theme-yat/blockchain/2022/03/26/basic-solidity.html">
+<meta property="og:site_name" content="Robin’s Blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-03-26T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Solidity fundamentals">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Robin H.J. Kwon"},"dateModified":"2022-03-26T00:00:00+00:00","datePublished":"2022-03-26T00:00:00+00:00","description":"What is Solidity?","headline":"Solidity fundamentals","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/blockchain/2022/03/26/basic-solidity.html"},"url":"/jekyll-theme-yat/blockchain/2022/03/26/basic-solidity.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="Robin's Blog">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  Robin's Blog
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/archives.html">ARCHIVES</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/">HOME</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">Solidity fundamentals</h1>
+  <h2 class="post-subtitle">Solidity syntax reference</h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2022-03-26T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Mar 26, 2022
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 15 mins</span>
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Blockchain">#Blockchain</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Solidity">#Solidity</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="what-is-solidity">What is Solidity?</h2>
+
+<p>Solidity는 프로그래밍 언어의 한 종류로 Ethereum Virtual Machine (EVM)에서 실행되는 smart contract 개발을 위해 설계된 정적 타입 (static-typed)의 중괄호 (curly-braces) 프로그래밍 언어이다.</p>
+
+<p>BitCoin의 OP code와 다르게 turing-complete한 언어 이다. 그래서 반복문 사용이 가능하다.</p>
+
+<p>(EVM이 Solidity 코드를 읽어들여 OP code로 변환을 해주기에 동일선상에서 비교를 해보았다.)</p>
+
+<p>반복문 사용이 가능하게 만들 수 있었던것은 Ethereum이 gas라는 개념의 수수료를 사용하기 있기 때문이다.</p>
+
+<p>Solidity로 작성된 코드를 Ethereum chain 위에서 돌아가게 하려면 연산을 할때마다 그에 걸맞는 gas가 필요하고 gas가 부족하면</p>
+
+<p>모든 state variable을 원래 상태로 만든다.</p>
+
+<p>Solidity는 이러한 컨셉으로 돌아간다고 알면 되겠다.</p>
+
+<p>아래에서 Solidity의 기본 문법에 대해 하나하나 설명해보겠다.</p>
+
+<h3 id="basic-syntax">Basic syntax</h3>
+
+<h4 id="spdx-license-identifier">SPDX License Identifier</h4>
+
+<p>SPDX License Identifier는 저작권 혹은 라이센스 문제를 해소하기 위해 맨 첫줄에 주석으로 라이센스를 명시해주어야하는 것이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT
+</span></code></pre></div></div>
+
+<p><a href="https://spdx.org/licenses/">SPDX-License list</a></p>
+
+<h4 id="pragma">Pragma</h4>
+
+<p>Pragma는 Solidity compiler 버전을 명시해주는 것이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.8</span><span class="p">.</span><span class="mi">7</span><span class="p">;</span> <span class="c1">// 0.8.7 버전 사용
+</span>
+<span class="c1">// 혹은
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">7</span><span class="p">;</span>	<span class="c1">// 0.8.7 이상의 버전 사용
+</span></code></pre></div></div>
+
+<p>버전 규칙은 npm과 동일 하기에 <a href="https://docs.npmjs.com/cli/v6/using-npm/semver">npm 버전 규칙</a>을 참고하자!</p>
+
+<h4 id="import">import</h4>
+
+<p>JS에서 사용한 방식과 비슷하기에 별다른 설명은 하지 않겠다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="s">"파일이름"</span><span class="p">;</span>
+
+<span class="c1">// as를 사용해서 alias 가능
+</span><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="n">symbolName</span> <span class="n">from</span> <span class="s">"파일이름"</span><span class="p">;</span>  
+<span class="k">import</span> <span class="s">"파일이름"</span> <span class="k">as</span> <span class="n">symbolName</span><span class="p">;</span>
+
+<span class="c1">// 중괄호를 사용해서 일부만 import 가능
+</span><span class="k">import</span> <span class="p">{</span><span class="n">symbol1</span> <span class="k">as</span> <span class="kr">alias</span><span class="p">,</span> <span class="n">symbol2</span><span class="p">}</span> <span class="n">from</span> <span class="s">"파일이름"</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<h3 id="contract-architecture">Contract architecture</h3>
+
+<p>Contract는 State Variable, Function, Function Modifier, Error, Inheritance, Enum Types 등으로 구성된다.</p>
+
+<p>아래에서 Contract의 구성 요소를 하나씩 살펴보겠다.</p>
+
+<h4 id="state-variable">State Variable</h4>
+
+<p>State Variable은 변수의 값이 Contract의 Storage에 영구적으로 저장되는 변수를 의미한다.</p>
+
+<p>아래의 코드와 같이 선언 혹은 선언 및 초기화를 할 수 있고 JS와 다르게 데이터 타입을 명시해주어야 한다.</p>
+
+<p>아래의 uint 자료형은 uint256과 동일하고 2^256-1 만큼의 양수를 표현 할 수 있다. (uint의 u는 unsigned)</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.8</span><span class="p">.</span><span class="mi">7</span><span class="p">;</span>
+
+<span class="c1">// contract 키워드를 사용해서 SimpleStorage라는 contract 생성
+</span><span class="k">contract</span> <span class="n">SimpleStorage</span> <span class="p">{</span>
+    <span class="kt">uint</span> <span class="n">storedData</span><span class="p">;</span> <span class="c1">// State Variable 선언
+</span>    <span class="kt">uint</span> <span class="n">storedData</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span> <span class="c1">// State Variable 선언 및 초기화
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>State Variable은 Value type (값형)과 Reference type (참조형)을 가진다.</p>
+
+<h5 id="value-type">Value type</h5>
+
+<ul>
+  <li>Bool</li>
+</ul>
+
+<p>boolean 값을 가진다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="n">isGood</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">isBad</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>int, uint</li>
+</ul>
+
+<p>위쪽에서 간단하게 설명했기에 예제만 쓰겠다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int8</span> <span class="n">signedInteger</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">;</span>
+<span class="kt">uint16</span> <span class="n">unsignedInteger</span> <span class="o">=</span> <span class="mi">19</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>참고로 int와 uint 뒤에 붙는 숫자는 8의 배수로 올 수 있다.</p>
+
+<ul>
+  <li>fixed-size byte array (고정 바이트 배열)</li>
+</ul>
+
+<p>bytes1에서 bytes32까지의 고정된 크기의 배열을 선언한다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bytes3</span> <span class="n">alphabets</span> <span class="o">=</span> <span class="s">'abc'</span><span class="p">;</span>
+
+<span class="n">alphabets</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// 'a'
+</span><span class="n">alphabets</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="c1">// 'b'
+</span><span class="n">alphabets</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// 'c'
+</span></code></pre></div></div>
+
+<ul>
+  <li>address</li>
+</ul>
+
+<p>주소 객체는 0x로 시작하고 최대 40자리의 16진수로 구성된 크기가 20byte인 문자열을 가진다.</p>
+
+<p>주로 계정의 잔액을 반환하는 balance() 함수와 ether를 account로 전송하는 transfer() 함수에서 사용한다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">address</span> <span class="n">myAddress</span> <span class="o">=</span> <span class="mh">0x10abb5efEcdc01234f7b2384912398798E089Ab2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>0.8 버전부터는 address 형식은 transfer가 불가능한 주소값이기때문에 <strong>address payable</strong> 형식을 사용해야 한다.</p>
+
+<p>address payable 형식에는 ether의 transfer를 위한 transfer(), send() 함수가 내장되어 있다.</p>
+
+<p>address payable 형식 데이터는 address 형식 데이터를 <strong>payable()</strong> 함수에 인자로 담아 만들 수 있다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">address</span> <span class="n">myAddress</span> <span class="o">=</span> <span class="mh">0x10abb5efEcdc01234f7b2384912398798E089Ab2</span><span class="p">;</span>
+<span class="kt">address</span> <span class="k">payable</span> <span class="n">myPayableAddress</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="n">myAddress</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>smart contract를 작성하기 위해서 구글링을 하거나 리서치를 하다보면 <code class="language-plaintext highlighter-rouge">address(0) 혹은 address(0x0)</code>을 많이 볼 수 있을텐데</p>
+
+<p>보통 어떤 함수에 전해진 주소 값이 존재하는지 하지않는지 확인할때 위의 코드와 비교를 하면서 확인한다.</p>
+
+<p>Solidity 에서 <code class="language-plaintext highlighter-rouge">address(0)</code>이 의미하는 것이 새로운 contract가 배포되었을때를 말한다고 하는데 사실 아직 이것이</p>
+
+<p>의미하는 것이 정확히 무엇인지는 모르겠고 <a href="https://stackoverflow.com/questions/48219716/what-is-address0-in-solidity">링크</a>에서 확인 해보자!</p>
+
+<p>일단 <code class="language-plaintext highlighter-rouge">address(0)</code>는 전해받은 address가 존재하는지 하지않는지 확인을 위해서 사용한다고 생각하자!</p>
+
+<p>왜냐하면 인자로 address 형식을 받는 함수에 address를 보내주지 않으면 <code class="language-plaintext highlighter-rouge">address(0)</code>의 값과 동일하기 때문이다.</p>
+
+<h5 id="reference-type">Reference type</h5>
+
+<p>참조형 데이터 타입은 이름만 들어도 알수있다시피 배열과 같이 첫번째 메모리의 주소를 값으로 가지는 데이터 타입이다.</p>
+
+<p>Solidity에서는 데이터 영역에 두가지 종류가 있는데</p>
+
+<p>memory: 프로그램이 작동할때만 값을 가지고 있다가 종료되면 값을 잃는 데이터 영역</p>
+
+<p>storage: 블록체인에 영구적으로 기록되어 값이 유지되는 데이터 영역</p>
+
+<p>이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">uint8</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">memory</span> <span class="n">bar</span><span class="p">;</span>
+  <span class="n">bar</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드처럼 bar는 길이가 3이고 요소의 데이터 타입이 uint8인 배열이다. 데이터 영역은 memory로 위와 같이 작성을 하여 명시해준다.</p>
+
+<p>이러한 feature를 가진 것이 reference type 이고 아래에서 각각의 참조형 타입을 알아보자!!!</p>
+
+<ul>
+  <li>Array (배열)</li>
+</ul>
+
+<p>데이터 형식에 []를 붙여 선언한다. 배열에는 정적배열과 동적배열이 존재하는데 <code class="language-plaintext highlighter-rouge">uint8[4]</code> 와 같이 하는 것이 정적배열이고 <code class="language-plaintext highlighter-rouge">uint8[]</code> 와 같이 하는것이 동적배열이다.</p>
+
+<p>길이를 지정하느냐 하지않느냐의 차이이다.</p>
+
+<ul>
+  <li>String (문자열)</li>
+</ul>
+
+<p>문자열은 bytes와 동일하지만, 길이와 push() 함수가 없다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">string</span> <span class="n">foo</span> <span class="o">=</span> <span class="s">"bar"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Struct (구조체)</li>
+</ul>
+
+<p>C 언어의 구조체와 쓰임새가 비슷하다. 서로 다른 유형의 항목을 포함하는 집합으로 <strong>사용자 정의 형식</strong>이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="n">Bar</span> <span class="p">{</span>
+	<span class="kt">address</span> <span class="n">foofoo</span><span class="p">;</span>
+	<span class="kt">string</span> <span class="n">barbar1</span><span class="p">;</span>
+	<span class="kt">string</span> <span class="n">barbar2</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">f</span><span class="p">(</span><span class="kt">address</span> <span class="n">newFooFoo</span><span class="p">,</span> <span class="kt">string</span> <span class="n">newBarBar1</span><span class="p">,</span> <span class="kt">string</span> <span class="n">newBarBar2</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">Bar</span> <span class="k">memory</span> <span class="n">newBar</span> <span class="o">=</span> <span class="n">Bar</span><span class="p">({</span>
+	  <span class="n">foofoo</span><span class="o">:</span> <span class="n">newFooFoo</span><span class="p">,</span> <span class="n">barbar1</span><span class="o">:</span> <span class="n">newBarBar1</span><span class="p">,</span> <span class="n">barbar2</span><span class="o">:</span> <span class="n">newBarBar2</span>
+	<span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드와 같이 구조체를 정의하고 자료형으로서 사용하면 된다.</p>
+
+<ul>
+  <li>Mapping (매핑)</li>
+</ul>
+
+<p>매핑은 Storage 데이터 영역에서 key-value 쌍으로 데이터를 저장할때 사용하는 Reference type 자료형이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">int</span><span class="p">)</span> <span class="k">public</span> <span class="n">userAddress</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>위와 같이 선언하고 JS의 객체와 비슷하다고 생각하면 되겠다.</p>
+
+<h4 id="global-variable">Global variable</h4>
+
+<p>글로벌 변수라고 해서 헷갈릴수있는데 Solidity가 가지고 있는 변수라고 생각하면 되겠다.</p>
+
+<p>종류로는</p>
+
+<ul>
+  <li>block: 블록에 대한 정보를 가지고 있다.
+    <ul>
+      <li>blockhash(uint blocknumber): 주어진 블록의 hash를 bytes32 형태로 반환한다.</li>
+      <li>coinbase: 블록의 채굴자 주소를 address 형식으로 받는다.</li>
+      <li>gaslimit: 블록의 가스 한도를 uint 형식으로 받는다.</li>
+      <li>number: 블록의 번호를 uint 형식으로 받는다.</li>
+      <li>timestamp: 블록의 타임스탬프를 uint 형식으로 받는다.</li>
+    </ul>
+  </li>
+  <li>msg: 컨트랙트를 시작한 트랜잭션 콜이나 메시지 콜에 대한 정보를 가지고 있다.
+    <ul>
+      <li>gasleft(): 남아있는 가스의 양을 uint 형태로 반환한다.</li>
+      <li>data: 전체 콜데이터 본문을 bytes 형식으로 받는다.</li>
+      <li>sender: 현재 호출을 수행하고 있는 메시지 발신자를 address 형식으로 받는다.</li>
+      <li>gas: 남은 가스양의 uint 형식으로 받는다.</li>
+      <li>value: 메시지와 함께 보낸 ether를 uint 형식으로 받는다.</li>
+    </ul>
+  </li>
+  <li>tx: 트랜잭션 데이터를 가지고 있다.
+    <ul>
+      <li>gasprice: 트랜잭션 가스 비용을 uint 형식으로 받는다.</li>
+      <li>origin: 트랜잭션 발신자를 address 형식으로 받는다.</li>
+    </ul>
+  </li>
+  <li>This: 현재 Contract를 참조한다. 현재 Contract 주소로 암시적으로 변환된다.</li>
+</ul>
+
+<h4 id="상태-변수-접근-수준">상태 변수 접근 수준</h4>
+
+<p>Contract 내의 State variable의 접근 수준을 지정할 수 있는 키워드들이 있다.</p>
+
+<ul>
+  <li>
+    <p>public: public으로 State variable을 생성할 시에 compiler가 자동으로 getter 함수를 생성해준다. public state variable은 contract 내에서 직접 상태 변쑤를 사용할 수 도 있고 외부 contract나 클라이언트에서도 getter 함수를 이용해서 접근 할 수 있다.</p>
+  </li>
+  <li>
+    <p>private: private으로 생성되면 같은 contract 내에서만 접근 할 수 있다.</p>
+  </li>
+  <li>
+    <p>internal: State variable을 선언할때 접근 수준을 명시해주지 않으면 default 값으로 internal이 들어가게 된다. internal로 생성이 되면 현재 contract와 해당 contract를 상속받은 conract 만 접근 할 수 있다.</p>
+  </li>
+</ul>
+
+<h4 id="constant">constant</h4>
+
+<p>상태 변수를 상수로 선언하는 것이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="kt">uint</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">constantBar</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Solidity에서는 상수를 이렇게 선언한다.</p>
+
+<h4 id="function">function</h4>
+
+<p>이미 위의 코드에서 함수를 많이 선언해서 간단하게 설명을 해보자면</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="k">function</span> <span class="n">bar</span><span class="p">(</span><span class="kt">uint</span> <span class="n">fooBar</span><span class="p">,</span> <span class="kt">uint8</span> <span class="n">barFoo</span><span class="p">)</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint8</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// function contents
+</span>	<span class="kt">uint8</span> <span class="n">something</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+	<span class="k">return</span> <span class="n">something</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이런식으로 하면되고 반환해줄값이 있을경우 위의 코드와 같이 자료형만 적어주고 함수 내용에서 해당 값을 return이라는 키워드를 이용해서 직접 반환 할 수 도 있고</p>
+
+<p><code class="language-plaintext highlighter-rouge">returns(uint8 something)</code>이라고 적으면 uint8의 자료형을 가진 something이라는 변수가 자동적으로 반환된다. (즉 return 이라는 키워드를 명시하지 않아도 something이 반환된다.)</p>
+
+<h5 id="함수-접근-수준">함수 접근 수준</h5>
+
+<p>상태 변수의 접근 수준과 같이 함수에도 접근 수준을 명시할 수 있는데 default 값은 public 이고 상태 변수의 접근 수준보다 한가지가 더있다.</p>
+
+<ul>
+  <li>
+    <p>external: 상태 변수의 접근 수준에는 없는 키워드이다. 외부 contract나 클라이언트 쪽에서는 호출이 가능하나 내부에서는 불가능하다.</p>
+  </li>
+  <li>
+    <p>public: 위에서 언급한대로 default 값이고 contract 내부, 외부, 클라이언트 모든 곳에서 호출이 가능하다.</p>
+  </li>
+  <li>
+    <p>internal: contract 내부와 해당 contract를 상속한 contract에서만 호출이 가능하다.</p>
+  </li>
+  <li>
+    <p>private: 내부에서만 호출 할 수 있다.</p>
+  </li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">fooContract</span> <span class="p">{</span>
+  <span class="k">function</span> <span class="n">foo</span><span class="p">(</span><span class="kt">address</span> <span class="n">userAddress</span><span class="p">,</span> <span class="kt">string</span> <span class="n">userName</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+	<span class="c1">// function contents
+</span>  <span class="p">}</span>
+  <span class="k">function</span> <span class="n">bar</span><span class="p">(</span><span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">private</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// function contents
+</span>	<span class="kt">bool</span> <span class="n">isTrue</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="k">return</span> <span class="n">isTrue</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드와 같이 매개변수를 작성해준 괄호 다음에 붙여서 쓰면 된다.</p>
+
+<h4 id="view와-pure">view와 pure</h4>
+
+<ul>
+  <li>
+    <p>view: view 키워드를 사용한다면 해당 함수는 일반적으로 getter 함수라고 생각하면 편하겠다. 상태를 변경하지 않는 읽기 전용 함수를 명시한다.</p>
+  </li>
+  <li>
+    <p>pure: 항상 view와 pure가 같이 언급이 되면서 뭔가 view의 반대되는 속성이라고 생각할 수 도 있는데 그게 아니라 JS를 배울때 나왔던 순수함수 (pure function) 같이 state variable을 읽지도 쓰지도 않는 함수이다.</p>
+  </li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">fooContract</span> <span class="p">{</span>
+  <span class="kt">uint</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">maximum</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+  <span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="k">public</span> <span class="n">frozenAccount</span><span class="p">;</span>
+
+  <span class="k">function</span> <span class="n">checkGas</span><span class="p">(</span><span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">private</span> <span class="k">pure</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">amount</span> <span class="o">&lt;</span> <span class="n">maximum</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">validateAccount</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="n">frozenAccount</span><span class="p">[</span><span class="n">account</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드에서 pure 함수와 view 함수가 어떻게 다른지 비교해보자!!!</p>
+
+<h4 id="payable">payable</h4>
+
+<p>payable을 붙여서 함수를 선언하면 ether를 함께 보내며 함수를 실행시킬 수 있다.</p>
+
+<p>smart contract를 배포하고 etherscan 혹은 remix에서 배포된 contract를 살펴보면 payable로 선언된 함수는</p>
+
+<p>ether를 보낼 수 있게 빈칸이 나와있다.</p>
+
+<h4 id="constructor">constructor</h4>
+
+<p>OOP에서 많이 나오는 그 생성자가 맞고 contract가 처음에 실행될때 constructor 함수가 같이 실행되어 state variable을 초기화하거나 해줄수 있다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">fooContract</span> <span class="p">{</span>
+  <span class="kt">address</span> <span class="k">public</span> <span class="n">add</span><span class="p">;</span>
+
+  <span class="k">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_add</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+	<span class="n">add</span> <span class="o">=</span> <span class="n">_add</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="slefdestruct">slefdestruct()</h4>
+
+<p><code class="language-plaintext highlighter-rouge">selfdestruct()</code> 함수를 이용하여 contract를 소멸 할 수 있다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">selfdestruct</span><span class="p">(</span><span class="k">contract</span> <span class="k">constructor</span> <span class="kt">address</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="modifier">modifier</h4>
+
+<p>변경자라고 부르고 함수를 선언할때 미리 만들어둔 modifier를 추가하여 함수에 변경자를 적용할 수 있다.</p>
+
+<p>변경자 코드는 <code class="language-plaintext highlighter-rouge">_;</code> 부분을 기준으로 실행시점이 달라지는데 여기서 어설프게 설명하는 것 보다 ERC-20을 만들어봤는데</p>
+
+<p>해당 코드도 나중에 포스팅으로 올릴것이니 그 코드를 참고하며 어떻게 modifier가 작동하는지 확인 해보면 좋을것이다.</p>
+
+<p>간단하게만 설명을 해보자면 <code class="language-plaintext highlighter-rouge">_;</code>를 기준으로 위에 있는 코드는 modifier가 적용된 함수가 실행하기 전에 먼저 동작하고</p>
+
+<p>아래에 있는 코드는 modifier가 적용된 함수가 실행한 후에 동작하는것이다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">modifier</span> <span class="n">onlyOwner</span> <span class="p">{</span>
+  <span class="nb">require</span><span class="p">(</span><span class="n">isOwner</span><span class="p">,</span> <span class="s">"Caller is not an owner"</span><span class="p">);</span>
+  <span class="n">_</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 코드같이 쓰면 된다.</p>
+
+<h4 id="inheritance">inheritance</h4>
+
+<p>Solidity는 다중 상속도 지원하며 <code class="language-plaintext highlighter-rouge">is</code> 를 이용해서 상속하면 된다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="k">is</span> <span class="n">bar1</span><span class="p">,</span> <span class="n">bar2</span><span class="p">,</span> <span class="n">bar3</span> <span class="p">{</span>
+  <span class="c1">// contract contents
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errror-handling">Errror handling</h4>
+
+<p>Solidity에서 error를 처리 할 때 <code class="language-plaintext highlighter-rouge">assert</code>, <code class="language-plaintext highlighter-rouge">require</code>, <code class="language-plaintext highlighter-rouge">revert</code> 함수를 사용한다.</p>
+
+<ul>
+  <li>
+    <p>revert: revert는 코드에서 revert를 만났을때 바로 함수를 종료하고 error를 반환한다.</p>
+  </li>
+  <li>
+    <p>assert와 require: revert와 다르게 require와 assert는 개발자가 설정한 조건이 참인지 확인하고 거짓일때만 error를 반환한다.</p>
+  </li>
+</ul>
+
+<p>그러면 assert와 require가 헷갈릴 수 있는데 두가지는 차이가 있다.</p>
+
+<p>일단 assert는 사용하지 않은 가스를 호출한 사람에게 반환하지 않는 반면 require는 남은 가스를 반환한다.</p>
+
+<p>그리고 require는 함수를 실행하기전에 결과를 미리 알 수 있지만 assert는 함수를 실행해봐야지만 결과를 알 수 있다.</p>
+
+<p>미리 안다는것이 무슨 말이냐 하면 remix로 contract를 배포하고 배포된 contract에서 특정 함수를 호출 할때 실행하기 전에 미리</p>
+
+<p>메시지를 띄워서 함수가 제대로 실행되지 않을 수 도 있는데 실행을 할건지 말건지 묻는다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="k">function</span> <span class="n">bar</span><span class="p">(</span><span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">)</span> <span class="nb">revert</span><span class="p">(</span><span class="s">"Not enough ether"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>revert는 위의 코드와 같이 쓰면 되고</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="k">function</span> <span class="n">bar</span><span class="p">(</span><span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+	<span class="nb">require</span><span class="p">(</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">,</span> <span class="s">"Not enough ether"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>require나 assert는 위의 코드처럼 쓰면 된다.</p>
+
+<h4 id="enumerator">Enumerator</h4>
+
+<p>열거형은 특정 값들로 집합을 만들고, 그 집합안에 있는 값들로만 데이터를 가지는 것이다.</p>
+
+<p>학부때 Unity를 사용해서 게임 개발을 했는데 거기에 있던 enum과 동일하다고 생각하면 되겠다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">enum</span> <span class="n">Characteristics</span> <span class="p">{</span><span class="n">Angry</span><span class="p">,</span> <span class="n">Good</span><span class="p">,</span> <span class="n">Bad</span><span class="p">};</span>
+
+<span class="n">Characteristics</span> <span class="n">rk</span> <span class="o">=</span> <span class="n">Characteristics</span><span class="p">.</span><span class="n">Good</span><span class="p">;</span>
+
+<span class="kt">uint8</span> <span class="n">characteristicsIndex</span> <span class="o">=</span> <span class="kt">uint8</span><span class="p">(</span><span class="n">rk</span><span class="p">);</span> <span class="c1">// enum 값 1을 정수형으로 반환
+</span></code></pre></div></div>
+
+<p>Unity라고 생각하고 쓰면 될거같다. 위의 코드처럼 쓰면 된다.</p>
+
+<h4 id="event">event</h4>
+
+<p>이벤트는 emit이라는 키워드를 이용해서 event를 일으키면 클라이언트 혹은 다른 contract에게 그 정보들을 전달해준다.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="k">event</span> <span class="n">Bar</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">);</span>
+
+  <span class="k">function</span> <span class="n">bar</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// function contents
+</span>	<span class="k">emit</span> <span class="n">Bar</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>말로 설명하는 것보다 코드로 보는게 이해가 쉬울것 같다. 위와 같이 event를 정의하고 emit을 이용해서 event를 일으킬수있고</p>
+
+<p>저렇게 실행된 event는 클라이언트에서 로그를 받아 볼 수 있다.</p>
+
+<p>이 <a href="https://betterprogramming.pub/what-is-an-event-in-solidity-420caeb38859">링크</a>에서 event에 대해 좀 더 확인해보자!</p>
+
+<h3 id="마치며">마치며</h3>
+
+<p>Solidity의 기본 문법을 배우면서 이렇게 한번 정리를 해보았는데 다양한 언어를 접해봤고 툴들을 사용해본 경험이 있어서 그런지</p>
+
+<p>크게 어렵지 않게 사용할 수 있을것 같다.</p>
+
+<p>crypto zombie 같은 플랫폼을 이용해서 시간이 될때 solidity를 더 익숙해지게끔 노력을 할 필요가 있겠다.</p>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/beb/2022/03/02/nineth-bootcamp-retrospective.html" title="코드스테이츠 블록체인 엔지니어링 부트캠프 9주차 회고">코드스테이츠 블록체인 엔지니어링 부트캠프 9주차 회고...</a><a class="next" href="/jekyll-theme-yat/blockchain/2022/03/26/mnemonic-wallet-development.html" title="Mnemonic wallet development">Mnemonic wallet development</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/react/2022/02/13/redux-middleware.html" title="Mnemonic wallet development">Redux Middleware</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/example/2017/12/18/video-example.html" title="Mnemonic wallet development">Video example</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/beb/2022/01/09/second-bootcamp-retrospective.html" title="Mnemonic wallet development">코드스테이츠 블록체인 엔지니어링 부트캠프 2주차 회고</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/blockchain/2022/03/26/mnemonic-wallet-development.html" title="Mnemonic wallet development">Mnemonic wallet development</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>
+<span class="copyleft">©</span> 2017-2022 Robin H.J. Kwon</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="http://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
