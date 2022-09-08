@@ -1,0 +1,48 @@
+{
+  "id": "did:web:robin-the-dev.github.io",
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    {
+      "@base": "did:web:robin-the-dev.github.io"
+    }
+  ],
+  "service": [
+    {
+      "id": "#linkeddomains",
+      "type": "LinkedDomains",
+      "serviceEndpoint": {
+        "origins": [
+          "https://robin-the-dev.github.io/"
+        ]
+      }
+    },
+    {
+      "id": "#hub",
+      "type": "IdentityHub",
+      "serviceEndpoint": {
+        "instances": [
+          "https://hub.did.msidentity.com/v1.0/a03d1e02-b0a9-40a1-b098-106dc6ea4699"
+        ]
+      }
+    }
+  ],
+  "verificationMethod": [
+    {
+      "id": "#6bff5d1369a24f6eb35143a6dc83b75dvcSigningKey-236ab",
+      "controller": "did:web:robin-the-dev.github.io",
+      "type": "EcdsaSecp256k1VerificationKey2019",
+      "publicKeyJwk": {
+        "crv": "secp256k1",
+        "kty": "EC",
+        "x": "FHn3R-2o1kHGesZ6UUfqGlFR5RAVhCRz2v4QSA4HCEM",
+        "y": "6SrcL6w7tRkHJ9OyFH-76dfrKmHqnOmdm3W6puF9g5g"
+      }
+    }
+  ],
+  "authentication": [
+    "#6bff5d1369a24f6eb35143a6dc83b75dvcSigningKey-236ab"
+  ],
+  "assertionMethod": [
+    "#6bff5d1369a24f6eb35143a6dc83b75dvcSigningKey-236ab"
+  ]
+}
